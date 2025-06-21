@@ -4,13 +4,11 @@ import java.io.File
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    if (args.isEmpty()) {
-        System.err.println("Error: No input file specified")
-        System.err.println("Usage: program <filename>")
-        exitProcess(1)
+    val filename = if (args.isEmpty()) {
+        "/usr/share/X11/xkb/symbols/us"
+    } else {
+        args[0]
     }
-
-    val filename = args[0]
 
     try {
         File(filename).useLines { lines ->
