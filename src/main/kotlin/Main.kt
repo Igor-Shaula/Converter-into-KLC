@@ -1,16 +1,25 @@
 package org.igor_shaula
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+import java.io.File
+import kotlin.system.exitProcess
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+fun main(args: Array<String>) {
+    if (args.isEmpty()) {
+        System.err.println("Error: No input file specified")
+        System.err.println("Usage: program <filename>")
+        exitProcess(1)
+    }
+
+    val filename = args[0]
+
+    try {
+        File(filename).useLines { lines ->
+            lines.forEach { line ->
+                println(line)
+            }
+        }
+    } catch (e: Exception) {
+        System.err.println("Error reading file '$filename': ${e.message}")
+        exitProcess(1)
     }
 }
