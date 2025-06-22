@@ -2,6 +2,10 @@ package org.igor_shaula
 
 const val LOCATION_OF_SYMBOLS_US_FILE = "/usr/share/X11/xkb/symbols/us"
 
+const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
+const val LAYOUT_ENDING_BLOCK = "};"
+const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*$LAYOUT_STARTING_BLOCK\s*"([^"]+)"\s*\{\s*$"""
+
 const val REGEX_FOR_REMOVING_BLANKS = "\\s+"
 const val EMPTY_STRING = ""
 const val EQUALS = '='
