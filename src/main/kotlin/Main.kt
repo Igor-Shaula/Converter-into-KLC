@@ -3,12 +3,6 @@ package org.igor_shaula
 import java.io.File
 import kotlin.system.exitProcess
 
-fun isEnglishUSNameGroup1(line: String): Boolean {
-    // Remove all whitespace and then compare with the normalized pattern
-    val normalizedLine = line.replace("\\s+".toRegex(), "")
-    return normalizedLine == """name[Group1]="English(US)";"""
-}
-
 // Example usage in main:
 fun main(args: Array<String>) {
     val filename = if (args.isEmpty()) {
