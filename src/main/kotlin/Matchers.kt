@@ -11,3 +11,8 @@ fun isTLDEKeyWithSymbols(line: String): Boolean {
     val normalizedLine = line.replace("\\s+".toRegex(), "")
     return normalizedLine == """key<TLDE>{["""
 }
+
+fun isKeyA(line: String): Boolean {
+    val normalizedLine = line.replace("\\s+".toRegex(), "")
+    return normalizedLine == """key <A"""
+}
