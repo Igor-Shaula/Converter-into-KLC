@@ -5,10 +5,10 @@ import kotlin.system.exitProcess
 
 private var isInsideLanguageBlock = false
 
-// Example usage in main:
 fun main(args: Array<String>) {
+
     val filename = if (args.isEmpty()) {
-        "/usr/share/X11/xkb/symbols/us"
+        LOCATION_OF_SYMBOLS_US_FILE
     } else {
         args[0]
     }

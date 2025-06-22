@@ -1,5 +1,7 @@
 package org.igor_shaula
 
+const val LOCATION_OF_SYMBOLS_US_FILE = "/usr/share/X11/xkb/symbols/us"
+
 const val REGEX_FOR_REMOVING_BLANKS = "\\s+"
 const val EMPTY_STRING = ""
 const val EQUALS = '='
