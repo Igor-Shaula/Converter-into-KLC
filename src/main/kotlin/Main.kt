@@ -15,24 +15,26 @@ fun main(args: Array<String>) {
 
     try {
         File(filename).useLines { lines ->
-            lines.forEach { line ->
-                // 1
-                if (isEnglishUSNameGroup1(line)) {
-                    // start looking for keys
-                    isInsideLanguageBlock = true
-                    println("isInsideLanguageBlock → true")
-                } else {
-                    println(line)
-                }
-                // 2
-                if (isInsideLanguageBlock) {
-                    if (isKeyTilda(line)) println("isKeyTilda")
-                    else if (isKeyStartingWithA(line)) println("isKeyStartingWithA")
-                }
-            }
+            lines.forEach { processEveryLine(it) }
         }
     } catch (e: Exception) {
         System.err.println("Error reading file '$filename': ${e.message}")
         exitProcess(1)
+    }
+}
+
+private fun processEveryLine(line: String) {
+    // 1
+    if (isEnglishUSNameGroup1(line)) {
+        // start looking for keys
+        isInsideLanguageBlock = true
+        println("isInsideLanguageBlock → true")
+    } else {
+        println(line)
+    }
+    // 2
+    if (isInsideLanguageBlock) {
+        if (isKeyTilda(line)) println("→ isKeyTilda")
+        else if (isKeyStartingWithA(line)) println("→ isKeyStartingWithA")
     }
 }
