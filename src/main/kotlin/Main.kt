@@ -24,10 +24,20 @@ fun main(args: Array<String>) {
 }
 
 private fun processEveryLine(line: String) {
+    // 0
+    if (isXkbSymbolsSection(line)) {
+        println("isXkbSymbolsSection")
+        isInsideLanguageBlock = true
+    } else if (isLayoutEndingBlock(line)) {
+        println("isLayoutEndingBlock")
+        isInsideLanguageBlock = false
+    }
+    // any recognition action outside a detected layout block has no sense
+    if (!isInsideLanguageBlock) return
+
     // 1
     if (isEnglishUSNameGroup1(line)) {
         // start looking for keys
-        isInsideLanguageBlock = true
         println("isInsideLanguageBlock → true")
     } else {
         println(line)
