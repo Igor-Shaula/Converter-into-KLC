@@ -6,7 +6,7 @@ fun String.normalize() = replace(REGEX_FOR_REMOVING_BLANKS.toRegex(), EMPTY_STRI
 fun isEnglishUSNameGroup1(normalizedLine: String) =
     normalizedLine == NAME_GROUP_1 + EQUALS + DOUBLE_QUOTE + ENGLISH_US + DOUBLE_QUOTE + SEMICOLON
 
-fun isKeyTilda(normalizedLine: String) =
+fun isKeyTilde(normalizedLine: String) =
     normalizedLine.startsWith(KEY_TILDE + OPENING_BRACKETS) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
 
 fun isKeyStartingWithA(normalizedLine: String) =

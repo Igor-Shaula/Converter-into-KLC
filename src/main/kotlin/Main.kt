@@ -34,7 +34,7 @@ private fun processEveryLine(line: String) {
     }
     // 2
     if (isInsideLanguageBlock) {
-        if (isKeyTilda(line)) println("→ isKeyTilda")
+        if (isKeyTilde(line)) println("→ isKeyTilde")
         else if (isKeyStartingWithA(line)) println("→ isKeyStartingWithA")
     }
 }
