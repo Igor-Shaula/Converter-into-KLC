@@ -14,5 +14,5 @@ fun isKeyTilda(line: String): Boolean {
 
 fun isKeyStartingWithA(line: String): Boolean {
     val normalizedLine = line.replace("\\s+".toRegex(), "")
-    return normalizedLine.startsWith("""key <A""") && normalizedLine.contains("]};")
+    return normalizedLine.startsWith("""key<A""") && normalizedLine.contains("]};")
 }
