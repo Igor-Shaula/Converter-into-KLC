@@ -6,13 +6,13 @@ fun isEnglishUSNameGroup1(line: String): Boolean {
     return normalizedLine == """name[Group1]="English(US)";"""
 }
 
-fun isTLDEKeyWithSymbols(line: String): Boolean {
+fun isKeyTilda(line: String): Boolean {
     // Remove all whitespace and then compare with the normalized pattern
     val normalizedLine = line.replace("\\s+".toRegex(), "")
-    return normalizedLine == """key<TLDE>{["""
+    return normalizedLine.startsWith("""key<TLDE>{[""") && normalizedLine.contains("]};")
 }
 
-fun isKeyA(line: String): Boolean {
+fun isKeyStartingWithA(line: String): Boolean {
     val normalizedLine = line.replace("\\s+".toRegex(), "")
-    return normalizedLine == """key <A"""
+    return normalizedLine.startsWith("""key <A""") && normalizedLine.contains("]};")
 }
