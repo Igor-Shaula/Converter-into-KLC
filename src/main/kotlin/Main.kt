@@ -3,6 +3,8 @@ package org.igor_shaula
 import java.io.File
 import kotlin.system.exitProcess
 
+private var isInsideLanguageBlock = false
+
 // Example usage in main:
 fun main(args: Array<String>) {
     val filename = if (args.isEmpty()) {
@@ -14,10 +16,19 @@ fun main(args: Array<String>) {
     try {
         File(filename).useLines { lines ->
             lines.forEach { line ->
+                // 1
                 if (isEnglishUSNameGroup1(line)) {
-                    println("Found the English (US) Group1 name declaration!")
+                    // start looking for keys
+                    isInsideLanguageBlock = true
+                    println("isInsideLanguageBlock → true")
+                } else {
+                    println(line)
                 }
-                println(line)
+                // 2
+                if (isInsideLanguageBlock) {
+                    if (isKeyTilda(line)) println("isKeyTilda")
+                    else if (isKeyStartingWithA(line)) println("isKeyStartingWithA")
+                }
             }
         }
     } catch (e: Exception) {
