@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
     try {
         File(filename).useLines { lines ->
-            lines.forEach { processEveryLine(it) }
+            lines.forEach { processEveryLine(it.normalize()) }
         }
     } catch (e: Exception) {
         System.err.println("Error reading file '$filename': ${e.message}")
