@@ -11,3 +11,17 @@ fun isKeyTilda(normalizedLine: String) =
 
 fun isKeyStartingWithA(normalizedLine: String) =
     normalizedLine.startsWith(KEY_A_BEGINNING) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
+
+fun isXkbSymbolsSection(line: String): Boolean {
+    // Create a regex pattern that matches "xkb_symbols" followed by any word in quotes
+    val pattern = XKB_SYMBOLS_FINDING_PATTERN.toRegex()
+    return pattern.matches(line)
+}
+
+// If you also need to extract the section name:
+fun getXkbSymbolsSectionName(line: String): String? {
+    val pattern = XKB_SYMBOLS_FINDING_PATTERN.toRegex()
+    return pattern.find(line)?.groupValues?.get(1)
+}
+
+fun isLayoutEndingBlock(line: String) = line.startsWith(LAYOUT_ENDING_BLOCK)
