@@ -44,7 +44,12 @@ private fun processEveryLine(line: String) {
     }
     // 2
     if (isInsideLanguageBlock) {
-        if (isKeyTilde(line)) println("→ isKeyTilde")
-        else if (isKeyStartingWithA(line)) println("→ isKeyStartingWithA")
+        if (isKeyTilde(line)) {
+            val layers = createValuesForLayers(line)
+            println("→ isKeyTilde: $layers")
+        } else if (isKeyStartingWithA(line)) {
+            val layers = createValuesForLayers(line)
+            println("→ isKeyStartingWithA: $layers")
+        }
     }
 }
