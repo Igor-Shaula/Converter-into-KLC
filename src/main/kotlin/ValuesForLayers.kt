@@ -2,9 +2,9 @@ package org.igor_shaula
 
 data class ValuesForLayers(
     val layer1: String, // base
-    val layer2: String, // + Shift
-    val layer3: String, // + AltGr
-    val layer4: String // + AltGr & Shift
+    val layer2: String = "", // + Shift → optional
+    val layer3: String = "", // + AltGr → optional
+    val layer4: String = "" // + AltGr & Shift → optional
 )
 
 fun createValuesForLayers(input: String): ValuesForLayers {
@@ -14,6 +14,8 @@ fun createValuesForLayers(input: String): ValuesForLayers {
     )
     val values = content.split(LAYER_SEPARATOR).map { it.trim() }
     return ValuesForLayers(
-        layer1 = values[0], layer2 = values[1], layer3 = values[2], layer4 = values[3]
-    )
+        layer1 = values[0],
+        layer2 = values.getOrElse(1) { "" },
+        layer3 = values.getOrElse(2) { "" },
+        layer4 = values.getOrElse(3) { "" })
 }
