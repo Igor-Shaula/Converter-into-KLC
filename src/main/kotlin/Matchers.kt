@@ -1,7 +1,7 @@
 package org.igor_shaula
 
 // Remove all whitespace and then compare with the normalized pattern
-fun String.normalize() = replace(REGEX_FOR_REMOVING_BLANKS.toRegex(), EMPTY_STRING)
+fun String.normalize() = replace(REGEX_WHITESPACES.toRegex(), EMPTY_STRING)
 
 fun isEnglishUSNameGroup1(normalizedLine: String) =
     normalizedLine == NAME_GROUP_1 + EQUALS + DOUBLE_QUOTE + ENGLISH_US + DOUBLE_QUOTE + SEMICOLON
