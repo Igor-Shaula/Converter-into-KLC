@@ -13,7 +13,13 @@ fun main(args: Array<String>) {
         args[0]
     }
 
+    val symbolsDictionaryFile = File(LOCATION_OF_KEYSYMDEF_FILE)
+
     try {
+        val symbolsDictionary = symbolsDictionaryFile.useLines {
+            it.toList()
+        }
+        println("Symbols dictionary: $symbolsDictionary")
         File(filename).useLines { lines ->
             lines.forEach { processEveryLine(it.normalize()) }
         }

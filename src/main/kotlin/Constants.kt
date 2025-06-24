@@ -1,6 +1,7 @@
 package org.igor_shaula
 
 const val LOCATION_OF_SYMBOLS_US_FILE = "/usr/share/X11/xkb/symbols/us"
+const val LOCATION_OF_KEYSYMDEF_FILE = "/usr/include/X11/keysymdef.h"
 
 const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
 const val LAYOUT_ENDING_BLOCK = "};"
