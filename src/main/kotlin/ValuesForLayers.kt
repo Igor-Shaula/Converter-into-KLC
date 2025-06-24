@@ -27,7 +27,7 @@ fun String.mapToKeysym(): String = when {
     this.isBlank() -> EMPTY_STRING // should not ever happen
     this.length == 1 -> this // must be located before the next case with starting-with-U
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
-    else -> symbolsDictionary[this] ?: this.filterMissingKeysyms()
+    else -> symbolsDictionary[this]?.lowercase() ?: this.filterMissingKeysyms().lowercase()
 }
 
 fun String.filterCommands() = if (this.startsWith('f')) EMPTY_STRING else this
