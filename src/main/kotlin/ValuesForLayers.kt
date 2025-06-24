@@ -25,8 +25,12 @@ internal val symbolsDictionary = mutableMapOf<String, String>()
 
 fun String.mapToKeysym(): String = when {
     this.isBlank() -> EMPTY_STRING // should not ever happen
-    this.length == 1 -> this
-    else -> symbolsDictionary[this] ?: this
+    this.length == 1 -> this // must be located before the next case with starting-with-U
+//    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
+    else -> symbolsDictionary[this] ?: this.filterMissingKeysyms()
 }
 
 fun String.filterCommands() = if (this.startsWith('f')) EMPTY_STRING else this
+
+fun String.filterMissingKeysyms() =
+    if (this == "nosymbol" || this.startsWith("0x100") && this.length > 4) EMPTY_STRING else this
