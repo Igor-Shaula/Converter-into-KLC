@@ -8,7 +8,8 @@ fun parseKeySymDefinition(input: String): Pair<String, String>? {
 
     val matchResult = regex.find(input)
     return matchResult?.let {
-        val (name, code) = it.destructured
+        var (name, code) = it.destructured
+        if (code.startsWith(X11_PREFIX)) code = code.substring(X11_PREFIX.length)
         name to code
     }
 }

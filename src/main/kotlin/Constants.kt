@@ -31,3 +31,5 @@ const val KEY_A_BEGINNING = "key<A"
 const val OPENING_BRACKETS = "{["
 const val CLOSING_BRACKETS = "]}"
 const val LAYER_SEPARATOR = ','
+
+const val X11_PREFIX = "100"
