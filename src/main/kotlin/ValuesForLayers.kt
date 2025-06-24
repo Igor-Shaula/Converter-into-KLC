@@ -16,8 +16,8 @@ fun createValuesForLayers(input: String): ValuesForLayers {
     return ValuesForLayers(
         layer1 = values[0].mapToKeysym(),
         layer2 = values.getOrElse(1) { "" }.mapToKeysym(),
-        layer3 = values.getOrElse(2) { "" }.mapToKeysym(),
-        layer4 = values.getOrElse(3) { "" }.mapToKeysym()
+        layer3 = values.getOrElse(2) { "" }.mapToKeysym().filterCommands(),
+        layer4 = values.getOrElse(3) { "" }.mapToKeysym().filterCommands()
     )
 }
 
@@ -28,3 +28,5 @@ fun String.mapToKeysym(): String = when {
     this.length == 1 -> this
     else -> symbolsDictionary[this] ?: this
 }
+
+fun String.filterCommands() = if (this.startsWith('f')) EMPTY_STRING else this
