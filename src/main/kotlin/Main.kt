@@ -4,6 +4,7 @@ import java.io.File
 import kotlin.system.exitProcess
 
 private var isInsideLanguageBlock = false
+private val symbolsDictionary = mutableMapOf<String, String>()
 
 fun main(args: Array<String>) {
 
@@ -16,8 +17,11 @@ fun main(args: Array<String>) {
     val symbolsDictionaryFile = File(LOCATION_OF_KEYSYMDEF_FILE)
 
     try {
-        val symbolsDictionary = symbolsDictionaryFile.useLines {
-            it.toList()
+        symbolsDictionaryFile.useLines { lines ->
+            lines.forEach {
+                val pair = parseKeySymDefinition(it)
+                if (pair != null) symbolsDictionary.put(pair.first, pair.second)
+            }
         }
         println("Symbols dictionary: $symbolsDictionary")
         File(filename).useLines { lines ->
