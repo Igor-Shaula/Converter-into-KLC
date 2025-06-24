@@ -8,8 +8,8 @@ const val LAYOUT_ENDING_BLOCK = "};"
 const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*$LAYOUT_STARTING_BLOCK\s*"([^"]+)"\s*\{\s*$"""
 
 // #define XK_name 0xHEX /* optional comment */
-const val REGEX_FOR_KEYSYMDEF_FILE_4 = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]{4})"""
-const val REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)"""
+const val REGEX_FOR_KEYSYMDEF_FILE_4 = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]{4})""" // only 4 symbols
+const val REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)""" // any number of symbols
 
 const val BEGINNING_OF_SYMBOL_RECORD = "#define"
 const val SOME_WHITESPACES = "\\s+"

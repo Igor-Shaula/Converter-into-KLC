@@ -4,7 +4,7 @@ import java.io.File
 import kotlin.system.exitProcess
 
 private var isInsideLanguageBlock = false
-private val symbolsDictionary = mutableMapOf<String, String>()
+internal val symbolsDictionary = mutableMapOf<String, String>()
 
 fun main(args: Array<String>) {
 
