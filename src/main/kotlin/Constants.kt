@@ -7,6 +7,15 @@ const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
 const val LAYOUT_ENDING_BLOCK = "};"
 const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*$LAYOUT_STARTING_BLOCK\s*"([^"]+)"\s*\{\s*$"""
 
+// #define XK_name 0xHEX /* optional comment */
+const val REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]{4})"""
+
+const val BEGINNING_OF_SYMBOL_RECORD = "#define"
+const val SOME_WHITESPACES = "\\s+"
+const val SYMBOL_PREFIX = "XK_"
+const val SYMBOL_NAME = "(\\w+)"
+const val SYMBOL_CODE = "0x([0-9a-fA-F]{4})"
+
 const val REGEX_FOR_REMOVING_BLANKS = "\\s+"
 const val EMPTY_STRING = ""
 const val EQUALS = '='
