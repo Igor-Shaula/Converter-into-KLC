@@ -21,6 +21,8 @@ fun createValuesForLayers(input: String): ValuesForLayers {
     )
 }
 
+internal val symbolsDictionary = mutableMapOf<String, String>()
+
 fun String.mapToKeysym(): String = when {
     this.isBlank() -> EMPTY_STRING // should not ever happen
     this.length == 1 -> this
