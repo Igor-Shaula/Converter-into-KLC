@@ -34,3 +34,5 @@ fun String.filterCommands() = if (this.lowercase().startsWith(BEGINNING_OF_COMMA
 
 fun String.filterMissingKeysyms() =
     if (this == NOSYMBOL || this.startsWith(X11_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) EMPTY_STRING else this
+
+fun String.getKeyNameStartingWithA() = substring(KEY_A_BEGINNING.length - 1, KEY_A_BEGINNING.length + 3) // 4 in total
