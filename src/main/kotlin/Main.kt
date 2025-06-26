@@ -26,7 +26,9 @@ fun main(args: Array<String>) {
         File(filename).useLines { lines ->
             lines.forEach { processEveryLine(it.normalize()) }
         }
-        println("essence: $essence")
+        println("essence: $x11Essence")
+        x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
+        println("windowsEssence: $windowsEssence")
     } catch (e: Exception) {
         System.err.println("Error reading file '$filename': ${e.message}")
         exitProcess(1)
@@ -56,15 +58,15 @@ private fun processEveryLine(line: String) {
     if (isInsideLanguageBlock) {
         if (isKeyTilde(line)) {
             val layers = createValuesForLayers(line)
-            essence.put("TLDE", layers)
+            x11Essence.put("TLDE", layers)
             println("→ isKeyTilde: $layers")
         } else if (isKeySpace(line)) {
             val layers = createValuesForLayers(line)
-            essence.put("SPCE", layers)
+            x11Essence.put("SPCE", layers)
             println("→ isKeySpace: $layers")
         } else if (isKeyStartingWithA(line)) {
             val layers = createValuesForLayers(line)
-            essence.put(line.getKeyNameStartingWithA(), layers)
+            x11Essence.put(line.getKeyNameStartingWithA(), layers)
             println("→ isKeyStartingWithA: $layers")
         }
     }

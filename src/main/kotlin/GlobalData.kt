@@ -2,4 +2,6 @@ package org.igor_shaula
 
 internal val symbolsDictionary = mutableMapOf<String, String>()
 
-internal val essence = mutableMapOf<String, ValuesForLayers>()
+internal val x11Essence = mutableMapOf<String, ValuesForLayers>()
+
+internal val windowsEssence = mutableMapOf<String?, ValuesForLayers>()
