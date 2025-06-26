@@ -26,6 +26,7 @@ fun main(args: Array<String>) {
         File(filename).useLines { lines ->
             lines.forEach { processEveryLine(it.normalize()) }
         }
+        println("essence: $essence")
     } catch (e: Exception) {
         System.err.println("Error reading file '$filename': ${e.message}")
         exitProcess(1)
@@ -55,9 +56,11 @@ private fun processEveryLine(line: String) {
     if (isInsideLanguageBlock) {
         if (isKeyTilde(line)) {
             val layers = createValuesForLayers(line)
+            essence.put("TLDE", layers)
             println("→ isKeyTilde: $layers")
         } else if (isKeySpace(line)) {
             val layers = createValuesForLayers(line)
+            essence.put("SPCE", layers)
             println("→ isKeySpace: $layers")
         } else if (isKeyStartingWithA(line)) {
             val layers = createValuesForLayers(line)
