@@ -34,3 +34,11 @@ const val CLOSING_BRACKETS = "]}"
 const val LAYER_SEPARATOR = ','
 
 const val X11_PREFIX = "100"
+
+const val X11_UNICODE_NUMBER_LENGTH = 5
+const val UNICODE_NUMBER_LENGTH = 4
+
+const val BEGINNING_OF_UNICODE_NUMBER = 'U'
+const val BEGINNING_OF_COMMAND_SYMBOL = 'f'
+const val NOSYMBOL = "nosymbol"
+const val X11_PREFIX_HEX = "0x100"
