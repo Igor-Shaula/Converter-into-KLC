@@ -7,13 +7,16 @@ fun isEnglishUSNameGroup1(normalizedLine: String) =
     normalizedLine == NAME_GROUP_1 + EQUALS + DOUBLE_QUOTE + ENGLISH_US + DOUBLE_QUOTE + SEMICOLON
 
 fun isKeyTilde(normalizedLine: String) =
-    normalizedLine.startsWith(KEY_TILDE + OPENING_BRACKETS) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
+    lineContainsTheKeyAndEndsCorrectly(normalizedLine, KEY_TILDE + OPENING_BRACKETS)
 
 fun isKeySpace(normalizedLine: String) =
-    normalizedLine.startsWith(KEY_SPACE + OPENING_BRACKETS) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
+    lineContainsTheKeyAndEndsCorrectly(normalizedLine, KEY_SPACE + OPENING_BRACKETS)
 
 fun isKeyStartingWithA(normalizedLine: String) =
-    normalizedLine.startsWith(KEY_A_BEGINNING) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
+    lineContainsTheKeyAndEndsCorrectly(normalizedLine, KEY_A_BEGINNING)
+
+private fun lineContainsTheKeyAndEndsCorrectly(normalizedLine: String, key: String) =
+    normalizedLine.startsWith(key) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
 
 fun isXkbSymbolsSection(line: String): Boolean {
     // Create a regex pattern that matches "xkb_symbols" followed by any word in quotes
