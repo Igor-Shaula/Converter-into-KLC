@@ -9,6 +9,9 @@ fun isEnglishUSNameGroup1(normalizedLine: String) =
 fun isKeyTilde(normalizedLine: String) =
     normalizedLine.startsWith(KEY_TILDE + OPENING_BRACKETS) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
 
+fun isKeySpace(normalizedLine: String) =
+    normalizedLine.startsWith(KEY_SPACE + OPENING_BRACKETS) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
+
 fun isKeyStartingWithA(normalizedLine: String) =
     normalizedLine.startsWith(KEY_A_BEGINNING) && normalizedLine.contains(CLOSING_BRACKETS + SEMICOLON)
 

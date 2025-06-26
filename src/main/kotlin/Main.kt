@@ -56,6 +56,9 @@ private fun processEveryLine(line: String) {
         if (isKeyTilde(line)) {
             val layers = createValuesForLayers(line)
             println("→ isKeyTilde: $layers")
+        } else if (isKeySpace(line)) {
+            val layers = createValuesForLayers(line)
+            println("→ isKeySpace: $layers")
         } else if (isKeyStartingWithA(line)) {
             val layers = createValuesForLayers(line)
             println("→ isKeyStartingWithA: $layers")

@@ -26,6 +26,7 @@ const val NAME_GROUP_1 = "name[Group1]"
 const val ENGLISH_US = "English(US)"
 
 const val KEY_TILDE = "key<TLDE>"
+const val KEY_SPACE = "key<SPCE>"
 const val KEY_A_BEGINNING = "key<A"
 
 const val OPENING_BRACKETS = "{["
