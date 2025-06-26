@@ -107,5 +107,7 @@ fun getVkValueByScValue(base: String) = when (base) {
 //    "005d" -> "OEM_8"
     "39" -> "SPACE"
     "53" -> "DECIMAL"
-    else -> base.uppercase()
+    else -> symbolsDictionary[base]?.uppercase()
 }
+
+fun getCapitalized(base: String) = if (base.length == 1 && base.first().isLetter()) 1 else 0
