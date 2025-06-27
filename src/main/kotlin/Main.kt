@@ -38,8 +38,8 @@ fun main(args: Array<String>) {
 
 private fun processEveryLine(line: String) {
     // 0
-    if (isXkbSymbolsSection(line)) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        println("isXkbSymbolsSection")
+    if (getXkbSymbolsSectionName(line) == DEFAULT_XKB_LAYOUT) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
+        println("getXkbSymbolsSectionName: $DEFAULT_XKB_LAYOUT")
         isInsideLanguageBlock = true
     } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isLayoutEndingBlock")
