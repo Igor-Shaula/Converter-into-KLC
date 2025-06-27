@@ -94,7 +94,7 @@ fun generateVKValue(base: String) = when (base) {
     else -> base.uppercase()
 }
 
-fun getVkValueByScValue(base: String) = when (base) {
+fun getVkValueByScValue(base: String?) = when (base) {
     "0c" -> "OEM_MINUS"
     "0d" -> "OEM_PLUS"
     "12" -> "OEM_1"

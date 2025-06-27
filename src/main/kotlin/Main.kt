@@ -1,6 +1,7 @@
 package org.igor_shaula
 
 import java.io.File
+import java.text.NumberFormat.Field.PREFIX
 import kotlin.system.exitProcess
 
 private var isInsideLanguageBlock = false
@@ -29,6 +30,7 @@ fun main(args: Array<String>) {
         println("essence: $x11Essence")
         x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
         println("windowsEssence: $windowsEssence")
+        composeKLC()
     } catch (e: Exception) {
         System.err.println("Error reading file '$filename': ${e.message}")
         exitProcess(1)
@@ -70,4 +72,18 @@ private fun processEveryLine(line: String) {
             println("→ isKeyStartingWithA: $layers")
         }
     }
+}
+
+fun composeKLC() {
+    val resultFile = File("result.klc")
+    resultFile.writeText(KLC_FILE_PREFIX)
+    windowsEssence.forEach { (key, value) ->
+        val scValue = key
+        val vkValue = getVkValueByScValue(key)
+        val capitalized = getCapitalized(vkValue ?: NOSYMBOL)
+        val (layer1, layer2, layer3, layer4) = value
+        resultFile.appendText("$scValue\t$vkValue\t$capitalized\t$layer1\t$layer2\t-1\t$layer3\t$layer4\n")
+    }
+    resultFile.appendText(KLC_FILE_SUFFIX)
+    println("resultFile: $resultFile")
 }
