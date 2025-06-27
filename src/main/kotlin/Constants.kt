@@ -6,6 +6,7 @@ const val LOCATION_OF_KEYSYMDEF_FILE = "/usr/include/X11/keysymdef.h"
 const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
 const val LAYOUT_ENDING_BLOCK = "};"
 const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*$LAYOUT_STARTING_BLOCK\s*"([^"]+)"\s*\{\s*$"""
+const val DEFAULT_XKB_LAYOUT = "basic"
 
 // #define XK_name 0xHEX /* optional comment */
 const val REGEX_FOR_KEYSYMDEF_FILE_4 = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]{4})""" // only 4 symbols

@@ -3,7 +3,6 @@ package org.igor_shaula
 import java.io.File
 import kotlin.system.exitProcess
 
-private var isTargetLayoutFound = false
 private var isInsideLanguageBlock = false
 
 fun main(args: Array<String>) {
@@ -23,7 +22,7 @@ fun main(args: Array<String>) {
                 if (pair != null) symbolsDictionary.put(pair.first, pair.second)
             }
         }
-        println("Symbols dictionary: $symbolsDictionary")
+        println("standard Linux symbols dictionary: $symbolsDictionary")
         File(filename).useLines { lines ->
             lines.forEach { processEveryLine(it.normalize()) }
         }
@@ -42,39 +41,27 @@ private fun processEveryLine(line: String) {
     if (isXkbSymbolsSection(line)) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         println("isXkbSymbolsSection")
         isInsideLanguageBlock = true
-    } else if (isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+    } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isLayoutEndingBlock")
         isInsideLanguageBlock = false
-        isTargetLayoutFound = false
     }
     if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
 
     // 1
-    if (isEnglishUSNameGroup1(line)) { // like: """name[Group1]= "English (US)";"""
-        // start looking for keys
-        println("isInsideLanguageBlock → true: $line")
-        isTargetLayoutFound = true
-//    } else {
-//        println(line)
-    }
-
-    // 2
-    if (isTargetLayoutFound && isInsideLanguageBlock) {
-        if (isKeyTilde(line)) {
-            val layers = createValuesForLayers(line)
-            x11Essence.put("TLDE", layers)
-            println("→ isKeyTilde: $layers")
-        } else if (isKeySpace(line)) {
-            val layers = createValuesForLayers(line)
-            x11Essence.put("SPCE", layers)
-            println("→ isKeySpace: $layers")
-        } else if (isKeyStartingWithA(line)) {
-            val layers = createValuesForLayers(line)
-            x11Essence.put(line.getKeyNameStartingWithA(), layers)
-            println("→ isKeyStartingWithA: $layers")
-        }
+    if (isKeyTilde(line)) {
+        val layers = createValuesForLayers(line)
+        x11Essence.put("TLDE", layers)
+        println("→ isKeyTilde: $layers")
+    } else if (isKeySpace(line)) {
+        val layers = createValuesForLayers(line)
+        x11Essence.put("SPCE", layers)
+        println("→ isKeySpace: $layers")
+    } else if (isKeyStartingWithA(line)) {
+        val layers = createValuesForLayers(line)
+        x11Essence.put(line.getKeyNameStartingWithA(), layers)
+        println("→ isKeyStartingWithA: $layers")
     }
 }
 
