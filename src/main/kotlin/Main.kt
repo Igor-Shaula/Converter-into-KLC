@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
         File(filename).useLines { lines ->
             lines.forEach { processEveryLine(it.normalize()) }
         }
-        println("essence: $x11Essence")
+        println("x11Essence: $x11Essence")
         x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
         println("windowsEssence: $windowsEssence")
         composeKLC()
@@ -48,20 +48,23 @@ private fun processEveryLine(line: String) {
     if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
-
     // 1
-    if (isKeyTilde(line)) {
-        val layers = createValuesForLayers(line)
-        x11Essence.put("TLDE", layers)
-        println("→ isKeyTilde: $layers")
-    } else if (isKeySpace(line)) {
-        val layers = createValuesForLayers(line)
-        x11Essence.put("SPCE", layers)
-        println("→ isKeySpace: $layers")
-    } else if (isKeyStartingWithA(line)) {
-        val layers = createValuesForLayers(line)
-        x11Essence.put(line.getKeyNameStartingWithA(), layers)
-        println("→ isKeyStartingWithA: $layers")
+    when {
+        isKeyStartingWithA(line) -> {
+            val layers = createValuesForLayers(line)
+            x11Essence.put(line.getKeyNameStartingWithA(), layers)
+            println("→ isKeyStartingWithA: $layers")
+        }
+        isKeyTilde(line) -> {
+            val layers = createValuesForLayers(line)
+            x11Essence.put("TLDE", layers)
+            println("→ isKeyTilde: $layers")
+        }
+        isKeySpace(line) -> {
+            val layers = createValuesForLayers(line)
+            x11Essence.put("SPCE", layers)
+            println("→ isKeySpace: $layers")
+        }
     }
 }
 
