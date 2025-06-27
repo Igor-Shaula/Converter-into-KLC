@@ -1,6 +1,6 @@
 package org.igor_shaula
 
-const val KLC_FILE_BASIS = """
+const val KLC_FILE_PREFIX = """
 KBD	7-chars	"layout-description"
 
 COPYRIGHT	"(c) 2025 igor.shaula"
@@ -26,58 +26,10 @@ LAYOUT		;an extra '@' at the end is a dead key
 //SC	VK_		Cap	0	1	    2	    6   	7
 //--------------------------------------------------
 
-02
-03
-04
-05
-06
-07
-08
-09
-0a
-0b
-0c
-0d
+"""
 
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-1a
-1b
+const val KLC_FILE_SUFFIX = """
 
-1e
-1f
-20
-21
-22
-23
-24
-25
-26
-27
-28
-
-29
-
-2c
-2d
-2e
-2f
-30
-31
-32
-33
-34
-35
-
-39	SPACE		0	0020	000d	-1	000a	-1		// SPACE, CARRIAGE RETURN, <none>, LINE FEED, <none>
 53	DECIMAL 	0	002e	002c	-1	-1  	-1		// FULL STOP, COMMA, , , 
 
 
@@ -170,3 +122,59 @@ LANGUAGENAMES
 
 ENDKBD
 """
+
+val middlePart = """
+    
+02
+03
+04
+05
+06
+07
+08
+09
+0a
+0b
+0c
+0d
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1a
+1b
+
+1e
+1f
+20
+21
+22
+23
+24
+25
+26
+27
+28
+
+29
+
+2c
+2d
+2e
+2f
+30
+31
+32
+33
+34
+35
+
+39
+""".trimIndent()
