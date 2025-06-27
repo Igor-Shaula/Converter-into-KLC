@@ -1,9 +1,9 @@
 package org.igor_shaula
 
 import java.io.File
-import java.text.NumberFormat.Field.PREFIX
 import kotlin.system.exitProcess
 
+private var isTargetLayoutFound = false
 private var isInsideLanguageBlock = false
 
 fun main(args: Array<String>) {
@@ -39,25 +39,29 @@ fun main(args: Array<String>) {
 
 private fun processEveryLine(line: String) {
     // 0
-    if (isXkbSymbolsSection(line)) {
+    if (isXkbSymbolsSection(line)) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         println("isXkbSymbolsSection")
         isInsideLanguageBlock = true
-    } else if (isLayoutEndingBlock(line)) {
+    } else if (isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isLayoutEndingBlock")
         isInsideLanguageBlock = false
+        isTargetLayoutFound = false
     }
-    // any recognition action outside a detected layout block has no sense
-    if (!isInsideLanguageBlock) return
+    if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
+        return // because any further recognition action outside a detected layout block has no sense
+    }
 
     // 1
-    if (isEnglishUSNameGroup1(line)) {
+    if (isEnglishUSNameGroup1(line)) { // like: """name[Group1]= "English (US)";"""
         // start looking for keys
-        println("isInsideLanguageBlock → true")
-    } else {
-        println(line)
+        println("isInsideLanguageBlock → true: $line")
+        isTargetLayoutFound = true
+//    } else {
+//        println(line)
     }
+
     // 2
-    if (isInsideLanguageBlock) {
+    if (isTargetLayoutFound && isInsideLanguageBlock) {
         if (isKeyTilde(line)) {
             val layers = createValuesForLayers(line)
             x11Essence.put("TLDE", layers)
