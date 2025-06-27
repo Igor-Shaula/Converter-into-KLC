@@ -57,12 +57,12 @@ private fun processEveryLine(line: String) {
         }
         isKeyTilde(line) -> {
             val layers = createValuesForLayers(line)
-            x11Essence.put("TLDE", layers)
+            x11Essence.put(X11_NAME_TILDE, layers)
             println("→ isKeyTilde: $layers")
         }
         isKeySpace(line) -> {
             val layers = createValuesForLayers(line)
-            x11Essence.put("SPCE", layers)
+            x11Essence.put(X11_NAME_SPACE, layers)
             println("→ isKeySpace: $layers")
         }
     }

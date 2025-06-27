@@ -26,8 +26,10 @@ const val DOUBLE_QUOTE = '"'
 const val NAME_GROUP_1 = "name[Group1]"
 const val ENGLISH_US = "English(US)"
 
-const val KEY_TILDE = "key<TLDE>"
-const val KEY_SPACE = "key<SPCE>"
+const val X11_NAME_TILDE = "TLDE"
+const val X11_NAME_SPACE = "SPCE"
+const val KEY_TILDE = "key<$X11_NAME_TILDE>"
+const val KEY_SPACE = "key<$X11_NAME_SPACE>"
 const val KEY_A_BEGINNING = "key<A"
 
 const val OPENING_BRACKETS = "{["
