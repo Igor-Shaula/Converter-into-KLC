@@ -73,8 +73,8 @@ fun composeKLC() {
     resultFile.writeText(KLC_FILE_PREFIX)
     windowsEssence.forEach { (key, value) ->
         val scValue = key
-        val vkValue = getVkValueByScValue(key)
-        val capitalized = getCapitalized(vkValue ?: NOSYMBOL)
+        val vkValue = getVkValueByScValue(key) ?: value.layer1
+        val capitalized = getCapitalized(vkValue)
         val (layer1, layer2, layer3, layer4) = value
         resultFile.appendText("$scValue\t$vkValue\t$capitalized\t$layer1\t$layer2\t-1\t$layer3\t$layer4\n")
     }
