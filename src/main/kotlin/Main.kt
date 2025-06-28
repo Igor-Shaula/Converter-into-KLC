@@ -72,7 +72,7 @@ fun composeKlcFile() {
     val resultFile = File("result.klc")
     resultFile.writeText(KLC_FILE_PREFIX)
     windowsEssence.forEach { (key, value) ->
-        val scValue = key
+        val scValue = key?.lowercase()
         val vkValue = getVkValueByScValue(key?.lowercase()) ?: value.layer1.uppercase()
         val capitalized = getCapitalized(vkValue)
         val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
