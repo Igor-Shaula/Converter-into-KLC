@@ -24,12 +24,12 @@ fun main(args: Array<String>) {
         }
         println("standard Linux symbols dictionary: $symbolsDictionary")
         File(filename).useLines { lines ->
-            lines.forEach { processEveryLine(it.normalize()) }
+            lines.forEach { processEveryLine(it.normalize()) } // in result x11Essence is filled with actual data
         }
         println("x11Essence: $x11Essence")
         x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
         println("windowsEssence: $windowsEssence")
-        composeKLC()
+        composeKlcFile()
     } catch (e: Exception) {
         System.err.println("Error reading file '$filename': ${e.message}")
         exitProcess(1)
@@ -68,12 +68,12 @@ private fun processEveryLine(line: String) {
     }
 }
 
-fun composeKLC() {
+fun composeKlcFile() {
     val resultFile = File("result.klc")
     resultFile.writeText(KLC_FILE_PREFIX)
     windowsEssence.forEach { (key, value) ->
         val scValue = key
-        val vkValue = getVkValueByScValue(key) ?: value.layer1
+        val vkValue = getVkValueByScValue(key?.lowercase()) ?: value.layer1.uppercase()
         val capitalized = getCapitalized(vkValue)
         val (layer1, layer2, layer3, layer4) = value
         resultFile.appendText("$scValue\t$vkValue\t$capitalized\t$layer1\t$layer2\t-1\t$layer3\t$layer4\n")
