@@ -78,33 +78,18 @@ val xkbToWindowsScancode: Map<String, String> = mapOf(
     "SPCE" to "39"  // Space
 )
 
-fun generateVKValue(base: String) = when (base) {
-    "002d" -> "OEM_MINUS"
-    "003d" -> "OEM_PLUS"
-    "003a" -> "OEM_1"
-    "003f" -> "OEM_2"
-    "002e" -> "OEM_3" // Tilde
-    "007b" -> "OEM_4"
-//    "003a" -> "OEM_5"
-    "007d" -> "OEM_6"
-    "0027" -> "OEM_7"
-//    "005d" -> "OEM_8"
-    "0020" -> "SPACE"
-    // what about "DECIMAL" ???
-    else -> base.uppercase()
-}
-
 fun getVkValueByScValue(base: String?) = when (base) {
     "0c" -> "OEM_MINUS"
     "0d" -> "OEM_PLUS"
-    "12" -> "OEM_1"
-    "23" -> "OEM_2"
-    "29" -> "OEM_3" // Tilde
-    "15" -> "OEM_4"
-//    "003a" -> "OEM_5"
-    "16" -> "OEM_6"
-    "14" -> "OEM_7"
-//    "005d" -> "OEM_8"
+    "12" -> "OEM_1" // colon
+    "23" -> "OEM_2" // solidus / slash
+    "29" -> "OEM_3" // tilde
+    "15" -> "OEM_4" // left square bracket
+//    "??" -> "OEM_5"
+    "16" -> "OEM_6" // right square bracket
+    "14" -> "OEM_7" // apostrophe
+    "30" -> "OEM_COMMA"
+    "31" -> "OEM_PERIOD"
     "39" -> "SPACE"
     "53" -> "DECIMAL"
     else -> symbolsDictionary[base]?.uppercase()
