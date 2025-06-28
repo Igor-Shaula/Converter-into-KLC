@@ -75,7 +75,7 @@ fun composeKlcFile() {
         val scValue = key
         val vkValue = getVkValueByScValue(key?.lowercase()) ?: value.layer1.uppercase()
         val capitalized = getCapitalized(vkValue)
-        val (layer1, layer2, layer3, layer4) = value
+        val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
         resultFile.appendText("$scValue\t$vkValue\t$capitalized\t$layer1\t$layer2\t-1\t$layer3\t$layer4\n")
     }
     resultFile.appendText(KLC_FILE_SUFFIX)

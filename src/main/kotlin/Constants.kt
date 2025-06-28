@@ -37,6 +37,7 @@ const val CLOSING_BRACKETS = "]}"
 const val LAYER_SEPARATOR = ','
 
 const val X11_PREFIX = "100"
+const val WINDOWS_DEFAULT_LAYOUT_VALUE = "-1"
 
 const val X11_UNICODE_NUMBER_LENGTH = 5
 const val UNICODE_NUMBER_LENGTH = 4
