@@ -81,16 +81,16 @@ val xkbToWindowsScancode: Map<String, String> = mapOf(
 fun getVkValueByScValue(base: String?) = when (base) {
     "0c" -> "OEM_MINUS"
     "0d" -> "OEM_PLUS"
-    "12" -> "OEM_1" // colon
-    "23" -> "OEM_2" // solidus / slash
-    "29" -> "OEM_3" // tilde
-    "15" -> "OEM_4" // left square bracket
-//    "??" -> "OEM_5"
-    "16" -> "OEM_6" // right square bracket
-    "14" -> "OEM_7" // apostrophe
     "30" -> "OEM_COMMA"
     "31" -> "OEM_PERIOD"
-    "39" -> "SPACE"
+    "12" -> "OEM_1\t" // colon
+    "23" -> "OEM_2\t" // solidus / slash
+    "29" -> "OEM_3\t" // tilde
+    "15" -> "OEM_4\t" // left square bracket
+//    "??" -> "OEM_5\t"
+    "16" -> "OEM_6\t" // right square bracket
+    "14" -> "OEM_7\t" // apostrophe
+    "39" -> "SPACE\t"
     "53" -> "DECIMAL"
     else -> symbolsDictionary[base]?.uppercase()
 }
