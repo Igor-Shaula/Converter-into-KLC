@@ -7,33 +7,44 @@ private var isInsideLanguageBlock = false
 
 fun main(args: Array<String>) {
 
-    val filename = if (args.isEmpty()) {
+    // 1 - filling x11SymbolsDictionary
+    try {
+        //  this file is inevitably needed for the upcoming symbols conversion
+        File(X11_LOCATION_OF_KEYSYMDEF_FILE).useLines { lines ->
+            lines.forEach {
+                val pair = parseKeySymDefinition(it)
+                if (pair != null) x11SymbolsDictionary.put(pair.first, pair.second)
+            }
+        }
+        println("standard Linux symbols dictionary: $x11SymbolsDictionary")
+    } catch (e: Exception) {
+        System.err.println("Error reading file '$X11_LOCATION_OF_KEYSYMDEF_FILE': ${e.message}")
+        exitProcess(1)
+    }
+
+    // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
+    val x11LayoutSourceFilename = if (args.isEmpty()) {
         X11_LOCATION_OF_SYMBOLS_US_FILE
     } else {
         args[0]
     }
-
-    val symbolsDictionaryFile = File(X11_LOCATION_OF_KEYSYMDEF_FILE)
-
+    // 2 - filling x11Essence
     try {
-        symbolsDictionaryFile.useLines { lines ->
-            lines.forEach {
-                val pair = parseKeySymDefinition(it)
-                if (pair != null) symbolsDictionary.put(pair.first, pair.second)
-            }
-        }
-        println("standard Linux symbols dictionary: $symbolsDictionary")
-        File(filename).useLines { lines ->
+        File(x11LayoutSourceFilename).useLines { lines ->
             lines.forEach { processEveryLine(it.normalize()) } // in result x11Essence is filled with actual data
         }
         println("x11Essence: $x11Essence")
-        x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
-        println("windowsEssence: $windowsEssence")
-        composeKlcFile()
     } catch (e: Exception) {
-        System.err.println("Error reading file '$filename': ${e.message}")
-        exitProcess(1)
+        System.err.println("Error reading file '$x11LayoutSourceFilename': ${e.message}")
+        exitProcess(2)
     }
+
+    // 3 - filling windowsEssence
+    x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
+    println("windowsEssence: $windowsEssence")
+
+    // 4 - creating the result
+    composeKlcFile()
 }
 
 private fun processEveryLine(line: String) {
