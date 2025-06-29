@@ -52,3 +52,4 @@ const val X11_PREFIX_HEX = "0x100"
 
 const val LF = "\n"
 const val CR_LF = "\r\n"
+const val TAB = "\t"

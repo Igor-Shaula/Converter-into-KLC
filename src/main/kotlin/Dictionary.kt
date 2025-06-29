@@ -83,14 +83,14 @@ fun getVkValueByScValue(base: String?) = when (base) {
     "0d" -> "OEM_PLUS"
     "30" -> "OEM_COMMA"
     "31" -> "OEM_PERIOD"
-    "12" -> "OEM_1\t" // colon
-    "23" -> "OEM_2\t" // solidus / slash
-    "29" -> "OEM_3\t" // tilde
-    "15" -> "OEM_4\t" // left square bracket
-//    "??" -> "OEM_5\t"
-    "16" -> "OEM_6\t" // right square bracket
-    "14" -> "OEM_7\t" // apostrophe
-    "39" -> "SPACE\t"
+    "12" -> "OEM_1$TAB" // colon
+    "23" -> "OEM_2$TAB" // solidus / slash
+    "29" -> "OEM_3$TAB" // tilde
+    "15" -> "OEM_4$TAB" // left square bracket
+//    "??" -> "OEM_5$TAB"
+    "16" -> "OEM_6$TAB" // right square bracket
+    "14" -> "OEM_7$TAB" // apostrophe
+    "39" -> "SPACE$TAB"
     "53" -> "DECIMAL"
     else -> symbolsDictionary[base]?.uppercase()
 }
