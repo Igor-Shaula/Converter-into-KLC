@@ -1,6 +1,7 @@
 package org.igor_shaula
 
-const val KLC_FILE_PREFIX = """KBD	$DEFAULT_LAYOUT_NAME_8	"$DEFAULT_LAYOUT_DESCRIPTION"
+internal val KLC_FILE_PREFIX = """
+KBD	$DEFAULT_LAYOUT_NAME_8	"$DEFAULT_LAYOUT_DESCRIPTION"
 
 COPYRIGHT	"(c) 2025 igor.shaula"
 
@@ -22,9 +23,11 @@ SHIFTSTATE
 
 LAYOUT	;an extra '@' at the end is a dead key
 
-"""
 
-const val KLC_FILE_SUFFIX = """53	DECIMAL		0	002e	002c	-1	-1	-1
+""".trimIndent() // we do need the last 2 blank lines - one of them remains in the result file after trimIndent()
+
+internal val KLC_FILE_SUFFIX = """
+53	DECIMAL		0	002e	002c	-1	-1	-1
 
 KEYNAME
 
@@ -114,4 +117,4 @@ LANGUAGENAMES
 0409	English (United States)
 
 ENDKBD
-"""
+""".trimIndent()
