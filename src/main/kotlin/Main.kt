@@ -70,16 +70,16 @@ private fun processEveryLine(line: String) {
 
 fun composeKlcFile() {
     val resultFile = File("result_UTF-16.klc")
-    resultFile.writeText(KLC_FILE_PREFIX, charset = Charsets.UTF_16)
+    resultFile.writeText(KLC_FILE_PREFIX.replace(LF, CR_LF), charset = Charsets.UTF_16)
     windowsEssence.forEach { (key, value) ->
         val scValue = key?.lowercase()
         val vkValue = getVkValueByScValue(key?.lowercase()) ?: value.layer1.uppercase()
         val capitalized = getCapitalized(vkValue)
         val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
         resultFile.appendText(
-            "$scValue\t$vkValue\t$capitalized\t$layer1\t$layer2\t-1\t$layer3\t$layer4\n", charset = Charsets.UTF_16
+            "$scValue\t$vkValue\t$capitalized\t$layer1\t$layer2\t-1\t$layer3\t$layer4$CR_LF", charset = Charsets.UTF_16
         )
     }
-    resultFile.appendText(KLC_FILE_SUFFIX, charset = Charsets.UTF_16)
+    resultFile.appendText(KLC_FILE_SUFFIX.replace(LF, CR_LF), charset = Charsets.UTF_16)
     println("resultFile: $resultFile")
 }

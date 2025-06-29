@@ -46,3 +46,6 @@ const val BEGINNING_OF_UNICODE_NUMBER = 'U'
 const val BEGINNING_OF_COMMAND_SYMBOL = 'f'
 const val NOSYMBOL = "nosymbol"
 const val X11_PREFIX_HEX = "0x100"
+
+const val LF = "\n"
+const val CR_LF = "\r\n"
