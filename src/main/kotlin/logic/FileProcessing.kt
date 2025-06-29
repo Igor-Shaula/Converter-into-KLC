@@ -35,7 +35,7 @@ internal fun composeKlcFile() {
     windowsEssence.forEach { (key, value) ->
         val scValue = key?.lowercase()
         val vkValue = getVkValueByScValue(key?.lowercase()) ?: (value.layer1.uppercase() + TAB)
-        val capitalized = getCapitalized(value.layer1)
+        val capitalized = getCapitalizedValue(value.layer1)
         val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
         resultFile.appendText(
             "$scValue$TAB$vkValue$TAB$capitalized$TAB$layer1$TAB$layer2$TAB$KLC_ABSENT_SYMBOL_VALUE$TAB$layer3$TAB$layer4$CR_LF",
