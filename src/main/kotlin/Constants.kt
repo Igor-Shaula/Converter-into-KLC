@@ -9,6 +9,7 @@ const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*$LAYOUT_STARTING_BLOCK\s*"([^"]+)
 const val DEFAULT_XKB_LAYOUT = "basic"
 const val DEFAULT_LAYOUT_NAME_8 = "basic_EN"
 const val DEFAULT_LAYOUT_DESCRIPTION = "from X11 - English (US)"
+const val DEFAULT_RESULT_FILE_NAME = "result_UTF-16.klc"
 
 // #define XK_name 0xHEX /* optional comment */
 const val REGEX_FOR_KEYSYMDEF_FILE_4 = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]{4})""" // only 4 symbols
@@ -39,7 +40,7 @@ const val CLOSING_BRACKETS = "]}"
 const val LAYER_SEPARATOR = ','
 
 const val X11_PREFIX = "100"
-const val WINDOWS_DEFAULT_LAYOUT_VALUE = "-1"
+const val WINDOWS_ABSENT_SYMBOL_VALUE = "-1"
 
 const val X11_UNICODE_NUMBER_LENGTH = 5
 const val UNICODE_NUMBER_LENGTH = 4

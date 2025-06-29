@@ -24,8 +24,8 @@ fun createValuesForLayers(input: String): ValuesForLayers {
 internal fun ValuesForLayers.adaptForWindows() = ValuesForLayers(
     layer1 = this.layer1,
     layer2 = this.layer2,
-    layer3 = this.layer3.ifEmpty { WINDOWS_DEFAULT_LAYOUT_VALUE },
-    layer4 = this.layer4.ifEmpty { WINDOWS_DEFAULT_LAYOUT_VALUE })
+    layer3 = this.layer3.ifEmpty { WINDOWS_ABSENT_SYMBOL_VALUE },
+    layer4 = this.layer4.ifEmpty { WINDOWS_ABSENT_SYMBOL_VALUE })
 
 fun String.mapToKeysym(): String = when {
     this.isBlank() -> EMPTY_STRING // should not ever happen
