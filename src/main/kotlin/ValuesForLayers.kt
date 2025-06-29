@@ -33,13 +33,13 @@ fun String.mapToKeysym(): String = when {
     this.startsWith(BEGINNING_OF_UNICODE_NUMBER) && this.length == X11_UNICODE_NUMBER_LENGTH
         -> this.substring(1).lowercase() // because the length of the char U is 1
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
-    else -> symbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
+    else -> x11SymbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
 }
 
 fun String.filterCommands() = if (this.lowercase().startsWith(BEGINNING_OF_COMMAND_SYMBOL)) EMPTY_STRING else this
 
 fun String.filterMissingKeysyms() =
-    if (this == NOSYMBOL || this.startsWith(X11_EXTENDED_CODE_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) EMPTY_STRING else this
+    if (this == X11_NOSYMBOL.lowercase() || this.startsWith(X11_EXTENDED_CODE_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) EMPTY_STRING else this
 
 fun String.getKeyNameStartingWithA() =
     substring(X11_KEY_A_BEGINNING.length - 1, X11_KEY_A_BEGINNING.length + 3) // 4 in total

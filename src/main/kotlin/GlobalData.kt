@@ -1,6 +1,6 @@
 package org.igor_shaula
 
-internal val symbolsDictionary = mutableMapOf<String, String>()
+internal val x11SymbolsDictionary = mutableMapOf<String, String>()
 
 internal val x11Essence = mutableMapOf<String, ValuesForLayers>()
 

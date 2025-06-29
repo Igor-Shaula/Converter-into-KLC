@@ -19,14 +19,13 @@ private fun lineContainsTheKeyAndEndsCorrectly(normalizedLine: String, key: Stri
     normalizedLine.startsWith(key) && normalizedLine.contains(X11_CLOSING_BRACKETS + SEMICOLON)
 
 fun isXkbSymbolsSection(line: String): Boolean {
-    // Create a regex pattern that matches "xkb_symbols" followed by any word in quotes
-    val pattern = REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
+    val pattern = X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
     return pattern.matches(line)
 }
 
 // If you also need to extract the section name:
 fun getXkbSymbolsSectionName(line: String): String? {
-    val pattern = REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
+    val pattern = X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
     return pattern.find(line)?.groupValues?.get(1)
 }
 

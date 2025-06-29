@@ -92,7 +92,7 @@ fun getVkValueByScValue(base: String?) = when (base) {
     "14" -> "OEM_7$TAB" // apostrophe
     "39" -> "SPACE$TAB"
     "53" -> "DECIMAL"
-    else -> symbolsDictionary[base]?.uppercase()
+    else -> x11SymbolsDictionary[base]?.uppercase()
 }
 
 fun getCapitalized(base: String) = if (base.length == 1 && base.first().isLetter()) 1 else 0

@@ -5,12 +5,13 @@ const val EQUALS = '='
 const val SEMICOLON = ';'
 const val DOUBLE_QUOTE = '"'
 const val COMMA = ','
+const val BEGINNING_OF_UNICODE_NUMBER = 'U'
+const val BEGINNING_OF_COMMAND_SYMBOL = 'f'
 const val EMPTY_STRING = ""
 const val LF = "\n"
 const val CR_LF = "\r\n"
 const val TAB = "\t"
-const val BEGINNING_OF_UNICODE_NUMBER = 'U'
-const val BEGINNING_OF_COMMAND_SYMBOL = 'f'
+const val REGEX_WHITESPACES = "\\s+"
 
 const val X11_LOCATION_OF_SYMBOLS_US_FILE = "/usr/share/X11/xkb/symbols/us"
 const val X11_LOCATION_OF_KEYSYMDEF_FILE = "/usr/include/X11/keysymdef.h"
@@ -22,12 +23,12 @@ const val X11_OPENING_BRACKETS = "{["
 const val X11_CLOSING_BRACKETS = "]}"
 
 const val X11_SYMBOL_RECORD = "#define"
-const val REGEX_WHITESPACES = "\\s+"
 const val X11_SYMBOL_PREFIX = "XK_"
 const val REGEX_SYMBOL_NAME_WORD = "(\\w+)"
 const val REGEX_SYMBOL_HEX_CODE = "0x([0-9a-fA-F]{4})"
 
-const val REGEX_XKB_SYMBOLS_FINDING_PATTERN = """^\s*xkb_symbols\s*"([^"]+)"\s*\{\s*$"""
+// a regex pattern that matches "xkb_symbols" followed by any word in quotes
+const val X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN = """^\s*xkb_symbols\s*"([^"]+)"\s*\{\s*$"""
 const val X11_REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)""" // any number of symbols
 
 const val X11_NAME_GROUP_1 = "name[Group1]"
@@ -43,7 +44,7 @@ const val X11_EXTENDED_CODE_PREFIX_HEX = "0x100"
 const val X11_UNICODE_NUMBER_LENGTH = 5
 
 const val UNICODE_NUMBER_LENGTH = 4
-const val NOSYMBOL = "nosymbol"
+const val X11_NOSYMBOL = "NoSymbol"
 
 const val KLC_DEFAULT_LAYOUT_NAME_8 = "basic_EN"
 const val KLC_DEFAULT_LAYOUT_DESCRIPTION = "from X11 - English (US)"
