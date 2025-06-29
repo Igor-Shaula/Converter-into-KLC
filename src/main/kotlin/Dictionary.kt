@@ -63,5 +63,3 @@ val xkbToWindowsScancode: Map<String, String> = mapOf(
     "RALT" to "64", // Right Alt / AltGr
     "SPCE" to "39"  // Space
 )
-
-fun getCapitalized(base: String) = if (base.length == 1 && base.first().isLetter()) 1 else 0
