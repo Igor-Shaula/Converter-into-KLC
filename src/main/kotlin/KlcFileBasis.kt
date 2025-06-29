@@ -1,7 +1,6 @@
 package org.igor_shaula
 
-const val KLC_FILE_PREFIX = """
-KBD	7-chars	"layout-description"
+const val KLC_FILE_PREFIX = """KBD	$DEFAULT_LAYOUT_NAME_8	"$DEFAULT_LAYOUT_DESCRIPTION"
 
 COPYRIGHT	"(c) 2025 igor.shaula"
 
@@ -16,22 +15,16 @@ VERSION	1.0
 SHIFTSTATE
 
 0	//Column 4
-1	//Column 5 : Shft
-2	//Column 6 :       Ctrl
-6	//Column 7 :       Ctrl Alt
-7	//Column 8 : Shft  Ctrl Alt
+1	//Column 5:	Shft
+2	//Column 6:			Ctrl
+6	//Column 7:			Ctrl	Alt
+7	//Column 8:	Shft	Ctrl	Alt
 
-LAYOUT		;an extra '@' at the end is a dead key
-
-//SC	VK_		Cap	0	1	    2	    6   	7
-//--------------------------------------------------
+LAYOUT	;an extra '@' at the end is a dead key
 
 """
 
-const val KLC_FILE_SUFFIX = """
-
-53	DECIMAL 	0	002e	002c	-1	-1  	-1		// FULL STOP, COMMA, , , 
-
+const val KLC_FILE_SUFFIX = """53	DECIMAL		0	002e	002c	-1	-1	-1
 
 KEYNAME
 
@@ -114,7 +107,7 @@ KEYNAME_EXT
 
 DESCRIPTIONS
 
-0409	layout-description
+0409	$DEFAULT_LAYOUT_DESCRIPTION
 
 LANGUAGENAMES
 

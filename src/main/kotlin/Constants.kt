@@ -7,6 +7,8 @@ const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
 const val LAYOUT_ENDING_BLOCK = "};"
 const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*$LAYOUT_STARTING_BLOCK\s*"([^"]+)"\s*\{\s*$"""
 const val DEFAULT_XKB_LAYOUT = "basic"
+const val DEFAULT_LAYOUT_NAME_8 = "basic_EN"
+const val DEFAULT_LAYOUT_DESCRIPTION = "from X11 - English (US)"
 
 // #define XK_name 0xHEX /* optional comment */
 const val REGEX_FOR_KEYSYMDEF_FILE_4 = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]{4})""" // only 4 symbols
