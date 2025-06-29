@@ -9,10 +9,10 @@ data class ValuesForLayers(
 
 fun createValuesForLayers(input: String): ValuesForLayers {
     val content = input.substring(
-        startIndex = input.indexOf(OPENING_BRACKETS) + OPENING_BRACKETS.length,
-        endIndex = input.indexOf(CLOSING_BRACKETS)
+        startIndex = input.indexOf(X11_OPENING_BRACKETS) + X11_OPENING_BRACKETS.length,
+        endIndex = input.indexOf(X11_CLOSING_BRACKETS)
     )
-    val values = content.split(LAYER_SEPARATOR).map { it.trim() }
+    val values = content.split(COMMA).map { it.trim() }
     return ValuesForLayers(
         layer1 = values[0].mapToKeysym(),
         layer2 = values.getOrElse(1) { EMPTY_STRING }.mapToKeysym(),
@@ -24,8 +24,8 @@ fun createValuesForLayers(input: String): ValuesForLayers {
 internal fun ValuesForLayers.adaptForWindows() = ValuesForLayers(
     layer1 = this.layer1,
     layer2 = this.layer2,
-    layer3 = this.layer3.ifEmpty { WINDOWS_ABSENT_SYMBOL_VALUE },
-    layer4 = this.layer4.ifEmpty { WINDOWS_ABSENT_SYMBOL_VALUE })
+    layer3 = this.layer3.ifEmpty { KLC_ABSENT_SYMBOL_VALUE },
+    layer4 = this.layer4.ifEmpty { KLC_ABSENT_SYMBOL_VALUE })
 
 fun String.mapToKeysym(): String = when {
     this.isBlank() -> EMPTY_STRING // should not ever happen
@@ -41,4 +41,4 @@ fun String.filterCommands() = if (this.lowercase().startsWith(BEGINNING_OF_COMMA
 fun String.filterMissingKeysyms() =
     if (this == NOSYMBOL || this.startsWith(X11_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) EMPTY_STRING else this
 
-fun String.getKeyNameStartingWithA() = substring(KEY_A_BEGINNING.length - 1, KEY_A_BEGINNING.length + 3) // 4 in total
+fun String.getKeyNameStartingWithA() = substring(X11_KEY_A_BEGINNING.length - 1, X11_KEY_A_BEGINNING.length + 3) // 4 in total

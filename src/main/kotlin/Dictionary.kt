@@ -4,12 +4,12 @@ fun parseKeySymDefinition(input: String): Pair<String, String>? {
 
     if (input.isBlank()) return null
 
-    val regex = REGEX_FOR_KEYSYMDEF_FILE.toRegex()
+    val regex = X11_REGEX_FOR_KEYSYMDEF_FILE.toRegex()
 
     val matchResult = regex.find(input)
     return matchResult?.let {
         var (name, code) = it.destructured
-        if (code.startsWith(X11_PREFIX)) code = code.substring(X11_PREFIX.length)
+        if (code.startsWith(X11_EXTENDED_HEX_PREFIX)) code = code.substring(X11_EXTENDED_HEX_PREFIX.length)
         name to code
     }
 }
