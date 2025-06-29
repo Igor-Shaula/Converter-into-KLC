@@ -68,17 +68,17 @@ private fun processEveryLine(line: String) {
         isKeyStartingWithA(line) -> {
             val layers = createValuesForLayers(line)
             x11Essence.put(line.getKeyNameStartingWithA(), layers)
-            println("→ isKeyStartingWithA: $layers")
+//            println("→ isKeyStartingWithA: $layers")
         }
         isKeyTilde(line) -> {
             val layers = createValuesForLayers(line)
             x11Essence.put(X11_NAME_TILDE, layers)
-            println("→ isKeyTilde: $layers")
+//            println("→ isKeyTilde: $layers")
         }
         isKeySpace(line) -> {
             val layers = createValuesForLayers(line)
             x11Essence.put(X11_NAME_SPACE, layers)
-            println("→ isKeySpace: $layers")
+//            println("→ isKeySpace: $layers")
         }
     }
 }
