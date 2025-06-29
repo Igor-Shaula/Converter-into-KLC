@@ -1,17 +1,6 @@
 package org.igor_shaula.logic
 
-import org.igor_shaula.BEGINNING_OF_COMMAND_SYMBOL
-import org.igor_shaula.BEGINNING_OF_UNICODE_NUMBER
-import org.igor_shaula.EMPTY_STRING
-import org.igor_shaula.REGEX_WHITESPACES
-import org.igor_shaula.UNICODE_NUMBER_LENGTH
-import org.igor_shaula.X11_EXTENDED_CODE_PREFIX_HEX
-import org.igor_shaula.X11_KEY_A_BEGINNING
-import org.igor_shaula.X11_NOSYMBOL
-import org.igor_shaula.X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN
-import org.igor_shaula.X11_UNICODE_NUMBER_LENGTH
-import org.igor_shaula.x11SymbolsDictionary
-import kotlin.text.lowercase
+import org.igor_shaula.globals.*
 
 // Remove all whitespace and then compare with the normalized pattern
 internal fun String.normalize() = replace(REGEX_WHITESPACES.toRegex(), EMPTY_STRING)

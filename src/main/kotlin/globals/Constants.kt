@@ -1,4 +1,4 @@
-package org.igor_shaula
+package org.igor_shaula.globals
 
 // some characters and control sequences ===
 const val EQUALS = '='

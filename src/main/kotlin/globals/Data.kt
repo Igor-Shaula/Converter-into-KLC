@@ -1,4 +1,6 @@
-package org.igor_shaula
+package org.igor_shaula.globals
+
+import org.igor_shaula.logic.ValuesForLayers
 
 internal var isInsideLanguageBlock = false
 

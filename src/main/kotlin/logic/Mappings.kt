@@ -1,9 +1,9 @@
 package org.igor_shaula.logic
 
-import org.igor_shaula.TAB
-import org.igor_shaula.X11_EXTENDED_CODE_PREFIX
-import org.igor_shaula.X11_REGEX_FOR_KEYSYMDEF_FILE
-import org.igor_shaula.x11SymbolsDictionary
+import org.igor_shaula.globals.TAB
+import org.igor_shaula.globals.X11_EXTENDED_CODE_PREFIX
+import org.igor_shaula.globals.X11_REGEX_FOR_KEYSYMDEF_FILE
+import org.igor_shaula.globals.x11SymbolsDictionary
 
 internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
 

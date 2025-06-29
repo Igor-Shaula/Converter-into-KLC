@@ -1,4 +1,4 @@
-package org.igor_shaula
+package org.igor_shaula.globals
 
 internal val KLC_FILE_PREFIX = """
 KBD	$KLC_DEFAULT_LAYOUT_NAME_8	"$KLC_DEFAULT_LAYOUT_DESCRIPTION"

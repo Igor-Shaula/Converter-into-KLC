@@ -1,4 +1,6 @@
-package org.igor_shaula
+package org.igor_shaula.logic
+
+import org.igor_shaula.globals.*
 
 fun isEnglishUSNameGroup1(normalizedLine: String) =
     normalizedLine == X11_NAME_GROUP_1 + EQUALS + DOUBLE_QUOTE + X11_ENGLISH_US + DOUBLE_QUOTE + SEMICOLON

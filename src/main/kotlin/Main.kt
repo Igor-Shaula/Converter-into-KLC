@@ -1,5 +1,9 @@
 package org.igor_shaula
 
+import org.igor_shaula.globals.X11_LOCATION_OF_SYMBOLS_US_FILE
+import org.igor_shaula.globals.windowsEssence
+import org.igor_shaula.globals.x11Essence
+import org.igor_shaula.globals.x11SymbolsDictionary
 import org.igor_shaula.logic.composeKlcFile
 import org.igor_shaula.logic.prepareWindowsEssence
 import org.igor_shaula.logic.prepareX11Essence

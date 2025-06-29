@@ -1,5 +1,6 @@
 package org.igor_shaula.logic
-import org.igor_shaula.*
+
+import org.igor_shaula.globals.*
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -13,7 +14,7 @@ internal fun prepareX11SymbolsDictionary() {
             }
         }
     } catch (e: Exception) {
-        System.err.println("Error reading file '$X11_LOCATION_OF_KEYSYMDEF_FILE': ${e.message}")
+        System.err.println("Error reading file '${X11_LOCATION_OF_KEYSYMDEF_FILE}': ${e.message}")
         exitProcess(1)
     }
 }
@@ -38,7 +39,7 @@ internal fun composeKlcFile() {
         val capitalized = getCapitalizedValue(value.layer1)
         val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
         resultFile.appendText(
-            "$scValue$TAB$vkValue$TAB$capitalized$TAB$layer1$TAB$layer2$TAB$KLC_ABSENT_SYMBOL_VALUE$TAB$layer3$TAB$layer4$CR_LF",
+            "$scValue${TAB}$vkValue${TAB}$capitalized${TAB}$layer1${TAB}$layer2${TAB}${KLC_ABSENT_SYMBOL_VALUE}${TAB}$layer3${TAB}$layer4${CR_LF}",
             charset = Charsets.UTF_16
         )
     }

@@ -1,7 +1,6 @@
-package org.igor_shaula
+package org.igor_shaula.logic
 
-import org.igor_shaula.logic.filterCommands
-import org.igor_shaula.logic.mapToKeysym
+import org.igor_shaula.globals.*
 
 data class ValuesForLayers(
     val layer1: String, // base

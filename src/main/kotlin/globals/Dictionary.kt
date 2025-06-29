@@ -1,4 +1,4 @@
-package org.igor_shaula
+package org.igor_shaula.globals
 
 val xkbToWindowsScancode: Map<String, String> = mapOf(
     "AE01" to "02", // 1
