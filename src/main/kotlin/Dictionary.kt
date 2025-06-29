@@ -9,7 +9,7 @@ fun parseKeySymDefinition(input: String): Pair<String, String>? {
     val matchResult = regex.find(input)
     return matchResult?.let {
         var (name, code) = it.destructured
-        if (code.startsWith(X11_EXTENDED_HEX_PREFIX)) code = code.substring(X11_EXTENDED_HEX_PREFIX.length)
+        if (code.startsWith(X11_EXTENDED_CODE_PREFIX)) code = code.substring(X11_EXTENDED_CODE_PREFIX.length)
         name to code
     }
 }

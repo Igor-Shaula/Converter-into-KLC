@@ -39,6 +39,7 @@ fun String.mapToKeysym(): String = when {
 fun String.filterCommands() = if (this.lowercase().startsWith(BEGINNING_OF_COMMAND_SYMBOL)) EMPTY_STRING else this
 
 fun String.filterMissingKeysyms() =
-    if (this == NOSYMBOL || this.startsWith(X11_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) EMPTY_STRING else this
+    if (this == NOSYMBOL || this.startsWith(X11_EXTENDED_CODE_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) EMPTY_STRING else this
 
-fun String.getKeyNameStartingWithA() = substring(X11_KEY_A_BEGINNING.length - 1, X11_KEY_A_BEGINNING.length + 3) // 4 in total
+fun String.getKeyNameStartingWithA() =
+    substring(X11_KEY_A_BEGINNING.length - 1, X11_KEY_A_BEGINNING.length + 3) // 4 in total
