@@ -2,14 +2,14 @@ package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
 
-// Remove all whitespace and then compare with the normalized pattern
-internal fun String.normalize() = replace(REGEX_WHITESPACES.toRegex(), EMPTY_STRING)
+private val whitespacesRegex = REGEX_WHITESPACES.toRegex()
+private val xkbSymbolsRegex = X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
 
-// If you also need to extract the section name:
-internal fun getXkbSymbolsSectionName(line: String): String? {
-    val pattern = X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
-    return pattern.find(line)?.groupValues?.get(1)
-}
+// removes all whitespace in the given line
+internal fun String.normalize() = replace(whitespacesRegex, EMPTY_STRING)
+
+// extracts the section name:
+internal fun getXkbSymbolsSectionName(line: String): String? = xkbSymbolsRegex.find(line)?.groupValues?.get(1)
 
 internal fun getCapitalizedValue(base: String) = if (base.length == 1 && base.first().isLetter()) 1 else 0
 
