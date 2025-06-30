@@ -39,6 +39,7 @@ const val X11_NAME_SPACE = "SPCE"
 const val X11_KEY_TILDE = "key<TLDE>"
 const val X11_KEY_SPACE = "key<SPCE>"
 const val X11_KEY_A_BEGINNING = "key<A"
+const val X11_KEY_LAT_BEGINNING = "key<Lat"
 const val X11_EXTENDED_CODE_PREFIX = "100"
 const val X11_EXTENDED_CODE_PREFIX_HEX = "0x100"
 const val X11_UNICODE_NUMBER_LENGTH = 5

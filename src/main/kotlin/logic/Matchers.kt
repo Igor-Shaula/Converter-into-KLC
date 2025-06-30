@@ -14,6 +14,9 @@ fun isKeySpace(normalizedLine: String) =
 fun isKeyStartingWithA(normalizedLine: String) =
     lineContainsTheKeyAndEndsCorrectly(normalizedLine, X11_KEY_A_BEGINNING)
 
+fun isKeyStartingWithLat(normalizedLine: String) =
+    lineContainsTheKeyAndEndsCorrectly(normalizedLine, X11_KEY_LAT_BEGINNING)
+
 private fun lineContainsTheKeyAndEndsCorrectly(normalizedLine: String, key: String) =
     normalizedLine.startsWith(key) && normalizedLine.contains(X11_CLOSING_BRACKETS + SEMICOLON)
 
