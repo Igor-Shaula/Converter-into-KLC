@@ -22,12 +22,16 @@ internal fun prepareX11SymbolsDictionary() {
 internal fun prepareX11Essence(x11LayoutSourceFilename: String) {
     try {
         File(x11LayoutSourceFilename).useLines { lines ->
-            lines.forEach { processEveryLine(it.normalize()) } // in result x11Essence is filled with actual data
+            lines.forEach { processEveryLine(it.clearAllBlanks()) }
         }
     } catch (e: Exception) {
         System.err.println("Error reading file '$x11LayoutSourceFilename': ${e.message}")
         exitProcess(2)
     }
+}
+
+internal fun prepareWindowsEssence() {
+    x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
 }
 
 internal fun composeKlcFile() {
@@ -47,14 +51,11 @@ internal fun composeKlcFile() {
     println("resultFile: $resultFile")
 }
 
-internal fun prepareWindowsEssence() {
-    x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
-}
-
-private fun processEveryLine(line: String) {
+// in result of this function launched for every necessary line, the x11Essence is filled with actual data
+private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XKB_LAYOUT) {
     // 0
-    if (getXkbSymbolsSectionName(line) == X11_DEFAULT_XKB_LAYOUT) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        println("getXkbSymbolsSectionName: $X11_DEFAULT_XKB_LAYOUT")
+    if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
+        println("getXkbSymbolsSectionName: $targetLayout")
         isInsideLanguageBlock = true
     } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isLayoutEndingBlock")
