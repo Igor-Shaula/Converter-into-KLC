@@ -20,6 +20,9 @@ fun isKeyStartingWithLat(normalizedLine: String) =
 private fun lineContainsTheKeyAndEndsCorrectly(normalizedLine: String, key: String) =
     normalizedLine.startsWith(key) && normalizedLine.contains(X11_CLOSING_BRACKETS + SEMICOLON)
 
+fun isKeyStartingWithAlias(normalizedLine: String) =
+    normalizedLine.startsWith(X11_ALIAS) && normalizedLine.contains(X11_KEYCODES_ENDING_BLOCK)
+
 fun isXkbSymbolsSection(line: String): Boolean {
     val pattern = X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
     return pattern.matches(line)
