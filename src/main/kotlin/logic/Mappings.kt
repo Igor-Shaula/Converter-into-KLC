@@ -19,7 +19,6 @@ internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
 internal fun parseAliasLine(line: String): Pair<String, String>? {
     val regex = X11_REGEX_FOR_ALIASES_FILE.toRegex()
     val matchResult = regex.find(line)
-    println("matchResult: $matchResult")
     return matchResult?.let {
         val (alias, keycode) = it.destructured
         alias to keycode

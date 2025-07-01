@@ -23,8 +23,8 @@ fun main(args: Array<String>) {
         args[0]
     }
     // 2 - filling x11Essence
-    prepareX11Essence(Pair(x11LayoutSourceFilename, X11_DEFAULT_XKB_LAYOUT))
-//    prepareX11Essence(Pair(x11LayoutSourceFilename, "rus"))
+//    prepareX11Essence(Pair(x11LayoutSourceFilename, X11_DEFAULT_XKB_LAYOUT))
+    prepareX11Essence(Pair(x11LayoutSourceFilename, "rus"))
     println("assembled x11Essence: $x11Essence")
 
     // 3 - filling windowsEssence

@@ -112,7 +112,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
 //            println("→ isKeySpace: $layers")
         }
         isKeyStartingWithLat(line) -> {
-
+            println("isKeyStartingWithLat: $line")
         }
     }
 }
