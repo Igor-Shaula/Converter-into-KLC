@@ -2,6 +2,7 @@ package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
 import java.io.File
+import kotlin.sequences.forEach
 import kotlin.system.exitProcess
 
 internal fun prepareX11SymbolsDictionary() {
@@ -19,6 +20,21 @@ internal fun prepareX11SymbolsDictionary() {
     }
 }
 
+internal fun prepareLatToKeyCodeDictionary() {
+    try {
+        File("/usr/share/X11/xkb/keycodes/aliases").useLines { lines ->
+            lines.forEach { line ->
+                // 1: find the necessary mapping, if not given this parameter - use "default" one
+                // 2: read all aliases from the target mapping - build the dictionary
+                processEveryAliasLine(line.clearAllBlanks())
+            }
+        }
+    } catch (e: Exception) {
+        System.err.println("Error reading file '${X11_LOCATION_OF_KEYSYMDEF_FILE}': ${e.message}")
+        exitProcess(2)
+    }
+}
+
 internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
     println("fileAndLayoutPair: $fileAndLayoutPair")
     val x11LayoutSourceFilename = if (fileAndLayoutPair.first.contains('/')) fileAndLayoutPair.first
@@ -29,7 +45,7 @@ internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
         }
     } catch (e: Exception) {
         System.err.println("Error reading file '$x11LayoutSourceFilename': ${e.message}")
-        exitProcess(2)
+        exitProcess(3)
     }
 }
 
@@ -61,7 +77,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         println("getXkbSymbolsSectionName: $targetLayout")
         isInsideLanguageBlock = true
     } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-        println("isLayoutEndingBlock")
+        println("isInsideLanguageBlock: isLayoutEndingBlock")
         isInsideLanguageBlock = false
     }
     if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
@@ -74,7 +90,9 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         // open the included file
         prepareX11Essence(fileAndLayoutPair)
         // find the necessary layout
+        prepareLatToKeyCodeDictionary()
         // fill the x11Essence from this layout
+        println("x11LatAliasesDictionary: $x11LatAliasesDictionary")
     }
     // 1
     when {
