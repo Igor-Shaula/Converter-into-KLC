@@ -31,9 +31,9 @@ const val REGEX_SYMBOL_HEX_CODE = "0x([0-9a-fA-F]{4})"
 const val X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN = """^\s*xkb_symbols\s*"([^"]+)"\s*\{\s*$"""
 const val X11_REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)""" // any number of symbols
 
+const val X11_INCLUDE = "include"
 const val X11_NAME_GROUP_1 = "name[Group1]"
 const val X11_ENGLISH_US = "English(US)"
-
 const val X11_NAME_TILDE = "TLDE"
 const val X11_NAME_SPACE = "SPCE"
 const val X11_KEY_TILDE = "key<TLDE>"
@@ -42,10 +42,10 @@ const val X11_KEY_A_BEGINNING = "key<A"
 const val X11_KEY_LAT_BEGINNING = "key<Lat"
 const val X11_EXTENDED_CODE_PREFIX = "100"
 const val X11_EXTENDED_CODE_PREFIX_HEX = "0x100"
+const val X11_NOSYMBOL = "NoSymbol"
 const val X11_UNICODE_NUMBER_LENGTH = 5
 
 const val UNICODE_NUMBER_LENGTH = 4
-const val X11_NOSYMBOL = "NoSymbol"
 
 const val KLC_DEFAULT_LAYOUT_NAME_8 = "basic_EN"
 const val KLC_DEFAULT_LAYOUT_DESCRIPTION = "from X11 - English (US)"

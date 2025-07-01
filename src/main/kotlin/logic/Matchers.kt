@@ -26,3 +26,5 @@ fun isXkbSymbolsSection(line: String): Boolean {
 }
 
 fun isLayoutEndingBlock(line: String) = line.startsWith(X11_LAYOUT_ENDING_BLOCK)
+
+fun isBeginningInclude(line: String): Boolean = line.clearAllBlanks().startsWith(X11_INCLUDE)

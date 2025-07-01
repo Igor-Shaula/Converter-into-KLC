@@ -64,6 +64,13 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
     if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
+    // recognize & include possible included layout - very useful for "rus" based on "us(basic)"
+    if (isBeginningInclude(line)) {
+        // detect the necessary filename
+        // open the included file
+        // find the necessary layout
+        // fill the x11Essence from this layout
+    }
     // 1
     when {
         isKeyStartingWithA(line) -> {
