@@ -33,6 +33,7 @@ const val REGEX_SYMBOL_HEX_CODE = "0x([0-9a-fA-F]{4})"
 const val X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN = """^\s*xkb_symbols\s*"([^"]+)"\s*\{\s*$"""
 const val X11_REGEX_XKB_KEYCODES_FINDING_PATTERN = """^\s*xkb_keycodes\s*"([^"]+)"\s*\{\s*$"""
 const val X11_REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)""" // any number of symbols
+const val X11_REGEX_FOR_ALIASES_FILE = """^alias\s*<(\w+)>\s*=\s*<(\w+)>;$"""
 
 const val X11_INCLUDE = "include"
 const val X11_NAME_GROUP_1 = "name[Group1]"

@@ -1,9 +1,6 @@
 package org.igor_shaula.logic
 
-import org.igor_shaula.globals.TAB
-import org.igor_shaula.globals.X11_EXTENDED_CODE_PREFIX
-import org.igor_shaula.globals.X11_REGEX_FOR_KEYSYMDEF_FILE
-import org.igor_shaula.globals.x11SymbolsDictionary
+import org.igor_shaula.globals.*
 
 internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
 
@@ -16,6 +13,16 @@ internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
         var (name, code) = it.destructured
         if (code.startsWith(X11_EXTENDED_CODE_PREFIX)) code = code.substring(X11_EXTENDED_CODE_PREFIX.length)
         name to code
+    }
+}
+
+internal fun parseAliasLine(line: String): Pair<String, String>? {
+    val regex = X11_REGEX_FOR_ALIASES_FILE.toRegex()
+    val matchResult = regex.find(line)
+    println("matchResult: $matchResult")
+    return matchResult?.let {
+        val (alias, keycode) = it.destructured
+        alias to keycode
     }
 }
 
