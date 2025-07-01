@@ -29,6 +29,7 @@ const val REGEX_SYMBOL_HEX_CODE = "0x([0-9a-fA-F]{4})"
 
 // a regex pattern that matches "xkb_symbols" followed by any word in quotes
 const val X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN = """^\s*xkb_symbols\s*"([^"]+)"\s*\{\s*$"""
+const val X11_REGEX_XKB_KEYCODES_FINDING_PATTERN = """^\s*xkb_keycodes\s*"([^"]+)"\s*\{\s*$"""
 const val X11_REGEX_FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)""" // any number of symbols
 
 const val X11_INCLUDE = "include"

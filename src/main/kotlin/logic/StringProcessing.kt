@@ -4,12 +4,15 @@ import org.igor_shaula.globals.*
 
 private val whitespacesRegex = REGEX_WHITESPACES.toRegex()
 private val xkbSymbolsRegex = X11_REGEX_XKB_SYMBOLS_FINDING_PATTERN.toRegex()
+private val xkbKeycodesRegex = X11_REGEX_XKB_KEYCODES_FINDING_PATTERN.toRegex()
 
 // removes all whitespace in the given line
 internal fun String.clearAllBlanks() = replace(whitespacesRegex, EMPTY_STRING)
 
 // extracts the section name:
 internal fun getXkbSymbolsSectionName(line: String): String? = xkbSymbolsRegex.find(line)?.groupValues?.get(1)
+
+internal fun getXkbKeycodesSectionName(line: String): String? = xkbKeycodesRegex.find(line)?.groupValues?.get(1)
 
 internal fun getCapitalizedValue(base: String) = if (base.length == 1 && base.first().isLetter()) 1 else 0
 
