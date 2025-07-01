@@ -67,6 +67,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
     // recognize & include possible included layout - very useful for "rus" based on "us(basic)"
     if (isBeginningInclude(line)) {
         // detect the necessary filename
+        val fileAndLayoutPair = parseLayoutInclude(line) // the correct X11 file & layout should be not empty
         // open the included file
         // find the necessary layout
         // fill the x11Essence from this layout

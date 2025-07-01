@@ -19,6 +19,14 @@ internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
     }
 }
 
+internal fun parseLayoutInclude(includeString: String): Pair<String, String> {
+    val regex = """(\w+)\((\w+)\)""".toRegex()
+    val matchResult = regex.find(includeString) // for example: include "us(basic)"
+    return matchResult?.let {
+        Pair(it.groupValues[1], it.groupValues[2]) // filename: "us", layout: "basic"
+    } ?: throw IllegalArgumentException("Invalid include format. Expected format: 'layout(variant)'")
+}
+
 internal fun getVkValueByScValue(base: String?) = when (base) {
     "0c" -> "OEM_MINUS"
     "0d" -> "OEM_PLUS"
