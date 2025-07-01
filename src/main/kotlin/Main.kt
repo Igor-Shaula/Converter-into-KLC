@@ -1,5 +1,6 @@
 package org.igor_shaula
 
+import org.igor_shaula.globals.X11_DEFAULT_XKB_LAYOUT
 import org.igor_shaula.globals.X11_LOCATION_OF_SYMBOLS_US_FILE
 import org.igor_shaula.globals.windowsEssence
 import org.igor_shaula.globals.x11Essence
@@ -22,7 +23,8 @@ fun main(args: Array<String>) {
         args[0]
     }
     // 2 - filling x11Essence
-    prepareX11Essence(x11LayoutSourceFilename)
+    prepareX11Essence(Pair(x11LayoutSourceFilename, X11_DEFAULT_XKB_LAYOUT))
+//    prepareX11Essence(Pair(x11LayoutSourceFilename, "rus"))
     println("assembled x11Essence: $x11Essence")
 
     // 3 - filling windowsEssence

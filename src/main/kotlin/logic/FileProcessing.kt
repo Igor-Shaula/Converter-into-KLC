@@ -19,10 +19,13 @@ internal fun prepareX11SymbolsDictionary() {
     }
 }
 
-internal fun prepareX11Essence(x11LayoutSourceFilename: String) {
+internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
+    println("fileAndLayoutPair: $fileAndLayoutPair")
+    val x11LayoutSourceFilename = if (fileAndLayoutPair.first.contains('/')) fileAndLayoutPair.first
+    else "/usr/share/X11/xkb/symbols/" + fileAndLayoutPair.first
     try {
         File(x11LayoutSourceFilename).useLines { lines ->
-            lines.forEach { processEveryLine(it.clearAllBlanks()) }
+            lines.forEach { processEveryLine(line = it.clearAllBlanks(), targetLayout = fileAndLayoutPair.second) }
         }
     } catch (e: Exception) {
         System.err.println("Error reading file '$x11LayoutSourceFilename': ${e.message}")
@@ -64,11 +67,12 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
     if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
-    // recognize & include possible included layout - very useful for "rus" based on "us(basic)"
+    // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
     if (isBeginningInclude(line)) {
         // detect the necessary filename
         val fileAndLayoutPair = parseLayoutInclude(line) // the correct X11 file & layout should be not empty
         // open the included file
+        prepareX11Essence(fileAndLayoutPair)
         // find the necessary layout
         // fill the x11Essence from this layout
     }
