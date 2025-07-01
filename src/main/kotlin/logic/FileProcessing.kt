@@ -98,3 +98,19 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         }
     }
 }
+
+private fun processEveryAliasLine(line: String, targetMapping: String = X11_DEFAULT_ALIAS_MAPPING) {
+    if (getXkbKeycodesSectionName(line) == targetMapping) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
+        println("getXkbSymbolsSectionName: $targetMapping")
+        isInsideKeycodesBlock = true
+    } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        println("isInsideKeycodesBlock: isLayoutEndingBlock")
+        isInsideKeycodesBlock = false
+    }
+    if (!isInsideKeycodesBlock) return
+    // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
+    if (isKeyStartingWithAlias(line)) {
+        val pair = parseAliasLine(line)
+        if (pair != null) x11LatAliasesDictionary.put(pair.first, pair.second)
+    }
+}

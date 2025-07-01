@@ -21,6 +21,7 @@ const val X11_LAYOUT_ENDING_BLOCK = "};"
 const val X11_KEYCODES_STARTING_BLOCK = "xkb_keycodes"
 const val X11_KEYCODES_ENDING_BLOCK = ">;"
 const val X11_DEFAULT_XKB_LAYOUT = "basic"
+const val X11_DEFAULT_ALIAS_MAPPING = "qwerty"
 const val X11_OPENING_BRACKETS = "{["
 const val X11_CLOSING_BRACKETS = "]}"
 
