@@ -20,13 +20,13 @@ internal fun prepareX11SymbolsDictionary() {
     }
 }
 
-internal fun prepareLatToKeyCodeDictionary() {
+internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
     try {
         File("/usr/share/X11/xkb/keycodes/aliases").useLines { lines ->
             lines.forEach { line ->
                 // 1: find the necessary mapping, if not given this parameter - use "default" one
                 // 2: read all aliases from the target mapping - build the dictionary
-                processEveryAliasLine(line.clearAllBlanks())
+                processEveryAliasLine(line = line.clearAllBlanks(), targetMapping = targetMapping)
             }
         }
     } catch (e: Exception) {
@@ -90,7 +90,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         // open the included file
         prepareX11Essence(fileAndLayoutPair)
         // find the necessary layout
-        prepareLatToKeyCodeDictionary()
+        prepareLatToKeyCodeDictionary(X11_DEFAULT_ALIAS_MAPPING)
         // fill the x11Essence from this layout
         println("x11LatAliasesDictionary: $x11LatAliasesDictionary")
     }
