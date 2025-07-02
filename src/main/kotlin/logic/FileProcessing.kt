@@ -2,8 +2,6 @@ package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
 import java.io.File
-import kotlin.sequences.forEach
-import kotlin.system.exitProcess
 
 internal fun prepareX11SymbolsDictionary() {
     try {
@@ -15,8 +13,7 @@ internal fun prepareX11SymbolsDictionary() {
             }
         }
     } catch (e: Exception) {
-        System.err.println("Error reading file '${X11_LOCATION_OF_KEYSYMDEF_FILE}': ${e.message}")
-        exitProcess(1)
+        Error.WithFile(X11_LOCATION_OF_KEYSYMDEF_FILE, e.message ?: EMPTY_STRING)
     }
 }
 
@@ -30,8 +27,7 @@ internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
             }
         }
     } catch (e: Exception) {
-        System.err.println("Error reading file '${X11_LOCATION_OF_KEYSYMDEF_FILE}': ${e.message}")
-        exitProcess(2)
+        Error.WithFile("/usr/share/X11/xkb/keycodes/aliases", e.message ?: EMPTY_STRING)
     }
 }
 
@@ -44,8 +40,7 @@ internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
             lines.forEach { processEveryLine(line = it.clearAllBlanks(), targetLayout = fileAndLayoutPair.second) }
         }
     } catch (e: Exception) {
-        System.err.println("Error reading file '$x11LayoutSourceFilename': ${e.message}")
-        exitProcess(3)
+        Error.WithFile(x11LayoutSourceFilename, e.message ?: EMPTY_STRING)
     }
 }
 

@@ -30,7 +30,7 @@ internal fun parseLayoutInclude(includeString: String): Pair<String, String> {
     val matchResult = regex.find(includeString) // for example: include "us(basic)"
     return matchResult?.let {
         Pair(it.groupValues[1], it.groupValues[2]) // filename: "us", layout: "basic"
-    } ?: throw IllegalArgumentException("Invalid include format. Expected format: 'layout(variant)'")
+    } ?: throw Error.WithParsing("Invalid include format. Expected format: 'layout(variant)'")
 }
 
 internal fun getVkValueByScValue(base: String?) = when (base) {
