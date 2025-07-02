@@ -70,22 +70,17 @@ internal fun composeKlcFile() {
     println("resultFile: $resultFile")
 }
 
-// in result of this function launched for every necessary line, the x11Essence is filled with actual data
+// parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
 private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XKB_LAYOUT) {
     // 0
     if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-//        isInsideLanguageBlock = true
         languageBlockCounter++
-        println("getXkbSymbolsSectionName: $targetLayout, languageBlockCounter = $languageBlockCounter")
-//    } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        println("isInsideLanguageBlock: targetLayout = $targetLayout, languageBlockCounter = $languageBlockCounter")
     } else if (languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isInsideLanguageBlock: isLayoutEndingBlock, languageBlockCounter = $languageBlockCounter")
-//        isInsideLanguageBlock = false
         languageBlockCounter--
     }
-//    println("line before !isInsideLanguageBlock: $line")
 
-//    if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
     if (languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
@@ -104,7 +99,6 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         // fill the x11Essence from this layout
         println("x11LatAliasesDictionary: $x11LatAliasesDictionary")
     }
-//    println("line after !isInsideLanguageBlock: $line")
     // 1
     when {
         isKeyStartingWithA(line) -> {
