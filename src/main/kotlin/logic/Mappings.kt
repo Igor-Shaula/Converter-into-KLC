@@ -47,5 +47,5 @@ internal fun getVkValueByScValue(base: String?) = when (base) {
     "14" -> "OEM_7$TAB" // apostrophe
     "39" -> "SPACE$TAB"
     "53" -> "DECIMAL"
-    else -> x11SymbolsDictionary[base]?.uppercase()
+    else -> Data.x11SymbolsDictionary[base]?.uppercase()
 }

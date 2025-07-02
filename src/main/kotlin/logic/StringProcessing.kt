@@ -22,7 +22,7 @@ internal fun String.mapToKeysym(): String = when {
     this.startsWith(BEGINNING_OF_UNICODE_NUMBER) && this.length == X11_UNICODE_NUMBER_LENGTH
         -> this.substring(1).lowercase() // because the length of the char U is "1"
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
-    else -> x11SymbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
+    else -> Data.x11SymbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
 }
 
 internal fun String.filterCommands() =

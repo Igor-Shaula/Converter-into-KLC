@@ -11,7 +11,7 @@ internal fun prepareX11SymbolsDictionary() {
         File(X11_LOCATION_OF_KEYSYMDEF_FILE).useLines { lines ->
             lines.forEach {
                 val pair = parseKeySymDefinition(it)
-                if (pair != null) x11SymbolsDictionary.put(pair.first, pair.second)
+                if (pair != null) Data.x11SymbolsDictionary.put(pair.first, pair.second)
             }
         }
     } catch (e: Exception) {
@@ -50,13 +50,13 @@ internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
 }
 
 internal fun prepareWindowsEssence() {
-    x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
+    Data.x11Essence.map { (key, value) -> Data.windowsEssence.put(xkbToWindowsScancode[key], value) }
 }
 
 internal fun composeKlcFile() {
     val resultFile = File(KLC_DEFAULT_RESULT_FILE_NAME)
     resultFile.writeText(KLC_FILE_PREFIX.replace(LF, CR_LF), charset = Charsets.UTF_16)
-    windowsEssence.forEach { (key, value) ->
+    Data.windowsEssence.forEach { (key, value) ->
         val scValue = key?.lowercase()
         val vkValue = getVkValueByScValue(key?.lowercase()) ?: (value.layer1.uppercase() + TAB)
         val capitalized = getCapitalizedValue(value.layer1)
@@ -74,14 +74,14 @@ internal fun composeKlcFile() {
 private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XKB_LAYOUT) {
     // 0
     if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        languageBlockCounter++
-        println("isInsideLanguageBlock: targetLayout = $targetLayout, languageBlockCounter = $languageBlockCounter")
-    } else if (languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-        println("isInsideLanguageBlock: isLayoutEndingBlock, languageBlockCounter = $languageBlockCounter")
-        languageBlockCounter--
+        Data.languageBlockCounter++
+        println("isInsideLanguageBlock: targetLayout = $targetLayout, languageBlockCounter = ${Data.languageBlockCounter}")
+    } else if (Data.languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        println("isInsideLanguageBlock: isLayoutEndingBlock, languageBlockCounter = ${Data.languageBlockCounter}")
+        Data.languageBlockCounter--
     }
 
-    if (languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
+    if (Data.languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
     if (isKeyStartingWithLat(line)) {
@@ -91,29 +91,29 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
     // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
     if (isBeginningInclude(line)) {
         // detect the necessary filename
-        val fileAndLayoutPair = parseLayoutInclude(line) // the correct X11 file & layout should be not empty
+        val fileAndLayoutPair = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
         // open the included file
         prepareX11Essence(fileAndLayoutPair)
         // find the necessary layout
         prepareLatToKeyCodeDictionary(X11_DEFAULT_ALIAS_MAPPING)
         // fill the x11Essence from this layout
-        println("x11LatAliasesDictionary: $x11LatAliasesDictionary")
+        println("x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
     }
     // 1
     when {
         isKeyStartingWithA(line) -> {
             val layers = createValuesForLayers(line)
-            x11Essence.put(line.getKeyNameStartingWithA(), layers)
+            Data.x11Essence.put(line.getKeyNameStartingWithA(), layers)
 //            println("→ isKeyStartingWithA: $layers")
         }
         isKeyTilde(line) -> {
             val layers = createValuesForLayers(line)
-            x11Essence.put(X11_NAME_TILDE, layers)
+            Data.x11Essence.put(X11_NAME_TILDE, layers)
 //            println("→ isKeyTilde: $layers")
         }
         isKeySpace(line) -> {
             val layers = createValuesForLayers(line)
-            x11Essence.put(X11_NAME_SPACE, layers)
+            Data.x11Essence.put(X11_NAME_SPACE, layers)
 //            println("→ isKeySpace: $layers")
         }
         isKeyStartingWithLat(line) -> {
@@ -125,15 +125,15 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
 private fun processEveryAliasLine(line: String, targetMapping: String = X11_DEFAULT_ALIAS_MAPPING) {
     if (getXkbKeycodesSectionName(line) == targetMapping) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         println("getXkbSymbolsSectionName: $targetMapping")
-        isInsideKeycodesBlock = true
-    } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        Data.isInsideKeycodesBlock = true
+    } else if (Data.isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isInsideKeycodesBlock: isLayoutEndingBlock")
-        isInsideKeycodesBlock = false
+        Data.isInsideKeycodesBlock = false
     }
-    if (!isInsideKeycodesBlock) return
+    if (!Data.isInsideKeycodesBlock) return
     // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
     if (isKeyStartingWithAlias(line)) {
         val pair = parseAliasLine(line)
-        if (pair != null) x11LatAliasesDictionary.put(pair.first, pair.second)
+        if (pair != null) Data.x11LatAliasesDictionary.put(pair.first, pair.second)
     }
 }
