@@ -3,6 +3,8 @@ package org.igor_shaula.globals
 import org.igor_shaula.logic.ValuesForLayers
 
 internal var isInsideLanguageBlock = false
+internal var languageBlockCounter = 0
+
 internal var isInsideKeycodesBlock = false
 
 internal val x11SymbolsDictionary = mutableMapOf<String, String>()

@@ -74,15 +74,25 @@ internal fun composeKlcFile() {
 private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XKB_LAYOUT) {
     // 0
     if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        println("getXkbSymbolsSectionName: $targetLayout")
-        isInsideLanguageBlock = true
-    } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-        println("isInsideLanguageBlock: isLayoutEndingBlock")
-        isInsideLanguageBlock = false
+//        isInsideLanguageBlock = true
+        languageBlockCounter++
+        println("getXkbSymbolsSectionName: $targetLayout, languageBlockCounter = $languageBlockCounter")
+//    } else if (isInsideLanguageBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+    } else if (languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        println("isInsideLanguageBlock: isLayoutEndingBlock, languageBlockCounter = $languageBlockCounter")
+//        isInsideLanguageBlock = false
+        languageBlockCounter--
     }
-    if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
+//    println("line before !isInsideLanguageBlock: $line")
+
+//    if (!isInsideLanguageBlock) { // saving a lot of time and resources on processing the apriori invalid line
+    if (languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
     }
+    if (isKeyStartingWithLat(line)) {
+        println("isKeyStartingWithLat: $line")
+    }
+
     // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
     if (isBeginningInclude(line)) {
         // detect the necessary filename
@@ -94,6 +104,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         // fill the x11Essence from this layout
         println("x11LatAliasesDictionary: $x11LatAliasesDictionary")
     }
+//    println("line after !isInsideLanguageBlock: $line")
     // 1
     when {
         isKeyStartingWithA(line) -> {
