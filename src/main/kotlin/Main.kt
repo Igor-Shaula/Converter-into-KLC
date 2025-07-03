@@ -1,7 +1,7 @@
 package org.igor_shaula
 
 import org.igor_shaula.globals.Data
-import org.igor_shaula.globals.X11_LOCATION_OF_SYMBOLS_US_FILE
+import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.composeKlcFile
 import org.igor_shaula.logic.prepareWindowsEssence
 import org.igor_shaula.logic.prepareX11Essence
@@ -15,12 +15,12 @@ fun main(args: Array<String>) {
 
     // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
     val x11LayoutSourceFilename = if (args.isEmpty()) {
-        X11_LOCATION_OF_SYMBOLS_US_FILE
+        X11.LOCATION_OF_SYMBOLS_US_FILE
     } else {
         args[0]
     }
     // 2 - filling x11Essence
-//    prepareX11Essence(Pair(x11LayoutSourceFilename, X11_DEFAULT_XKB_LAYOUT))
+//    prepareX11Essence(Pair(x11LayoutSourceFilename, X11.DEFAULT_XKB_LAYOUT))
     prepareX11Essence(Pair(x11LayoutSourceFilename, "rus"))
     println("assembled x11Essence: ${Data.x11Essence}")
 

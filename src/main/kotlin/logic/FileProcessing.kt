@@ -6,14 +6,14 @@ import java.io.File
 internal fun prepareX11SymbolsDictionary() {
     try {
         //  this file is inevitably needed for the upcoming symbols conversion
-        File(X11_LOCATION_OF_KEYSYMDEF_FILE).useLines { lines ->
+        File(X11.LOCATION_OF_KEYSYMDEF_FILE).useLines { lines ->
             lines.forEach {
                 val pair = parseKeySymDefinition(it)
                 if (pair != null) Data.x11SymbolsDictionary.put(pair.first, pair.second)
             }
         }
     } catch (e: Exception) {
-        Error.WithFile(X11_LOCATION_OF_KEYSYMDEF_FILE, e.message ?: EMPTY_STRING)
+        Error.WithFile(X11.LOCATION_OF_KEYSYMDEF_FILE, e.message ?: Str.EMPTY)
     }
 }
 
@@ -27,7 +27,7 @@ internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
             }
         }
     } catch (e: Exception) {
-        Error.WithFile("/usr/share/X11/xkb/keycodes/aliases", e.message ?: EMPTY_STRING)
+        Error.WithFile("/usr/share/X11/xkb/keycodes/aliases", e.message ?: Str.EMPTY)
     }
 }
 
@@ -40,7 +40,7 @@ internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
             lines.forEach { processEveryLine(line = it.clearAllBlanks(), targetLayout = fileAndLayoutPair.second) }
         }
     } catch (e: Exception) {
-        Error.WithFile(x11LayoutSourceFilename, e.message ?: EMPTY_STRING)
+        Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
     }
 }
 
@@ -49,24 +49,24 @@ internal fun prepareWindowsEssence() {
 }
 
 internal fun composeKlcFile() {
-    val resultFile = File(KLC_DEFAULT_RESULT_FILE_NAME)
-    resultFile.writeText(KLC_FILE_PREFIX.replace(LF, CR_LF), charset = Charsets.UTF_16)
+    val resultFile = File(Klc.DEFAULT_RESULT_FILE_NAME)
+    resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
     Data.windowsEssence.forEach { (key, value) ->
         val scValue = key?.lowercase()
-        val vkValue = getVkValueByScValue(key?.lowercase()) ?: (value.layer1.uppercase() + TAB)
+        val vkValue = getVkValueByScValue(key?.lowercase()) ?: (value.layer1.uppercase() + Str.TAB)
         val capitalized = getCapitalizedValue(value.layer1)
         val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
         resultFile.appendText(
-            "$scValue${TAB}$vkValue${TAB}$capitalized${TAB}$layer1${TAB}$layer2${TAB}${KLC_ABSENT_SYMBOL_VALUE}${TAB}$layer3${TAB}$layer4${CR_LF}",
+            "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Klc.ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
             charset = Charsets.UTF_16
         )
     }
-    resultFile.appendText(KLC_FILE_SUFFIX.replace(LF, CR_LF), charset = Charsets.UTF_16)
+    resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
     println("resultFile: $resultFile")
 }
 
 // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
-private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XKB_LAYOUT) {
+private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XKB_LAYOUT) {
     // 0
     if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         Data.languageBlockCounter++
@@ -90,7 +90,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         // open the included file
         prepareX11Essence(fileAndLayoutPair)
         // find the necessary layout
-        prepareLatToKeyCodeDictionary(X11_DEFAULT_ALIAS_MAPPING)
+        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
         // fill the x11Essence from this layout
         println("x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
     }
@@ -103,12 +103,12 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
         }
         isKeyTilde(line) -> {
             val layers = createValuesForLayers(line)
-            Data.x11Essence.put(X11_NAME_TILDE, layers)
+            Data.x11Essence.put(X11.NAME_TILDE, layers)
 //            println("→ isKeyTilde: $layers")
         }
         isKeySpace(line) -> {
             val layers = createValuesForLayers(line)
-            Data.x11Essence.put(X11_NAME_SPACE, layers)
+            Data.x11Essence.put(X11.NAME_SPACE, layers)
 //            println("→ isKeySpace: $layers")
         }
         isKeyStartingWithLat(line) -> {
@@ -117,7 +117,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11_DEFAULT_XK
     }
 }
 
-private fun processEveryAliasLine(line: String, targetMapping: String = X11_DEFAULT_ALIAS_MAPPING) {
+private fun processEveryAliasLine(line: String, targetMapping: String = X11.DEFAULT_ALIAS_MAPPING) {
     if (getXkbKeycodesSectionName(line) == targetMapping) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         println("getXkbSymbolsSectionName: $targetMapping")
         Data.isInsideKeycodesBlock = true
