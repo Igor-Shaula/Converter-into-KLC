@@ -18,8 +18,11 @@ object Str {
 }
 
 object X11 {
-    const val LOCATION_OF_SYMBOLS_US_FILE = "/usr/share/X11/xkb/symbols/us"
-    const val LOCATION_OF_KEYSYMDEF_FILE = "/usr/include/X11/keysymdef.h"
+    const val BASE_XKB_LOCATION = "/usr/share/X11/xkb"
+    const val XKB_SYMBOLS_LOCATION = "$BASE_XKB_LOCATION/symbols/"
+    const val US_FILE_LOCATION = "$XKB_SYMBOLS_LOCATION/us"
+    const val KEYSYMDEF_FILE_LOCATION = "/usr/include/X11/keysymdef.h"
+    const val ALIASES_FILE_LOCATION = "$BASE_XKB_LOCATION/keycodes/aliases"
     const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
     const val LAYOUT_ENDING_BLOCK = "};"
     const val KEYCODES_STARTING_BLOCK = "xkb_keycodes"
@@ -51,13 +54,11 @@ const val UNICODE_NUMBER_LENGTH = 4
 object Regex {
     const val WHITESPACES = "\\s+"
     const val SYMBOL_NAME_WORD = "(\\w+)"
-    const val SYMBOL_HEX_CODE = "0x([0-9a-fA-F]{4})"
-
-    // a regex pattern that matches "xkb_symbols" followed by any word in quotes
-    const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*xkb_symbols\s*"([^"]+)"\s*\{\s*$"""
-    const val XKB_KEYCODES_FINDING_PATTERN = """^\s*xkb_keycodes\s*"([^"]+)"\s*\{\s*$"""
-    const val FOR_KEYSYMDEF_FILE = """#define\s+XK_(\w+)\s+0x([0-9a-fA-F]+)""" // any number of symbols
-    const val FOR_ALIASES_FILE = """^alias\s*<(\w+)>\s*=\s*<(\w+)>;$"""
+    const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*${X11.LAYOUT_STARTING_BLOCK}\s*"([^"]+)"\s*\{\s*$"""
+    const val XKB_KEYCODES_FINDING_PATTERN = """^\s*${X11.KEYCODES_STARTING_BLOCK}\s*"([^"]+)"\s*\{\s*$"""
+    const val FOR_KEYSYMDEF_FILE = """${X11.SYMBOL_RECORD}\s+${X11.SYMBOL_PREFIX}(\w+)\s+0x([0-9a-fA-F]+)"""
+    const val FOR_ALIASES_FILE = """^${X11.ALIAS}\s*<(\w+)>\s*=\s*<(\w+)>;$"""
+    const val FOR_LAYOUT_INCLUDE = """(\w+)\((\w+)\)"""
 }
 
 object Klc {

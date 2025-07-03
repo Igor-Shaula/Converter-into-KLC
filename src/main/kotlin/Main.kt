@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
     // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
     val x11LayoutSourceFilename = if (args.isEmpty()) {
-        X11.LOCATION_OF_SYMBOLS_US_FILE
+        X11.US_FILE_LOCATION
     } else {
         args[0]
     }

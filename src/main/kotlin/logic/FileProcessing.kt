@@ -6,20 +6,20 @@ import java.io.File
 internal fun prepareX11SymbolsDictionary() {
     try {
         //  this file is inevitably needed for the upcoming symbols conversion
-        File(X11.LOCATION_OF_KEYSYMDEF_FILE).useLines { lines ->
+        File(X11.KEYSYMDEF_FILE_LOCATION).useLines { lines ->
             lines.forEach {
                 val pair = parseKeySymDefinition(it)
                 if (pair != null) Data.x11SymbolsDictionary.put(pair.first, pair.second)
             }
         }
     } catch (e: Exception) {
-        Error.WithFile(X11.LOCATION_OF_KEYSYMDEF_FILE, e.message ?: Str.EMPTY)
+        Error.WithFile(X11.KEYSYMDEF_FILE_LOCATION, e.message ?: Str.EMPTY)
     }
 }
 
 internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
     try {
-        File("/usr/share/X11/xkb/keycodes/aliases").useLines { lines ->
+        File(X11.ALIASES_FILE_LOCATION).useLines { lines ->
             lines.forEach { line ->
                 // 1: find the necessary mapping, if not given this parameter - use "default" one
                 // 2: read all aliases from the target mapping - build the dictionary
@@ -27,14 +27,14 @@ internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
             }
         }
     } catch (e: Exception) {
-        Error.WithFile("/usr/share/X11/xkb/keycodes/aliases", e.message ?: Str.EMPTY)
+        Error.WithFile(X11.ALIASES_FILE_LOCATION, e.message ?: Str.EMPTY)
     }
 }
 
 internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
     println("fileAndLayoutPair: $fileAndLayoutPair")
     val x11LayoutSourceFilename = if (fileAndLayoutPair.first.contains('/')) fileAndLayoutPair.first
-    else "/usr/share/X11/xkb/symbols/" + fileAndLayoutPair.first
+    else X11.XKB_SYMBOLS_LOCATION + fileAndLayoutPair.first
     try {
         File(x11LayoutSourceFilename).useLines { lines ->
             lines.forEach { processEveryLine(line = it.clearAllBlanks(), targetLayout = fileAndLayoutPair.second) }

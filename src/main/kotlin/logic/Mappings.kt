@@ -26,7 +26,7 @@ internal fun parseAliasLine(line: String): Pair<String, String>? {
 }
 
 internal fun parseLayoutInclude(includeString: String): Pair<String, String> {
-    val regex = """(\w+)\((\w+)\)""".toRegex()
+    val regex = Regex.FOR_LAYOUT_INCLUDE.toRegex()
     val matchResult = regex.find(includeString) // for example: include "us(basic)"
     return matchResult?.let {
         Pair(it.groupValues[1], it.groupValues[2]) // filename: "us", layout: "basic"
