@@ -18,6 +18,7 @@ internal fun prepareX11SymbolsDictionary() {
 }
 
 internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
+    if (Data.x11LatAliasesDictionary.isNotEmpty()) return
     try {
         File(X11.ALIASES_FILE_LOCATION).useLines { lines ->
             lines.forEach { line ->
@@ -29,6 +30,7 @@ internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
     } catch (e: Exception) {
         Error.WithFile(X11.ALIASES_FILE_LOCATION, e.message ?: Str.EMPTY)
     }
+    println("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
 }
 
 internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
@@ -92,7 +94,6 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
         // find the necessary layout
         prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
         // fill the x11Essence from this layout
-        println("x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
     }
     // 1
     when {
