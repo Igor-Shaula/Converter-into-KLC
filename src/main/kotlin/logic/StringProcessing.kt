@@ -34,3 +34,6 @@ internal fun String.filterMissingKeysyms() =
 
 internal fun String.getKeyNameStartingWithA() =
     substring(X11.KEY_A_BEGINNING.length - 1, X11.KEY_A_BEGINNING.length + 3) // 4 in total
+
+internal fun String.getKeyNameStartingWithLat() =
+    substring(X11.KEY_LAT_BEGINNING.length - 3, X11.KEY_LAT_BEGINNING.length + 1) // 4 in total

@@ -77,12 +77,19 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
         println("isInsideLanguageBlock: isLayoutEndingBlock, languageBlockCounter = ${Data.languageBlockCounter}")
         Data.languageBlockCounter--
     }
+    // parse all existing "Lat" mappings
+    if (isKeyStartingWithLat(line)) {
+        println("isKeyStartingWithLat: $line")
+        val layers = createValuesForLayers(line)
+        val latName = line.getKeyNameStartingWithLat()
+        Data.x11LatAliasesDictionary[latName]?.let {
+            println("isKeyStartingWithLat it: $it")
+            Data.x11Essence.put(it, layers)
+        }
+    }
 
     if (Data.languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
         return // because any further recognition action outside a detected layout block has no sense
-    }
-    if (isKeyStartingWithLat(line)) {
-        println("isKeyStartingWithLat: $line")
     }
 
     // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
