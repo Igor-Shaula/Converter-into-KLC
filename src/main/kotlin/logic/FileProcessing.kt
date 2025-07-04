@@ -92,7 +92,7 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
         // open the included file
         prepareX11Essence(fileAndLayoutPair)
         // find the necessary layout
-        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
+//        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
         // fill the x11Essence from this layout
     }
     // 1

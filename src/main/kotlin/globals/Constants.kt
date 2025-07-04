@@ -23,6 +23,7 @@ object X11 {
     const val US_FILE_LOCATION = "$XKB_SYMBOLS_LOCATION/us"
     const val KEYSYMDEF_FILE_LOCATION = "/usr/include/X11/keysymdef.h"
     const val ALIASES_FILE_LOCATION = "$BASE_XKB_LOCATION/keycodes/aliases"
+    const val RUS_LAYOUT_NAME = "rus"
     const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
     const val LAYOUT_ENDING_BLOCK = "};"
     const val KEYCODES_STARTING_BLOCK = "xkb_keycodes"
