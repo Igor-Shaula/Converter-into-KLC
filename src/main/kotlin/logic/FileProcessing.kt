@@ -17,7 +17,7 @@ internal fun prepareX11SymbolsDictionary() {
     }
 }
 
-internal fun prepareLatToKeyCodeDictionary(targetMapping: String) {
+internal fun prepareLatToKeyCodeDictionary(targetMapping: String? = null) {
     if (Data.x11LatAliasesDictionary.isNotEmpty()) return
     try {
         File(X11.ALIASES_FILE_LOCATION).useLines { lines ->
@@ -118,9 +118,9 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
     }
 }
 
-private fun processEveryAliasLine(line: String, targetMapping: String = X11.DEFAULT_ALIAS_MAPPING) {
+private fun processEveryAliasLine(line: String, targetMapping: String? = X11.DEFAULT_ALIAS_MAPPING) {
     if (getXkbKeycodesSectionName(line) == targetMapping) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        println("getXkbSymbolsSectionName: $targetMapping")
+//        println("getXkbSymbolsSectionName: $targetMapping")
         Data.isInsideKeycodesBlock = true
     } else if (Data.isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         println("isInsideKeycodesBlock: isLayoutEndingBlock")
