@@ -54,12 +54,12 @@ const val UNICODE_NUMBER_LENGTH = 4
 
 object Regex {
     const val WHITESPACES = "\\s+"
-    const val SYMBOL_NAME_WORD = "(\\w+)"
+    const val ONE_WORD = "(\\w+)"
     const val XKB_SYMBOLS_FINDING_PATTERN = """^\s*${X11.LAYOUT_STARTING_BLOCK}\s*"([^"]+)"\s*\{\s*$"""
     const val XKB_KEYCODES_FINDING_PATTERN = """^\s*${X11.KEYCODES_STARTING_BLOCK}\s*"([^"]+)"\s*\{\s*$"""
     const val FOR_KEYSYMDEF_FILE = """${X11.SYMBOL_RECORD}\s+${X11.SYMBOL_PREFIX}(\w+)\s+0x([0-9a-fA-F]+)"""
     const val FOR_ALIASES_FILE = """^${X11.ALIAS}\s*<(\w+)>\s*=\s*<(\w+)>;$"""
-    const val FOR_LAYOUT_INCLUDE = """(\w+)\((\w+)\)"""
+    const val FOR_LAYOUT_INCLUDE = """$ONE_WORD\($ONE_WORD\)"""
 }
 
 object Klc {
