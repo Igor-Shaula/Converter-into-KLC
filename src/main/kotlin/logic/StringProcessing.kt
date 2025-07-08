@@ -19,8 +19,7 @@ internal fun getCapitalizedValue(base: String) = if (base.length == 1 && base.fi
 internal fun String.mapToKeysym(): String = when {
     this.isBlank() -> Str.EMPTY // should not ever happen
     this.length == 1 -> this // must be located before the next case with starting-with-U
-    this.startsWith(Sym.BEGINNING_OF_UNICODE_NUMBER) && this.length == X11.UNICODE_NUMBER_LENGTH
-        -> this.substring(1).lowercase() // because the length of the char U is "1"
+    this.isUnicodeNumber() -> this.substring(1).lowercase() // because the length of the char U is "1"
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
     else -> Data.x11SymbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
 }
