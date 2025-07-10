@@ -133,6 +133,23 @@ internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
             0x07ab -> 0x040E  // XK_Byelorussian_SHORTU -> Ў
             0x07ac -> 0x045E  // XK_Byelorussian_shortu -> ў
 
+            0x07ae -> 0x0402  // XK_Serbian_DJE -> Ђ
+            0x07af -> 0x0403  // XK_Macedonia_GJE -> Ѓ
+            0x07b0 -> 0x0484  // XK_combining_cyrillic_palatalization -> ҄
+            0x07b1 -> 0x0485  // XK_combining_cyrillic_psili -> ҅
+            0x07b2 -> 0x0486  // XK_combining_cyrillic_dasia -> ҆
+            0x07b3 -> 0x0487  // XK_combining_cyrillic_pneumata -> ҇
+            0x07b4 -> 0x0490  // XK_Ukrainian_GHE_WITH_UPTURN -> Ґ
+            0x07b5 -> 0x0491  // XK_Ukrainian_ghe_with_upturn -> ґ
+            0x07b6 -> 0x0492  // XK_Cyrillic_GHE_bar -> Ғ
+            0x07b7 -> 0x0493  // XK_Cyrillic_ghe_bar -> ғ
+            0x07b8 -> 0x0496  // XK_Cyrillic_ZHE_descender -> Җ
+            0x07b9 -> 0x0497  // XK_Cyrillic_zhe_descender -> җ
+            0x07ba -> 0x049A  // XK_Cyrillic_KA_descender -> Қ
+            0x07bb -> 0x049B  // XK_Cyrillic_ka_descender -> қ
+            0x07bc -> 0x049C  // XK_Cyrillic_KA_vertstroke -> Ҝ
+            0x07bd -> 0x049D  // XK_Cyrillic_ka_vertstroke -> ҝ
+
             else -> keySymValue // fallback for non-Cyrillic or direct Unicode values
         }
         return unicodeValue.toChar()
