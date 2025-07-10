@@ -132,7 +132,7 @@ internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
             0x07aa -> 0x0457  // XK_Ukrainian_yi -> ї
             0x07ab -> 0x040E  // XK_Byelorussian_SHORTU -> Ў
             0x07ac -> 0x045E  // XK_Byelorussian_shortu -> ў
-
+            0x07ad -> 0x04D8  // XK_Cyrillic_SCHWA -> Ә (capital)
             0x07ae -> 0x0402  // XK_Serbian_DJE -> Ђ
             0x07af -> 0x0403  // XK_Macedonia_GJE -> Ѓ
             0x07b0 -> 0x0484  // XK_combining_cyrillic_palatalization -> ҄
@@ -149,6 +149,59 @@ internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
             0x07bb -> 0x049B  // XK_Cyrillic_ka_descender -> қ
             0x07bc -> 0x049C  // XK_Cyrillic_KA_vertstroke -> Ҝ
             0x07bd -> 0x049D  // XK_Cyrillic_ka_vertstroke -> ҝ
+            0x07be -> 0x04A2  // XK_Cyrillic_EN_descender -> Ң
+            0x07bf -> 0x04A3  // XK_Cyrillic_en_descender -> ң
+            0x07c0 -> 0x04AE  // XK_Cyrillic_STRAIGHT_U -> Ү
+            0x07c1 -> 0x04AF  // XK_Cyrillic_straight_u -> ү
+            0x07c2 -> 0x04B0  // XK_Cyrillic_STRAIGHT_U_bar -> Ұ
+            0x07c3 -> 0x04B1  // XK_Cyrillic_straight_u_bar -> ұ
+            0x07c4 -> 0x04B2  // XK_Cyrillic_HA_descender -> Ҳ
+            0x07c5 -> 0x04B3  // XK_Cyrillic_ha_descender -> ҳ
+            0x07c6 -> 0x04B6  // XK_Cyrillic_CHE_descender -> Ҷ
+            0x07c7 -> 0x04B7  // XK_Cyrillic_che_descender -> ҷ
+            0x07c8 -> 0x04B8  // XK_Cyrillic_CHE_vertstroke -> Ҹ
+            0x07c9 -> 0x04B9  // XK_Cyrillic_che_vertstroke -> ҹ
+            0x07ca -> 0x04BA  // XK_Cyrillic_SHHA -> Һ
+            0x07cb -> 0x04BB  // XK_Cyrillic_shha -> һ
+            0x07cc -> 0x04D9  // XK_Cyrillic_schwa -> ә (small)
+            0x07cd -> 0x04C1  // XK_Cyrillic_ZHE_breve -> Ӂ
+            0x07ce -> 0x04C2  // XK_Cyrillic_zhe_breve -> ӂ
+            0x07cf -> 0x04D0  // XK_Cyrillic_A_breve -> Ӑ
+            0x07d0 -> 0x04D1  // XK_Cyrillic_a_breve -> ӑ
+            0x07d1 -> 0x04D2  // XK_Cyrillic_A_diaeresis -> Ӓ
+            0x07d2 -> 0x04D3  // XK_Cyrillic_a_diaeresis -> ӓ
+            0x07d3 -> 0x04D4  // XK_Cyrillic_AE -> Ӕ
+            0x07d4 -> 0x04D5  // XK_Cyrillic_ae -> ӕ
+            0x07d5 -> 0x04D6  // XK_Cyrillic_IE_breve -> Ӗ
+            0x07d6 -> 0x04D7  // XK_Cyrillic_ie_breve -> ӗ
+            0x07d7 -> 0x04DA  // XK_Cyrillic_SCHWA_diaeresis -> Ӛ (Ӛ)
+            0x07d8 -> 0x04DB  // XK_Cyrillic_schwa_diaeresis -> ӛ (ӛ)
+            0x07d9 -> 0x04DC  // XK_Cyrillic_ZHE_diaeresis -> Ӝ
+            0x07da -> 0x04DD  // XK_Cyrillic_zhe_diaeresis -> ӝ
+            0x07db -> 0x04DE  // XK_Cyrillic_ZE_diaeresis -> Ӟ
+            0x07dc -> 0x04DF  // XK_Cyrillic_ze_diaeresis -> ӟ
+            0x07dd -> 0x04E2  // XK_Cyrillic_I_macron -> Ӣ
+            0x07de -> 0x04E3  // XK_Cyrillic_i_macron -> ӣ
+            0x07df -> 0x04E4  // XK_Cyrillic_I_diaeresis -> Ӥ
+            0x07e0 -> 0x04E5  // XK_Cyrillic_i_diaeresis -> ӥ
+            0x07e1 -> 0x04E6  // XK_Cyrillic_O_diaeresis -> Ӧ
+            0x07e2 -> 0x04E7  // XK_Cyrillic_o_diaeresis -> ӧ
+            0x07e3 -> 0x04E8  // XK_Cyrillic_barred_O -> Ө
+            0x07e4 -> 0x04E9  // XK_Cyrillic_barred_o -> ө
+            0x07e5 -> 0x04EA  // XK_Cyrillic_barred_O_diaeresis -> Ӫ
+            0x07e6 -> 0x04EB  // XK_Cyrillic_barred_o_diaeresis -> ӫ
+            0x07e7 -> 0x04EC  // XK_Cyrillic_E_diaeresis -> Ӭ
+            0x07e8 -> 0x04ED  // XK_Cyrillic_e_diaeresis -> ӭ
+            0x07e9 -> 0x04EE  // XK_Cyrillic_U_macron -> Ӯ
+            0x07ea -> 0x04EF  // XK_Cyrillic_u_macron -> ӯ
+            0x07eb -> 0x04F0  // XK_Cyrillic_U_diaeresis -> Ӱ
+            0x07ec -> 0x04F1  // XK_Cyrillic_u_diaeresis -> ӱ
+            0x07ed -> 0x04F2  // XK_Cyrillic_U_double_acute -> Ӳ
+            0x07ee -> 0x04F3  // XK_Cyrillic_u_double_acute -> ӳ
+            0x07ef -> 0x04F4  // XK_Cyrillic_CHE_diaeresis -> Ӵ
+            0x07f0 -> 0x04F5  // XK_Cyrillic_che_diaeresis -> ӵ
+            0x07f1 -> 0x04F8  // XK_Cyrillic_YA_diaeresis -> Ӹ
+            0x07f2 -> 0x04F9  // XK_Cyrillic_ya_diaeresis -> ӹ
 
             else -> keySymValue // fallback for non-Cyrillic or direct Unicode values
         }
