@@ -42,7 +42,7 @@ internal fun getVkValueByScValue(base: String?) = when (base) {
     "23" -> "OEM_2${Str.TAB}" // solidus / slash
     "29" -> "OEM_3${Str.TAB}" // tilde
     "15" -> "OEM_4${Str.TAB}" // left square bracket
-    "??" -> "OEM_5${Str.TAB}"
+//    "??" -> "OEM_5${Str.TAB}"
     "16" -> "OEM_6${Str.TAB}" // right square bracket
     "14" -> "OEM_7${Str.TAB}" // apostrophe
     "39" -> "SPACE${Str.TAB}"
