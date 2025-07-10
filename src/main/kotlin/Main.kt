@@ -4,6 +4,7 @@ import org.igor_shaula.globals.Data
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.composeKlcFile
 import org.igor_shaula.logic.prepareLatToKeyCodeDictionary
+import org.igor_shaula.logic.prepareSymbolsDictionary
 import org.igor_shaula.logic.prepareWindowsEssence
 import org.igor_shaula.logic.prepareX11Essence
 import org.igor_shaula.logic.prepareX11SymbolsDictionary
@@ -13,6 +14,9 @@ fun main(args: Array<String>) {
     // 1 - filling x11SymbolsDictionary
     prepareX11SymbolsDictionary()
     println("standard Linux symbols dictionary: ${Data.x11SymbolsDictionary}")
+
+    prepareSymbolsDictionary()
+    println("standard symbols dictionary: ${Data.symbolsDictionary}")
 
     // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
     val x11LayoutSourceFilename = if (args.isEmpty()) {

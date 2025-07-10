@@ -17,6 +17,12 @@ internal fun prepareX11SymbolsDictionary() {
     }
 }
 
+internal fun prepareSymbolsDictionary() {
+    Data.x11SymbolsDictionary.forEach {
+        Data.symbolsDictionary.put(it.key, getUnicodeSymbolFromKeysym(it.value))
+    }
+}
+
 internal fun prepareLatToKeyCodeDictionary(targetMapping: String? = null) {
     if (Data.x11LatAliasesDictionary.isNotEmpty()) return
     try {

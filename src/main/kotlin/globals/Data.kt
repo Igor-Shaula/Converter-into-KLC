@@ -7,6 +7,7 @@ object Data {
     internal var isInsideKeycodesBlock = false
 
     internal val x11SymbolsDictionary = mutableMapOf<String, String>()
+    internal val symbolsDictionary = mutableMapOf<String, Char?>()
     internal val x11LatAliasesDictionary = mutableMapOf<String, String>()
 
     internal val x11Essence = mutableMapOf<String, ValuesForLayers>()
