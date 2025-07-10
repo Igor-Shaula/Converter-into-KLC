@@ -51,6 +51,7 @@ object X11 {
 }
 
 const val UNICODE_NUMBER_LENGTH = 4
+const val HEX_RADIX = 16
 
 object Regex {
     const val WHITESPACES = "\\s+"

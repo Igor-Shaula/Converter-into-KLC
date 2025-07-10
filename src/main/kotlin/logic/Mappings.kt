@@ -52,7 +52,7 @@ internal fun getVkValueByScValue(base: String?) = when (base) {
 
 internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
     try {
-        val keySymValue = keysym.toInt(16)
+        val keySymValue = keysym.toInt(HEX_RADIX)
 
         // X11 Keysym to Unicode mapping for Cyrillic
         val unicodeValue = when (keySymValue) {
@@ -135,10 +135,7 @@ internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
 
             else -> keySymValue // fallback for non-Cyrillic or direct Unicode values
         }
-
-        val symbol = unicodeValue.toChar()
-        println("Symbol for X11 keysym '0x$keysym' is: $symbol")
-        return symbol
+        return unicodeValue.toChar()
     } catch (e: NumberFormatException) {
         println("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
         return null
