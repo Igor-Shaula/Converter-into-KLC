@@ -3,17 +3,17 @@ package org.igor_shaula.logic
 import org.igor_shaula.globals.*
 import java.io.File
 
-internal fun prepareX11SymbolsDictionary() {
+internal fun prepareX11SymbolsDictionary(filename: String = X11.KEYSYMDEF_FILE_LOCATION) {
     try {
         //  this file is inevitably needed for the upcoming symbols conversion
-        File(X11.KEYSYMDEF_FILE_LOCATION).useLines { lines ->
+        File(filename).useLines { lines ->
             lines.forEach {
                 val pair = parseKeySymDefinition(it)
                 if (pair != null) Data.x11SymbolsDictionary.put(pair.first, pair.second)
             }
         }
     } catch (e: Exception) {
-        Error.WithFile(X11.KEYSYMDEF_FILE_LOCATION, e.message ?: Str.EMPTY)
+        Error.WithFile(filename, e.message ?: Str.EMPTY)
     }
 }
 
@@ -23,10 +23,12 @@ internal fun prepareSymbolsDictionary() {
     }
 }
 
-internal fun prepareLatToKeyCodeDictionary(targetMapping: String? = null) {
+internal fun prepareLatToKeyCodeDictionary(
+    filename: String = X11.ALIASES_FILE_LOCATION, targetMapping: String? = null
+) {
     if (Data.x11LatAliasesDictionary.isNotEmpty()) return
     try {
-        File(X11.ALIASES_FILE_LOCATION).useLines { lines ->
+        File(filename).useLines { lines ->
             lines.forEach { line ->
                 // 1: find the necessary mapping, if not given this parameter - use "default" one
                 // 2: read all aliases from the target mapping - build the dictionary
@@ -34,7 +36,7 @@ internal fun prepareLatToKeyCodeDictionary(targetMapping: String? = null) {
             }
         }
     } catch (e: Exception) {
-        Error.WithFile(X11.ALIASES_FILE_LOCATION, e.message ?: Str.EMPTY)
+        Error.WithFile(filename, e.message ?: Str.EMPTY)
     }
     println("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
 }
