@@ -2,20 +2,6 @@ package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
 
-internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
-
-    if (input.isBlank()) return null
-
-    val regex = Regex.FOR_KEYSYMDEF_FILE.toRegex()
-
-    val matchResult = regex.find(input)
-    return matchResult?.let {
-        var (name, code) = it.destructured
-        if (code.startsWith(X11.EXTENDED_CODE_PREFIX)) code = code.substring(X11.EXTENDED_CODE_PREFIX.length)
-        name to code
-    }
-}
-
 internal fun parseAliasLine(line: String): Pair<String, String>? {
     val regex = Regex.FOR_ALIASES_FILE.toRegex()
     val matchResult = regex.find(line)

@@ -2,17 +2,17 @@ package org.igor_shaula
 
 import org.igor_shaula.globals.Data
 import org.igor_shaula.globals.X11
+import org.igor_shaula.logic.X11SymbolsMapping
 import org.igor_shaula.logic.composeKlcFile
 import org.igor_shaula.logic.prepareLatToKeyCodeDictionary
 import org.igor_shaula.logic.prepareSymbolsDictionary
 import org.igor_shaula.logic.prepareWindowsEssence
 import org.igor_shaula.logic.prepareX11Essence
-import org.igor_shaula.logic.prepareX11SymbolsDictionary
 
 fun main(args: Array<String>) {
 
     // 1 - filling x11SymbolsDictionary
-    prepareX11SymbolsDictionary()
+    X11SymbolsMapping().prepare()
     println("standard Linux symbols dictionary: ${Data.x11SymbolsDictionary}")
 
     prepareSymbolsDictionary()
