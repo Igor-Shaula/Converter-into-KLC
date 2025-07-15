@@ -78,18 +78,18 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
     // 0
     if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         Data.languageBlockCounter++
-        println("isInsideLanguageBlock: targetLayout = $targetLayout, languageBlockCounter = ${Data.languageBlockCounter}")
+        println("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: ${Data.languageBlockCounter}")
     } else if (Data.languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-        println("isInsideLanguageBlock: isLayoutEndingBlock, languageBlockCounter = ${Data.languageBlockCounter}")
         Data.languageBlockCounter--
+        println("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: ${Data.languageBlockCounter}")
     }
     // parse all existing "Lat" mappings
     if (isKeyStartingWithLat(line)) {
-        println("isKeyStartingWithLat: $line")
+//        println("isKeyStartingWithLat: $line")
         val layers = createValuesForLayers(line)
         val latName = line.getKeyNameStartingWithLat()
         Data.x11LatAliasesDictionary[latName]?.let {
-            println("isKeyStartingWithLat it: $it")
+//            println("isKeyStartingWithLat it: $it")
             Data.x11Essence.put(it, layers)
         }
     }
