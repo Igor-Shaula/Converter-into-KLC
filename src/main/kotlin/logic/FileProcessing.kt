@@ -23,7 +23,7 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
         }
     }
 
-    internal fun parseKeySymDefinition(input: String): Pair<String, String>? {
+    private fun parseKeySymDefinition(input: String): Pair<String, String>? {
 
         if (input.isBlank()) return null
 
@@ -44,22 +44,41 @@ internal fun prepareSymbolsDictionary() {
     }
 }
 
-internal fun prepareLatToKeyCodeDictionary(
-    filename: String = X11.ALIASES_FILE_LOCATION, targetMapping: String? = null
-) {
-    if (Data.x11LatAliasesDictionary.isNotEmpty()) return
-    try {
-        File(filename).useLines { lines ->
-            lines.forEach { line ->
-                // 1: find the necessary mapping, if not given this parameter - use "default" one
-                // 2: read all aliases from the target mapping - build the dictionary
-                processEveryAliasLine(line = line.clearAllBlanks(), targetMapping = targetMapping)
+internal class X11LatAliasesMapping(
+    val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String? = null
+) : IMapping {
+
+    override fun prepare() {
+        if (Data.x11LatAliasesDictionary.isNotEmpty()) return
+        try {
+            File(filename).useLines { lines ->
+                lines.forEach { line ->
+                    // 1: find the necessary mapping, if not given this parameter - use "default" one
+                    // 2: read all aliases from the target mapping - build the dictionary
+                    processEveryAliasLine(line = line.clearAllBlanks(), targetMapping = targetMapping)
+                }
             }
+        } catch (e: Exception) {
+            Error.WithFile(filename, e.message ?: Str.EMPTY)
         }
-    } catch (e: Exception) {
-        Error.WithFile(filename, e.message ?: Str.EMPTY)
+        println("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
     }
-    println("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${Data.x11LatAliasesDictionary}")
+
+    private fun processEveryAliasLine(line: String, targetMapping: String? = X11.DEFAULT_ALIAS_MAPPING) {
+        if (getXkbKeycodesSectionName(line) == targetMapping) { // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
+//        println("getXkbSymbolsSectionName: $targetMapping")
+            Data.isInsideKeycodesBlock = true
+        } else if (Data.isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+            println("isInsideKeycodesBlock: isLayoutEndingBlock")
+            Data.isInsideKeycodesBlock = false
+        }
+        if (!Data.isInsideKeycodesBlock) return
+        // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
+        if (isKeyStartingWithAlias(line)) {
+            val pair = parseAliasLine(line)
+            if (pair != null) Data.x11LatAliasesDictionary.put(pair.first, pair.second)
+        }
+    }
 }
 
 internal fun prepareX11Essence(fileAndLayoutPair: Pair<String, String>) {
@@ -151,21 +170,5 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
         isKeyStartingWithLat(line) -> {
             println("isKeyStartingWithLat: $line")
         }
-    }
-}
-
-private fun processEveryAliasLine(line: String, targetMapping: String? = X11.DEFAULT_ALIAS_MAPPING) {
-    if (getXkbKeycodesSectionName(line) == targetMapping) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-//        println("getXkbSymbolsSectionName: $targetMapping")
-        Data.isInsideKeycodesBlock = true
-    } else if (Data.isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-        println("isInsideKeycodesBlock: isLayoutEndingBlock")
-        Data.isInsideKeycodesBlock = false
-    }
-    if (!Data.isInsideKeycodesBlock) return
-    // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
-    if (isKeyStartingWithAlias(line)) {
-        val pair = parseAliasLine(line)
-        if (pair != null) Data.x11LatAliasesDictionary.put(pair.first, pair.second)
     }
 }

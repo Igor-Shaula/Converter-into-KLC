@@ -2,9 +2,9 @@ package org.igor_shaula
 
 import org.igor_shaula.globals.Data
 import org.igor_shaula.globals.X11
+import org.igor_shaula.logic.X11LatAliasesMapping
 import org.igor_shaula.logic.X11SymbolsMapping
 import org.igor_shaula.logic.composeKlcFile
-import org.igor_shaula.logic.prepareLatToKeyCodeDictionary
 import org.igor_shaula.logic.prepareSymbolsDictionary
 import org.igor_shaula.logic.prepareWindowsEssence
 import org.igor_shaula.logic.prepareX11Essence
@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
     }
 //    val x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT
     val x11TargetLayoutName = X11.RUS_LAYOUT_NAME
-    prepareLatToKeyCodeDictionary() // by default, "qwerty" is used for mapping
+    X11LatAliasesMapping().prepare() // by default, "qwerty" is used for mapping
 
     // 2 - filling x11Essence
     prepareX11Essence(x11LayoutSourceFilename to x11TargetLayoutName)
