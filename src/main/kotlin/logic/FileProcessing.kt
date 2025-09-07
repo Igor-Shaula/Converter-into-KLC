@@ -15,7 +15,7 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
             File(filename).useLines { lines ->
                 lines.forEach {
                     val pair = parseKeySymDefinition(it)
-                    if (pair != null) Data.x11SymbolsDictionary.put(pair.first, pair.second)
+                    if (pair != null) Data.x11SymbolsDictionary[pair.first] = pair.second
                 }
             }
         } catch (e: Exception) {
@@ -40,7 +40,7 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
 
 internal fun prepareSymbolsDictionary() {
     Data.x11SymbolsDictionary.forEach {
-        Data.symbolsDictionary.put(it.key, getUnicodeSymbolFromKeysym(it.value))
+        Data.symbolsDictionary[it.key] = getUnicodeSymbolFromKeysym(it.value)
     }
 }
 
@@ -76,7 +76,7 @@ internal class X11LatAliasesMapping(
         // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
         if (isKeyStartingWithAlias(line)) {
             val pair = parseAliasLine(line)
-            if (pair != null) Data.x11LatAliasesDictionary.put(pair.first, pair.second)
+            if (pair != null) Data.x11LatAliasesDictionary[pair.first] = pair.second
         }
     }
 }
@@ -154,17 +154,17 @@ private fun processEveryLine(line: String, targetLayout: String = X11.DEFAULT_XK
     when {
         isKeyStartingWithA(line) -> {
             val layers = createValuesForLayers(line)
-            Data.x11Essence.put(line.getKeyNameStartingWithA(), layers)
+            Data.x11Essence[line.getKeyNameStartingWithA()] = layers
 //            println("→ isKeyStartingWithA: $layers")
         }
         isKeyTilde(line) -> {
             val layers = createValuesForLayers(line)
-            Data.x11Essence.put(X11.NAME_TILDE, layers)
+            Data.x11Essence[X11.NAME_TILDE] = layers
 //            println("→ isKeyTilde: $layers")
         }
         isKeySpace(line) -> {
             val layers = createValuesForLayers(line)
-            Data.x11Essence.put(X11.NAME_SPACE, layers)
+            Data.x11Essence[X11.NAME_SPACE] = layers
 //            println("→ isKeySpace: $layers")
         }
         isKeyStartingWithLat(line) -> {
