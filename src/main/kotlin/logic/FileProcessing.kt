@@ -1,22 +1,29 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
+import org.igor_shaula.globals.X11
 import org.igor_shaula.utils.l
 import java.io.File
 
-internal fun composeKlcFile(repository: Repository) {
-    val resultFile = File(Klc.DEFAULT_RESULT_FILE_NAME)
-    resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
-    repository.windowsEssence.forEach { (key, value) ->
-        val scValue = key?.lowercase()
-        val vkValue = getVkValueByScValue(repository, key?.lowercase()) ?: (value.layer1.uppercase() + Str.TAB)
-        val capitalized = getCapitalizedValue(value.layer1)
-        val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
-        resultFile.appendText(
-            "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Klc.ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
-            charset = Charsets.UTF_16
-        )
+// I intend to restrict "java.io.File" usage only in this class
+internal class FileProcessor(filename: String = X11.US_FILE_LOCATION) {
+
+//    private val file = File(filename)
+
+    internal fun composeKlcFile(repository: Repository) {
+        val resultFile = File(Klc.DEFAULT_RESULT_FILE_NAME)
+        resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
+        repository.windowsEssence.forEach { (key, value) ->
+            val scValue = key?.lowercase()
+            val vkValue = getVkValueByScValue(repository, key?.lowercase()) ?: (value.layer1.uppercase() + Str.TAB)
+            val capitalized = getCapitalizedValue(value.layer1)
+            val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
+            resultFile.appendText(
+                "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Klc.ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
+                charset = Charsets.UTF_16
+            )
+        }
+        resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
+        l("resultFile: $resultFile")
     }
-    resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
-    l("resultFile: $resultFile")
 }
