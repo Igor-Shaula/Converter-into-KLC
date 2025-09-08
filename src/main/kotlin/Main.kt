@@ -1,6 +1,6 @@
 package org.igor_shaula
 
-import org.igor_shaula.globals.Repository
+import org.igor_shaula.logic.Repository
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
 

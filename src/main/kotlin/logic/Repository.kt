@@ -1,7 +1,6 @@
-package org.igor_shaula.globals
+package org.igor_shaula.logic
 
-import org.igor_shaula.logic.ValuesForLayers
-import org.igor_shaula.logic.getUnicodeSymbolFromKeysym
+import org.igor_shaula.globals.xkbToWindowsScancode
 
 // I decided to avoid global state management by explicitly passing the data container where needed
 class Repository {
