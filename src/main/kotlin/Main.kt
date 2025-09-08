@@ -2,6 +2,9 @@ package org.igor_shaula
 
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
+import org.igor_shaula.logic.mapping.X11EssenceMapping
+import org.igor_shaula.logic.mapping.X11LatAliasesMapping
+import org.igor_shaula.logic.mapping.X11SymbolsMapping
 
 fun main(args: Array<String>) {
 
