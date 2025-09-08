@@ -11,6 +11,8 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
 
     private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude(X11.DEFAULT_INCLUDE_LINE)
 
+    private var languageBlockCounter = 0
+
     init {
         // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
         val x11LayoutSourceFilename = if (args.isEmpty()) {
@@ -42,11 +44,11 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
     ) {
         // 0
         if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-            repository.languageBlockCounter++
-            l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: ${repository.languageBlockCounter}")
-        } else if (repository.languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-            repository.languageBlockCounter--
-            l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: ${repository.languageBlockCounter}")
+            languageBlockCounter++
+            l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: $languageBlockCounter")
+        } else if (languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+            languageBlockCounter--
+            l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: $languageBlockCounter")
         }
         // parse all existing "Lat" mappings
         if (isKeyStartingWithLat(line)) {
@@ -59,7 +61,7 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
             }
         }
 
-        if (repository.languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
+        if (languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
             return // because any further recognition action outside a detected layout block has no sense
         }
 

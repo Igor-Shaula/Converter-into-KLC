@@ -9,6 +9,8 @@ internal class X11LatAliasesMapping(
     val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String? = null
 ) : IMapping {
 
+    private var isInsideKeycodesBlock = false
+
     override fun prepare(repository: Repository) {
         if (repository.x11LatAliasesDictionary.isNotEmpty()) return
         FileProcessor(filename).processFileLines { line ->
@@ -26,12 +28,12 @@ internal class X11LatAliasesMapping(
     ) {
         if (getXkbKeycodesSectionName(line) == targetMapping) { // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
 //        l("getXkbSymbolsSectionName: $targetMapping")
-            repository.isInsideKeycodesBlock = true
-        } else if (repository.isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+            isInsideKeycodesBlock = true
+        } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
             l("isInsideKeycodesBlock: isLayoutEndingBlock")
-            repository.isInsideKeycodesBlock = false
+            isInsideKeycodesBlock = false
         }
-        if (!repository.isInsideKeycodesBlock) return
+        if (!isInsideKeycodesBlock) return
         // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
         if (isKeyStartingWithAlias(line)) {
             val pair = parseAliasLine(line)
