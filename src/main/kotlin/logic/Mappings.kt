@@ -19,7 +19,7 @@ internal fun parseLayoutInclude(includeString: String): Pair<String, String> {
     } ?: throw Error.WithParsing("Invalid include format. Expected format: 'layout(variant)'")
 }
 
-internal fun getVkValueByScValue(base: String?) = when (base) {
+internal fun getVkValueByScValue(repository: Repository, base: String?) = when (base) {
     "0c" -> "OEM_MINUS"
     "0d" -> "OEM_PLUS"
     "30" -> "OEM_COMMA"
@@ -33,7 +33,7 @@ internal fun getVkValueByScValue(base: String?) = when (base) {
     "14" -> "OEM_7${Str.TAB}" // apostrophe
     "39" -> "SPACE${Str.TAB}"
     "53" -> "DECIMAL"
-    else -> Data.x11SymbolsDictionary[base]?.uppercase()
+    else -> repository.x11SymbolsDictionary[base]?.uppercase()
 }
 
 internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {

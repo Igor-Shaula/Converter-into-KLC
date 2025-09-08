@@ -2,7 +2,9 @@ package org.igor_shaula.globals
 
 import org.igor_shaula.logic.ValuesForLayers
 
-object Data {
+// I decided to avoid global state management by explicitly passing the data container where needed
+class Repository {
+
     internal var languageBlockCounter = 0
     internal var isInsideKeycodesBlock = false
 

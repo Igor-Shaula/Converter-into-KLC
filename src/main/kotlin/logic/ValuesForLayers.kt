@@ -9,17 +9,17 @@ data class ValuesForLayers(
     val layer4: String = Str.EMPTY // + AltGr & Shift → optional
 )
 
-internal fun createValuesForLayers(input: String): ValuesForLayers {
+internal fun createValuesForLayers(repository: Repository, input: String): ValuesForLayers {
     val content = input.substring(
         startIndex = input.indexOf(X11.OPENING_BRACKETS) + X11.OPENING_BRACKETS.length,
         endIndex = input.indexOf(X11.CLOSING_BRACKETS)
     )
     val values = content.split(Sym.COMMA).map { it.trim() }
     return ValuesForLayers(
-        layer1 = values[0].mapToKeysym(),
-        layer2 = values.getOrElse(1) { Str.EMPTY }.mapToKeysym(),
-        layer3 = values.getOrElse(2) { Str.EMPTY }.mapToKeysym().filterCommands(),
-        layer4 = values.getOrElse(3) { Str.EMPTY }.mapToKeysym().filterCommands()
+        layer1 = values[0].mapToKeysym(repository),
+        layer2 = values.getOrElse(1) { Str.EMPTY }.mapToKeysym(repository),
+        layer3 = values.getOrElse(2) { Str.EMPTY }.mapToKeysym(repository).filterCommands(),
+        layer4 = values.getOrElse(3) { Str.EMPTY }.mapToKeysym(repository).filterCommands()
     )
 }
 

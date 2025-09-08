@@ -16,12 +16,12 @@ internal fun getXkbKeycodesSectionName(line: String): String? = xkbKeycodesRegex
 
 internal fun getCapitalizedValue(base: String) = if (base.length == 1 && base.first().isLetter()) 1 else 0
 
-internal fun String.mapToKeysym(): String = when {
+internal fun String.mapToKeysym(repository: Repository): String = when {
     this.isBlank() -> Str.EMPTY // should not ever happen
     this.length == 1 -> this // must be located before the next case with starting-with-U
     this.isUnicodeNumber() -> this.substring(1).lowercase() // because the length of the char U is "1"
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
-    else -> Data.x11SymbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
+    else -> repository.x11SymbolsDictionary[this]?.lowercase() ?: this.lowercase().filterMissingKeysyms()
 }
 
 internal fun String.filterCommands() =
