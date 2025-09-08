@@ -1,6 +1,7 @@
 package org.igor_shaula.globals
 
 import org.igor_shaula.logic.ValuesForLayers
+import org.igor_shaula.logic.getUnicodeSymbolFromKeysym
 
 // I decided to avoid global state management by explicitly passing the data container where needed
 class Repository {
@@ -15,4 +16,14 @@ class Repository {
     internal val x11Essence = mutableMapOf<String, ValuesForLayers>()
 
     internal val windowsEssence = mutableMapOf<String?, ValuesForLayers>()
+
+    internal fun prepareSymbolsDictionary() {
+        x11SymbolsDictionary.forEach {
+            symbolsDictionary[it.key] = getUnicodeSymbolFromKeysym(it.value)
+        }
+    }
+
+    internal fun prepareWindowsEssence() {
+        x11Essence.map { (key, value) -> windowsEssence.put(xkbToWindowsScancode[key], value) }
+    }
 }

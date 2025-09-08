@@ -38,12 +38,6 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
     }
 }
 
-internal fun prepareSymbolsDictionary(repository: Repository) {
-    repository.x11SymbolsDictionary.forEach {
-        repository.symbolsDictionary[it.key] = getUnicodeSymbolFromKeysym(it.value)
-    }
-}
-
 internal class X11LatAliasesMapping(
     val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String? = null
 ) : IMapping {
@@ -102,10 +96,6 @@ internal fun prepareX11Essence(
     } catch (e: Exception) {
         Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
     }
-}
-
-internal fun prepareWindowsEssence(repository: Repository) {
-    repository.x11Essence.map { (key, value) -> repository.windowsEssence.put(xkbToWindowsScancode[key], value) }
 }
 
 internal fun composeKlcFile(repository: Repository) {

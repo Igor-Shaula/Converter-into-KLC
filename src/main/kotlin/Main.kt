@@ -6,13 +6,14 @@ import org.igor_shaula.logic.*
 
 fun main(args: Array<String>) {
 
+    // the only data container for the whole application
     val repository = Repository()
 
     // 1 - filling x11SymbolsDictionary
     X11SymbolsMapping().prepare(repository)
     println("standard Linux symbols dictionary: ${repository.x11SymbolsDictionary}")
 
-    prepareSymbolsDictionary(repository)
+    repository.prepareSymbolsDictionary()
     println("standard symbols dictionary: ${repository.symbolsDictionary}")
 
     // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
@@ -30,7 +31,7 @@ fun main(args: Array<String>) {
     println("assembled x11Essence: ${repository.x11Essence}")
 
     // 3 - filling windowsEssence
-    prepareWindowsEssence(repository)
+    repository.prepareWindowsEssence()
     println("assembled windowsEssence: ${repository.windowsEssence}")
 
     // 4 - creating the resulting .klc file
