@@ -11,9 +11,9 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
     override fun prepare(repository: Repository) {
         FileProcessor(filename).processFileLines { line ->
             val pair = parseKeySymDefinition(line)
-            if (pair != null) repository.x11SymbolsDictionary[pair.first] = pair.second
+            if (pair != null) repository.setX11Symbol(pair.first, pair.second)
         }
-        l("standard Linux symbols dictionary: ${repository.x11SymbolsDictionary}")
+        l("standard Linux symbols dictionary: ${repository.printX11SymbolsDictionary()}")
     }
 
     private fun parseKeySymDefinition(input: String): Pair<String, String>? {

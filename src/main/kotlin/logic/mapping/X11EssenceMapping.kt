@@ -20,8 +20,8 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
         } else {
             args[0]
         }
-//        val x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT
-        val x11TargetLayoutName = X11.RUS_LAYOUT_NAME
+        val x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT
+//        val x11TargetLayoutName = X11.RUS_LAYOUT_NAME
         // customizing targetFileWithLayout is necessary to avoid the Stack Overflow error
         targetFileWithLayout = x11LayoutSourceFilename to x11TargetLayoutName
     }
@@ -35,7 +35,7 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
             )
         }
-        l("assembled x11Essence: ${repository.x11Essence}")
+        l("assembled x11Essence: ${repository.printX11Essence()}")
     }
 
     // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
@@ -55,9 +55,9 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
 //        l("isKeyStartingWithLat: $line")
             val layers = createValuesForLayers(repository, line)
             val latName = line.getKeyNameStartingWithLat()
-            repository.x11LatAliasesDictionary[latName]?.let {
+            repository.getX11LatAlias(latName)?.let {
 //            l("isKeyStartingWithLat it: $it")
-                repository.x11Essence.put(it, layers)
+                repository.setX11EssenceValue(it, layers)
             }
         }
 
@@ -79,17 +79,17 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
         when {
             isKeyStartingWithA(line) -> {
                 val layers = createValuesForLayers(repository, line)
-                repository.x11Essence[line.getKeyNameStartingWithA()] = layers
+                repository.setX11EssenceValue(line.getKeyNameStartingWithA(), layers)
 //            l("→ isKeyStartingWithA: $layers")
             }
             isKeyTilde(line) -> {
                 val layers = createValuesForLayers(repository, line)
-                repository.x11Essence[X11.NAME_TILDE] = layers
+                repository.setX11EssenceValue(X11.NAME_TILDE, layers)
 //            l("→ isKeyTilde: $layers")
             }
             isKeySpace(line) -> {
                 val layers = createValuesForLayers(repository, line)
-                repository.x11Essence[X11.NAME_SPACE] = layers
+                repository.setX11EssenceValue(X11.NAME_SPACE, layers)
 //            l("→ isKeySpace: $layers")
             }
             isKeyStartingWithLat(line) -> {

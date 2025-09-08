@@ -26,7 +26,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
     internal fun composeKlcFile(repository: Repository) {
         val resultFile = File(Klc.DEFAULT_RESULT_FILE_NAME)
         resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
-        repository.windowsEssence.forEach { (key, value) ->
+        repository.performWithWindowsEssence { key, value ->
             val scValue = key?.lowercase()
             val vkValue = getVkValueByScValue(repository, key?.lowercase()) ?: (value.layer1.uppercase() + Str.TAB)
             val capitalized = getCapitalizedValue(value.layer1)

@@ -17,7 +17,7 @@ internal fun getVkValueByScValue(repository: Repository, base: String?) = when (
     "14" -> "OEM_7${Str.TAB}" // apostrophe
     "39" -> "SPACE${Str.TAB}"
     "53" -> "DECIMAL"
-    else -> repository.x11SymbolsDictionary[base]?.uppercase()
+    else -> repository.getX11Symbol(base)?.uppercase()
 }
 
 internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
