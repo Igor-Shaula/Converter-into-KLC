@@ -5,8 +5,11 @@ import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.mapping.X11EssenceMapping
 import org.igor_shaula.logic.mapping.X11LatAliasesMapping
 import org.igor_shaula.logic.mapping.X11SymbolsMapping
+import org.igor_shaula.utils.l
 
 fun main(args: Array<String>) {
+
+    l("args: ${args.joinToString(", ")}")
 
     // 0 - preparing the application
     val repository = Repository() // the only data container for the whole application
