@@ -3,6 +3,7 @@ package org.igor_shaula
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
+import org.igor_shaula.utils.l
 
 fun main(args: Array<String>) {
 
@@ -11,10 +12,10 @@ fun main(args: Array<String>) {
 
     // 1 - filling x11SymbolsDictionary
     X11SymbolsMapping().prepare(repository)
-    println("standard Linux symbols dictionary: ${repository.x11SymbolsDictionary}")
+    l("standard Linux symbols dictionary: ${repository.x11SymbolsDictionary}")
 
     repository.prepareSymbolsDictionary()
-    println("standard symbols dictionary: ${repository.symbolsDictionary}")
+    l("standard symbols dictionary: ${repository.symbolsDictionary}")
 
     // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
     val x11LayoutSourceFilename = if (args.isEmpty()) {
@@ -28,11 +29,11 @@ fun main(args: Array<String>) {
 
     // 2 - filling x11Essence
     prepareX11Essence(repository, x11LayoutSourceFilename to x11TargetLayoutName)
-    println("assembled x11Essence: ${repository.x11Essence}")
+    l("assembled x11Essence: ${repository.x11Essence}")
 
     // 3 - filling windowsEssence
     repository.prepareWindowsEssence()
-    println("assembled windowsEssence: ${repository.windowsEssence}")
+    l("assembled windowsEssence: ${repository.windowsEssence}")
 
     // 4 - creating the resulting .klc file
     composeKlcFile(repository)

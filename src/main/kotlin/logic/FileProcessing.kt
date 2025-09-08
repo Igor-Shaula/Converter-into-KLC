@@ -1,6 +1,7 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
+import org.igor_shaula.utils.l
 import java.io.File
 
 interface IMapping {
@@ -57,17 +58,17 @@ internal class X11LatAliasesMapping(
         } catch (e: Exception) {
             throw Error.WithFile(filename, e.message ?: Str.EMPTY)
         }
-        println("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${repository.x11LatAliasesDictionary}")
+        l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${repository.x11LatAliasesDictionary}")
     }
 
     private fun processEveryAliasLine(
         repository: Repository, line: String, targetMapping: String? = X11.DEFAULT_ALIAS_MAPPING
     ) {
         if (getXkbKeycodesSectionName(line) == targetMapping) { // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
-//        println("getXkbSymbolsSectionName: $targetMapping")
+//        l("getXkbSymbolsSectionName: $targetMapping")
             repository.isInsideKeycodesBlock = true
         } else if (repository.isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-            println("isInsideKeycodesBlock: isLayoutEndingBlock")
+            l("isInsideKeycodesBlock: isLayoutEndingBlock")
             repository.isInsideKeycodesBlock = false
         }
         if (!repository.isInsideKeycodesBlock) return
@@ -82,7 +83,7 @@ internal class X11LatAliasesMapping(
 internal fun prepareX11Essence(
     repository: Repository, fileAndLayoutPair: Pair<String, String>
 ) {
-    println("fileAndLayoutPair: $fileAndLayoutPair")
+    l("fileAndLayoutPair: $fileAndLayoutPair")
     val x11LayoutSourceFilename = if (fileAndLayoutPair.first.contains('/')) fileAndLayoutPair.first
     else X11.XKB_SYMBOLS_LOCATION + fileAndLayoutPair.first
     try {
@@ -112,7 +113,7 @@ internal fun composeKlcFile(repository: Repository) {
         )
     }
     resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
-    println("resultFile: $resultFile")
+    l("resultFile: $resultFile")
 }
 
 // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
@@ -122,18 +123,18 @@ private fun processEveryLine(
     // 0
     if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
         repository.languageBlockCounter++
-        println("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: ${repository.languageBlockCounter}")
+        l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: ${repository.languageBlockCounter}")
     } else if (repository.languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
         repository.languageBlockCounter--
-        println("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: ${repository.languageBlockCounter}")
+        l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: ${repository.languageBlockCounter}")
     }
     // parse all existing "Lat" mappings
     if (isKeyStartingWithLat(line)) {
-//        println("isKeyStartingWithLat: $line")
+//        l("isKeyStartingWithLat: $line")
         val layers = createValuesForLayers(repository, line)
         val latName = line.getKeyNameStartingWithLat()
         repository.x11LatAliasesDictionary[latName]?.let {
-//            println("isKeyStartingWithLat it: $it")
+//            l("isKeyStartingWithLat it: $it")
             repository.x11Essence.put(it, layers)
         }
     }
@@ -157,20 +158,20 @@ private fun processEveryLine(
         isKeyStartingWithA(line) -> {
             val layers = createValuesForLayers(repository, line)
             repository.x11Essence[line.getKeyNameStartingWithA()] = layers
-//            println("→ isKeyStartingWithA: $layers")
+//            l("→ isKeyStartingWithA: $layers")
         }
         isKeyTilde(line) -> {
             val layers = createValuesForLayers(repository, line)
             repository.x11Essence[X11.NAME_TILDE] = layers
-//            println("→ isKeyTilde: $layers")
+//            l("→ isKeyTilde: $layers")
         }
         isKeySpace(line) -> {
             val layers = createValuesForLayers(repository, line)
             repository.x11Essence[X11.NAME_SPACE] = layers
-//            println("→ isKeySpace: $layers")
+//            l("→ isKeySpace: $layers")
         }
         isKeyStartingWithLat(line) -> {
-            println("isKeyStartingWithLat: $line")
+            l("isKeyStartingWithLat: $line")
         }
     }
 }

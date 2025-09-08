@@ -1,6 +1,7 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
+import org.igor_shaula.utils.l
 
 internal fun parseAliasLine(line: String): Pair<String, String>? {
     val regex = Regex.FOR_ALIASES_FILE.toRegex()
@@ -193,7 +194,7 @@ internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
         }
         return unicodeValue.toChar()
     } catch (e: NumberFormatException) {
-        println("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
+        l("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
         return null
     }
 }
