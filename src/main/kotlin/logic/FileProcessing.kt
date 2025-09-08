@@ -6,9 +6,22 @@ import org.igor_shaula.utils.l
 import java.io.File
 
 // I intend to restrict "java.io.File" usage only in this class
-internal class FileProcessor(filename: String = X11.US_FILE_LOCATION) {
+internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
 
-//    private val file = File(filename)
+    /**
+     * Processes a file line by line using the provided processing function.
+     * This centralizes file I/O operations and eliminates the need for
+     * java.io.File imports in other classes.
+     */
+    internal fun processFileLines(action: (String) -> Unit) {
+        try {
+            File(filename).useLines { lines ->
+                lines.forEach(action)
+            }
+        } catch (e: Exception) {
+            throw Error.WithFile(filename, e.message ?: Str.EMPTY)
+        }
+    }
 
     internal fun composeKlcFile(repository: Repository) {
         val resultFile = File(Klc.DEFAULT_RESULT_FILE_NAME)

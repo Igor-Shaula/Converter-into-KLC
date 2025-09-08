@@ -1,12 +1,9 @@
 package org.igor_shaula.logic.mapping
 
-import org.igor_shaula.globals.Error
 import org.igor_shaula.globals.Regex
-import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
 import org.igor_shaula.utils.l
-import java.io.File
 
 internal class X11LatAliasesMapping(
     val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String? = null
@@ -14,22 +11,16 @@ internal class X11LatAliasesMapping(
 
     override fun prepare(repository: Repository) {
         if (repository.x11LatAliasesDictionary.isNotEmpty()) return
-        try {
-            File(filename).useLines { lines ->
-                lines.forEach { line ->
-                    // 1: find the necessary mapping, if not given this parameter - use "default" one
-                    // 2: read all aliases from the target mapping - build the dictionary
-                    processEveryAliasLine(
-                        repository = repository, line = line.clearAllBlanks(), targetMapping = targetMapping
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            throw Error.WithFile(filename, e.message ?: Str.EMPTY)
+        FileProcessor(filename).processFileLines { line ->
+            processEveryAliasLine(
+                repository = repository, line = line.clearAllBlanks(), targetMapping = targetMapping
+            )
         }
         l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${repository.x11LatAliasesDictionary}")
     }
 
+    // 1: find the necessary mapping, if not given this parameter - use "default" one
+    // 2: read all aliases from the target mapping - build the dictionary
     private fun processEveryAliasLine(
         repository: Repository, line: String, targetMapping: String? = X11.DEFAULT_ALIAS_MAPPING
     ) {

@@ -2,23 +2,10 @@ package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Error
 import org.igor_shaula.globals.Regex
-import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
-import org.igor_shaula.logic.Repository
-import org.igor_shaula.logic.clearAllBlanks
-import org.igor_shaula.logic.createValuesForLayers
-import org.igor_shaula.logic.getKeyNameStartingWithA
-import org.igor_shaula.logic.getKeyNameStartingWithLat
-import org.igor_shaula.logic.getXkbSymbolsSectionName
-import org.igor_shaula.logic.isBeginningInclude
-import org.igor_shaula.logic.isKeySpace
-import org.igor_shaula.logic.isKeyStartingWithA
-import org.igor_shaula.logic.isKeyStartingWithLat
-import org.igor_shaula.logic.isKeyTilde
-import org.igor_shaula.logic.isLayoutEndingBlock
+import org.igor_shaula.logic.*
 import org.igor_shaula.utils.l
-import java.io.File
 
 internal class X11EssenceMapping(fileAndLayoutPair: Pair<String, String>) : IMapping {
 
@@ -32,16 +19,10 @@ internal class X11EssenceMapping(fileAndLayoutPair: Pair<String, String>) : IMap
         l("fileAndLayoutPair: $targetFileWithLayout")
         val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
         else X11.XKB_SYMBOLS_LOCATION + targetFileWithLayout.first
-        try {
-            File(x11LayoutSourceFilename).useLines { lines ->
-                lines.forEach {
-                    processEveryLine(
-                        repository = repository, line = it.clearAllBlanks(), targetLayout = targetFileWithLayout.second
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            throw Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
+        FileProcessor(x11LayoutSourceFilename).processFileLines { line ->
+            processEveryLine(
+                repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
+            )
         }
         l("assembled x11Essence: ${repository.x11Essence}")
     }

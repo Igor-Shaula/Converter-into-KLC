@@ -9,7 +9,6 @@ import org.igor_shaula.logic.mapping.X11SymbolsMapping
 fun main(args: Array<String>) {
 
     // 0 - preparing the application
-    val fileProcessor = FileProcessor()
     val repository = Repository() // the only data container for the whole application
 
     // 1 - filling x11SymbolsDictionary
@@ -34,5 +33,5 @@ fun main(args: Array<String>) {
     repository.prepareWindowsEssence()
 
     // 4 - creating the resulting .klc file
-    fileProcessor.composeKlcFile(repository)
+    FileProcessor().composeKlcFile(repository)
 }
