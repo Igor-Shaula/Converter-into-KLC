@@ -19,7 +19,7 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
                 }
             }
         } catch (e: Exception) {
-            Error.WithFile(filename, e.message ?: Str.EMPTY)
+            throw Error.WithFile(filename, e.message ?: Str.EMPTY)
         }
     }
 
@@ -55,7 +55,7 @@ internal class X11LatAliasesMapping(
                 }
             }
         } catch (e: Exception) {
-            Error.WithFile(filename, e.message ?: Str.EMPTY)
+            throw Error.WithFile(filename, e.message ?: Str.EMPTY)
         }
         println("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary: ${repository.x11LatAliasesDictionary}")
     }
@@ -94,7 +94,7 @@ internal fun prepareX11Essence(
             }
         }
     } catch (e: Exception) {
-        Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
+        throw Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
     }
 }
 
