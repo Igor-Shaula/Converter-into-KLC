@@ -6,6 +6,7 @@ object Sym {
     const val SEMICOLON = ';'
     const val DOUBLE_QUOTE = '"'
     const val COMMA = ','
+    const val SLASH = '/'
     const val BEGINNING_OF_UNICODE_NUMBER = 'U'
     const val BEGINNING_OF_COMMAND_SYMBOL = 'f'
 }
@@ -48,6 +49,7 @@ object X11 {
     const val EXTENDED_CODE_PREFIX_HEX = "0x100"
     const val NOSYMBOL = "NoSymbol"
     const val UNICODE_NUMBER_LENGTH = 5
+    const val DEFAULT_INCLUDE_LINE = """include "us(basic)""""
 }
 
 const val UNICODE_NUMBER_LENGTH = 4

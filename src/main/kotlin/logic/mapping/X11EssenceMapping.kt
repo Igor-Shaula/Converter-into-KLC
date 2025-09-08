@@ -3,6 +3,7 @@ package org.igor_shaula.logic.mapping
 import org.igor_shaula.globals.Error
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Str
+import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.clearAllBlanks
@@ -21,7 +22,7 @@ import java.io.File
 
 internal class X11EssenceMapping(fileAndLayoutPair: Pair<String, String>) : IMapping {
 
-    private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude("include \"us(basic)\"")
+    private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude(X11.DEFAULT_INCLUDE_LINE)
 
     init {
         targetFileWithLayout = fileAndLayoutPair // necessary to avoid the Stack Overflow error
@@ -29,7 +30,7 @@ internal class X11EssenceMapping(fileAndLayoutPair: Pair<String, String>) : IMap
 
     override fun prepare(repository: Repository) {
         l("fileAndLayoutPair: $targetFileWithLayout")
-        val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains('/')) targetFileWithLayout.first
+        val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
         else X11.XKB_SYMBOLS_LOCATION + targetFileWithLayout.first
         try {
             File(x11LayoutSourceFilename).useLines { lines ->
