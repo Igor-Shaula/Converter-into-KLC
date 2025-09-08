@@ -22,6 +22,7 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
         } catch (e: Exception) {
             throw Error.WithFile(filename, e.message ?: Str.EMPTY)
         }
+        l("standard Linux symbols dictionary: ${repository.x11SymbolsDictionary}")
     }
 
     private fun parseKeySymDefinition(input: String): Pair<String, String>? {
@@ -97,6 +98,7 @@ internal fun prepareX11Essence(
     } catch (e: Exception) {
         throw Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
     }
+    l("assembled x11Essence: ${repository.x11Essence}")
 }
 
 internal fun composeKlcFile(repository: Repository) {
