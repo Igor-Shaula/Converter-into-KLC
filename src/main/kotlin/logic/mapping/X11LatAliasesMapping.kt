@@ -1,14 +1,10 @@
 package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Error
+import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.X11
-import org.igor_shaula.logic.Repository
-import org.igor_shaula.logic.clearAllBlanks
-import org.igor_shaula.logic.getXkbKeycodesSectionName
-import org.igor_shaula.logic.isKeyStartingWithAlias
-import org.igor_shaula.logic.isLayoutEndingBlock
-import org.igor_shaula.logic.parseAliasLine
+import org.igor_shaula.logic.*
 import org.igor_shaula.utils.l
 import java.io.File
 
@@ -49,6 +45,15 @@ internal class X11LatAliasesMapping(
         if (isKeyStartingWithAlias(line)) {
             val pair = parseAliasLine(line)
             if (pair != null) repository.x11LatAliasesDictionary[pair.first] = pair.second
+        }
+    }
+
+    private fun parseAliasLine(line: String): Pair<String, String>? {
+        val regex = Regex.FOR_ALIASES_FILE.toRegex()
+        val matchResult = regex.find(line)
+        return matchResult?.let {
+            val (alias, keycode) = it.destructured
+            alias to keycode
         }
     }
 }

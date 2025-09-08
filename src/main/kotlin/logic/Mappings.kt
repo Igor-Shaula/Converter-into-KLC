@@ -3,23 +3,6 @@ package org.igor_shaula.logic
 import org.igor_shaula.globals.*
 import org.igor_shaula.utils.l
 
-internal fun parseAliasLine(line: String): Pair<String, String>? {
-    val regex = Regex.FOR_ALIASES_FILE.toRegex()
-    val matchResult = regex.find(line)
-    return matchResult?.let {
-        val (alias, keycode) = it.destructured
-        alias to keycode
-    }
-}
-
-internal fun parseLayoutInclude(includeString: String): Pair<String, String> {
-    val regex = Regex.FOR_LAYOUT_INCLUDE.toRegex()
-    val matchResult = regex.find(includeString) // for example: include "us(basic)"
-    return matchResult?.let {
-        Pair(it.groupValues[1], it.groupValues[2]) // filename: "us", layout: "basic"
-    } ?: throw Error.WithParsing("Invalid include format. Expected format: 'layout(variant)'")
-}
-
 internal fun getVkValueByScValue(repository: Repository, base: String?) = when (base) {
     "0c" -> "OEM_MINUS"
     "0d" -> "OEM_PLUS"

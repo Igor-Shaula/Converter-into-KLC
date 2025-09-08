@@ -1,6 +1,7 @@
 package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Error
+import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.Repository
@@ -15,7 +16,6 @@ import org.igor_shaula.logic.isKeyStartingWithA
 import org.igor_shaula.logic.isKeyStartingWithLat
 import org.igor_shaula.logic.isKeyTilde
 import org.igor_shaula.logic.isLayoutEndingBlock
-import org.igor_shaula.logic.parseLayoutInclude
 import org.igor_shaula.utils.l
 import java.io.File
 
@@ -103,5 +103,13 @@ internal class X11EssenceMapping(fileAndLayoutPair: Pair<String, String>) : IMap
                 l("isKeyStartingWithLat: $line")
             }
         }
+    }
+
+    private fun parseLayoutInclude(includeString: String): Pair<String, String> {
+        val regex = Regex.FOR_LAYOUT_INCLUDE.toRegex()
+        val matchResult = regex.find(includeString) // for example: include "us(basic)"
+        return matchResult?.let {
+            Pair(it.groupValues[1], it.groupValues[2]) // filename: "us", layout: "basic"
+        } ?: throw Error.WithParsing("Invalid include format. Expected format: 'layout(variant)'")
     }
 }
