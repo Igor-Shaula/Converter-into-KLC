@@ -81,24 +81,91 @@ internal class X11LatAliasesMapping(
     }
 }
 
-internal fun prepareX11Essence(
-    repository: Repository, fileAndLayoutPair: Pair<String, String>
-) {
-    l("fileAndLayoutPair: $fileAndLayoutPair")
-    val x11LayoutSourceFilename = if (fileAndLayoutPair.first.contains('/')) fileAndLayoutPair.first
-    else X11.XKB_SYMBOLS_LOCATION + fileAndLayoutPair.first
-    try {
-        File(x11LayoutSourceFilename).useLines { lines ->
-            lines.forEach {
-                processEveryLine(
-                    repository = repository, line = it.clearAllBlanks(), targetLayout = fileAndLayoutPair.second
-                )
+internal class X11EssenceMapping(fileAndLayoutPair: Pair<String, String>) : IMapping {
+
+    private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude("include \"us(basic)\"")
+
+    init {
+        targetFileWithLayout = fileAndLayoutPair // necessary to avoid the Stack Overflow error
+    }
+
+    override fun prepare(repository: Repository) {
+        l("fileAndLayoutPair: $targetFileWithLayout")
+        val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains('/')) targetFileWithLayout.first
+        else X11.XKB_SYMBOLS_LOCATION + targetFileWithLayout.first
+        try {
+            File(x11LayoutSourceFilename).useLines { lines ->
+                lines.forEach {
+                    processEveryLine(
+                        repository = repository, line = it.clearAllBlanks(), targetLayout = targetFileWithLayout.second
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            throw Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
+        }
+        l("assembled x11Essence: ${repository.x11Essence}")
+    }
+
+    // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
+    private fun processEveryLine(
+        repository: Repository, line: String, targetLayout: String = X11.DEFAULT_XKB_LAYOUT
+    ) {
+        // 0
+        if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
+            repository.languageBlockCounter++
+            l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: ${repository.languageBlockCounter}")
+        } else if (repository.languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+            repository.languageBlockCounter--
+            l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: ${repository.languageBlockCounter}")
+        }
+        // parse all existing "Lat" mappings
+        if (isKeyStartingWithLat(line)) {
+//        l("isKeyStartingWithLat: $line")
+            val layers = createValuesForLayers(repository, line)
+            val latName = line.getKeyNameStartingWithLat()
+            repository.x11LatAliasesDictionary[latName]?.let {
+//            l("isKeyStartingWithLat it: $it")
+                repository.x11Essence.put(it, layers)
             }
         }
-    } catch (e: Exception) {
-        throw Error.WithFile(x11LayoutSourceFilename, e.message ?: Str.EMPTY)
+
+        if (repository.languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
+            return // because any further recognition action outside a detected layout block has no sense
+        }
+
+        // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
+        if (isBeginningInclude(line)) {
+            // detect the necessary filename
+            targetFileWithLayout = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
+            // open the included file
+            prepare(repository)
+            // find the necessary layout
+//        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
+            // fill the x11Essence from this layout
+        }
+        // 1
+        when {
+            isKeyStartingWithA(line) -> {
+                val layers = createValuesForLayers(repository, line)
+                repository.x11Essence[line.getKeyNameStartingWithA()] = layers
+//            l("→ isKeyStartingWithA: $layers")
+            }
+            isKeyTilde(line) -> {
+                val layers = createValuesForLayers(repository, line)
+                repository.x11Essence[X11.NAME_TILDE] = layers
+//            l("→ isKeyTilde: $layers")
+            }
+            isKeySpace(line) -> {
+                val layers = createValuesForLayers(repository, line)
+                repository.x11Essence[X11.NAME_SPACE] = layers
+//            l("→ isKeySpace: $layers")
+            }
+            isKeyStartingWithLat(line) -> {
+                l("isKeyStartingWithLat: $line")
+            }
+        }
     }
-    l("assembled x11Essence: ${repository.x11Essence}")
 }
 
 internal fun composeKlcFile(repository: Repository) {
@@ -116,64 +183,4 @@ internal fun composeKlcFile(repository: Repository) {
     }
     resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
     l("resultFile: $resultFile")
-}
-
-// parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
-private fun processEveryLine(
-    repository: Repository, line: String, targetLayout: String = X11.DEFAULT_XKB_LAYOUT
-) {
-    // 0
-    if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        repository.languageBlockCounter++
-        l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: ${repository.languageBlockCounter}")
-    } else if (repository.languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
-        repository.languageBlockCounter--
-        l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: ${repository.languageBlockCounter}")
-    }
-    // parse all existing "Lat" mappings
-    if (isKeyStartingWithLat(line)) {
-//        l("isKeyStartingWithLat: $line")
-        val layers = createValuesForLayers(repository, line)
-        val latName = line.getKeyNameStartingWithLat()
-        repository.x11LatAliasesDictionary[latName]?.let {
-//            l("isKeyStartingWithLat it: $it")
-            repository.x11Essence.put(it, layers)
-        }
-    }
-
-    if (repository.languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
-        return // because any further recognition action outside a detected layout block has no sense
-    }
-
-    // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
-    if (isBeginningInclude(line)) {
-        // detect the necessary filename
-        val fileAndLayoutPair = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
-        // open the included file
-        prepareX11Essence(repository, fileAndLayoutPair)
-        // find the necessary layout
-//        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
-        // fill the x11Essence from this layout
-    }
-    // 1
-    when {
-        isKeyStartingWithA(line) -> {
-            val layers = createValuesForLayers(repository, line)
-            repository.x11Essence[line.getKeyNameStartingWithA()] = layers
-//            l("→ isKeyStartingWithA: $layers")
-        }
-        isKeyTilde(line) -> {
-            val layers = createValuesForLayers(repository, line)
-            repository.x11Essence[X11.NAME_TILDE] = layers
-//            l("→ isKeyTilde: $layers")
-        }
-        isKeySpace(line) -> {
-            val layers = createValuesForLayers(repository, line)
-            repository.x11Essence[X11.NAME_SPACE] = layers
-//            l("→ isKeySpace: $layers")
-        }
-        isKeyStartingWithLat(line) -> {
-            l("isKeyStartingWithLat: $line")
-        }
-    }
 }

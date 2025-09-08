@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     X11LatAliasesMapping().prepare(repository) // by default, "qwerty" is used for mapping
 
     // 2 - filling x11Essence
-    prepareX11Essence(repository, x11LayoutSourceFilename to x11TargetLayoutName)
+    X11EssenceMapping(x11LayoutSourceFilename to x11TargetLayoutName).prepare(repository)
 
     // 3 - filling windowsEssence
     repository.prepareWindowsEssence()
