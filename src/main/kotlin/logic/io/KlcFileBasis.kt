@@ -1,4 +1,6 @@
-package org.igor_shaula.globals
+package org.igor_shaula.logic.io
+
+import org.igor_shaula.globals.Klc
 
 internal val KLC_FILE_PREFIX = """
 KBD ${Klc.DEFAULT_LAYOUT_NAME_8}    "${Klc.DEFAULT_LAYOUT_DESCRIPTION}"

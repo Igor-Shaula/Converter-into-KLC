@@ -1,6 +1,6 @@
 package org.igor_shaula
 
-import org.igor_shaula.logic.FileProcessor
+import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.mapping.X11EssenceMapping
 import org.igor_shaula.logic.mapping.X11LatAliasesMapping

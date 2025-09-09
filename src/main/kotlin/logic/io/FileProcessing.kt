@@ -1,12 +1,15 @@
-package org.igor_shaula.logic
+package org.igor_shaula.logic.io
 
 import org.igor_shaula.globals.*
 import org.igor_shaula.globals.X11
 import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
+import org.igor_shaula.logic.Repository
+import org.igor_shaula.logic.getCapitalizedValue
 import org.igor_shaula.logic.models.Error
 import org.igor_shaula.logic.models.adaptForWindows
 import org.igor_shaula.utils.l
 import java.io.File
+import kotlin.collections.get
 
 // I intend to restrict "java.io.File" usage only in this class
 internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {

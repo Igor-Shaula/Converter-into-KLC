@@ -3,6 +3,7 @@ package org.igor_shaula.logic.mapping
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
+import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.utils.l
 
 internal class X11LatAliasesMapping(
