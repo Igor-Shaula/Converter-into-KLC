@@ -1,5 +1,6 @@
 package org.igor_shaula.logic
 
+import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.io.ArgumentsProcessor
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.mapping.X11EssenceMapping
@@ -16,12 +17,13 @@ fun main(args: Array<String>) {
     // 1 - filling x11SymbolsDictionary
     X11SymbolsMapping().prepare(repository)
 
-    repository.prepareSymbolsDictionary()
-
-    X11LatAliasesMapping().prepare(repository) // by default, "qwerty" is used for mapping
+    if (ArgumentsProcessor.x11TargetLayoutName != X11.DEFAULT_XKB_LAYOUT) {
+        repository.prepareSymbolsDictionary()
+        X11LatAliasesMapping().prepare(repository) // by default, "qwerty" is used for mapping
+    }
 
     // 2 - filling x11Essence
-    X11EssenceMapping(args).prepare(repository)
+    X11EssenceMapping().prepare(repository)
 
     // 3 - filling windowsEssence
     repository.prepareWindowsEssence()
