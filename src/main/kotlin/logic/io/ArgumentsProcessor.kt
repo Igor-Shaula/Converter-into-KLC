@@ -11,18 +11,19 @@ object ArgumentsProcessor {
     var x11LayoutSourceFilename = X11.US_FILE_LOCATION
         private set
 
-    var x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT // or X11.RUS_LAYOUT_NAME
+    var x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT
         private set
 
     // this function is intended to be invoked first - right after the program starts
     fun processArguments(args: Array<String>?) {
         args?.forEach { oneArg ->
-            if (oneArg.startsWith("-")) when (oneArg.substring(1)) {
-                "v" -> isLoggingAllowed = true // verbose mode
-                "s" -> isLoggingAllowed = false // silent mode
-                "f=" -> x11LayoutSourceFilename =
+            l("arg: $oneArg")
+            if (oneArg.startsWith("-")) when {
+                oneArg.substring(1) == "v" -> isLoggingAllowed = true // verbose mode
+                oneArg.substring(1) == "s" -> isLoggingAllowed = false // silent mode
+                oneArg.contains("f=") -> x11LayoutSourceFilename =
                     X11.XKB_SYMBOLS_LOCATION + oneArg.substringAfter("=") // the file with the x11 layout to be processed
-                "l=" -> x11TargetLayoutName =
+                oneArg.contains("l=") -> x11TargetLayoutName =
                     oneArg.substringAfter("=") // the target layout name - it should be one of the X11.layouts
                 else -> l("Unknown argument: $oneArg")
             }
