@@ -1,14 +1,14 @@
 package org.igor_shaula.logic
 
+import org.igor_shaula.logic.io.ArgumentsProcessor
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.mapping.X11EssenceMapping
 import org.igor_shaula.logic.mapping.X11LatAliasesMapping
 import org.igor_shaula.logic.mapping.X11SymbolsMapping
-import org.igor_shaula.utils.l
 
 fun main(args: Array<String>) {
 
-    l("args: ${args.joinToString(", ")}")
+    ArgumentsProcessor.processArguments(args) // must be called first
 
     // 0 - preparing the application
     val repository = Repository() // the only data container for the whole application
