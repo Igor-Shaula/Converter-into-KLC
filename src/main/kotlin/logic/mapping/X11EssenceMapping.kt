@@ -32,7 +32,7 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
         l("fileAndLayoutPair: $targetFileWithLayout")
 
         val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
-        else X11.XKB_SYMBOLS_LOCATION + targetFileWithLayout.first
+        else X11.XKB_SYMBOLS_LOCATION + Sym.SLASH + targetFileWithLayout.first
         FileProcessor(x11LayoutSourceFilename).processFileLines { line ->
             processEveryLine(
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
