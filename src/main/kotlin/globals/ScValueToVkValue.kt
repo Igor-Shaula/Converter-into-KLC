@@ -1,6 +1,6 @@
 package org.igor_shaula.globals
 
-val skValueToScValueMap = mapOf(
+val scValueToVkValueMap = mapOf(
     "0c" to "OEM_MINUS",
     "0d" to "OEM_PLUS",
     "30" to "OEM_COMMA",
