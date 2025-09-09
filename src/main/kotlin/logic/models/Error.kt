@@ -1,4 +1,4 @@
-package org.igor_shaula.globals
+package org.igor_shaula.logic.models
 
 sealed class Error : Throwable() {
 

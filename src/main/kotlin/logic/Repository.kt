@@ -3,6 +3,7 @@ package org.igor_shaula.logic
 import org.igor_shaula.globals.HEX_RADIX
 import org.igor_shaula.globals.keysymToUnicodeMapping
 import org.igor_shaula.globals.xkbToWindowsScancode
+import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.utils.l
 
 // I decided to avoid global state management by explicitly passing the data container where needed

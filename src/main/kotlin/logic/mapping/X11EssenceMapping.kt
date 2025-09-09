@@ -1,10 +1,11 @@
 package org.igor_shaula.logic.mapping
 
-import org.igor_shaula.globals.Error
+import org.igor_shaula.logic.models.Error
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
+import org.igor_shaula.logic.models.createValuesForLayers
 import org.igor_shaula.utils.l
 
 internal class X11EssenceMapping(args: Array<String>) : IMapping {

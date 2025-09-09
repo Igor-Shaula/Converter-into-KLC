@@ -2,6 +2,8 @@ package org.igor_shaula.logic
 
 import org.igor_shaula.globals.*
 import org.igor_shaula.globals.X11
+import org.igor_shaula.logic.models.Error
+import org.igor_shaula.logic.models.adaptForWindows
 import org.igor_shaula.utils.l
 import java.io.File
 
