@@ -5,6 +5,7 @@ import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
+import org.igor_shaula.logic.io.ArgumentsProcessor
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.models.createValuesForLayers
 import org.igor_shaula.logic.string_processing.clearAllBlanks
@@ -25,21 +26,11 @@ internal class X11EssenceMapping(args: Array<String>) : IMapping {
 
     private var languageBlockCounter = 0
 
-    init {
-        // todo - later add processing of the arguments - in Linux style with one-symbol keys with dashes
-        val x11LayoutSourceFilename = if (args.isEmpty()) {
-            X11.US_FILE_LOCATION
-        } else {
-            args[0]
-        }
-        val x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT
-//        val x11TargetLayoutName = X11.RUS_LAYOUT_NAME
-        // customizing targetFileWithLayout is necessary to avoid the Stack Overflow error
-        targetFileWithLayout = x11LayoutSourceFilename to x11TargetLayoutName
-    }
-
     override fun prepare(repository: Repository) {
+        // customizing targetFileWithLayout is necessary to avoid the Stack Overflow error
+        targetFileWithLayout = ArgumentsProcessor.x11LayoutSourceFilename to ArgumentsProcessor.x11TargetLayoutName
         l("fileAndLayoutPair: $targetFileWithLayout")
+
         val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
         else X11.XKB_SYMBOLS_LOCATION + targetFileWithLayout.first
         FileProcessor(x11LayoutSourceFilename).processFileLines { line ->

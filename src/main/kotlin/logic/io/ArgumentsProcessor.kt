@@ -1,10 +1,17 @@
 package org.igor_shaula.logic.io
 
+import org.igor_shaula.globals.X11
 import org.igor_shaula.utils.l
 
 object ArgumentsProcessor {
 
     var isLoggingAllowed = true
+        private set
+
+    var x11LayoutSourceFilename = X11.US_FILE_LOCATION
+        private set
+
+    var x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT // or X11.RUS_LAYOUT_NAME
         private set
 
     // this function is intended to be invoked first - right after the program starts
@@ -13,6 +20,11 @@ object ArgumentsProcessor {
             if (oneArg.startsWith("-")) when (oneArg.substring(1)) {
                 "v" -> isLoggingAllowed = true // verbose mode
                 "s" -> isLoggingAllowed = false // silent mode
+                "f=" -> x11LayoutSourceFilename =
+                    X11.XKB_SYMBOLS_LOCATION + oneArg.substringAfter("=") // the file with the x11 layout to be processed
+                "l=" -> x11TargetLayoutName =
+                    oneArg.substringAfter("=") // the target layout name - it should be one of the X11.layouts
+                else -> l("Unknown argument: $oneArg")
             }
         }
         l("args: ${args?.joinToString(", ")}")
