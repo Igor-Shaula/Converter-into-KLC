@@ -3,22 +3,8 @@ package org.igor_shaula.logic
 import org.igor_shaula.globals.*
 import org.igor_shaula.utils.l
 
-internal fun getVkValueByScValue(repository: Repository, base: String?) = when (base) {
-    "0c" -> "OEM_MINUS"
-    "0d" -> "OEM_PLUS"
-    "30" -> "OEM_COMMA"
-    "31" -> "OEM_PERIOD"
-    "12" -> "OEM_1${Str.TAB}" // colon
-    "23" -> "OEM_2${Str.TAB}" // solidus / slash
-    "29" -> "OEM_3${Str.TAB}" // tilde
-    "15" -> "OEM_4${Str.TAB}" // left square bracket
-//    "??" -> "OEM_5${Str.TAB}"
-    "16" -> "OEM_6${Str.TAB}" // right square bracket
-    "14" -> "OEM_7${Str.TAB}" // apostrophe
-    "39" -> "SPACE${Str.TAB}"
-    "53" -> "DECIMAL"
-    else -> repository.getX11Symbol(base)?.uppercase()
-}
+internal fun getVkValueByScValue(repository: Repository, base: String?) =
+    skValueToScValueDictionary[base] ?: repository.getX11Symbol(base)?.uppercase()
 
 internal fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
     try {
