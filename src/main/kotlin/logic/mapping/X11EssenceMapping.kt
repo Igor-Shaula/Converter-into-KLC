@@ -20,15 +20,19 @@ import org.igor_shaula.logic.string_processing.isKeyTilde
 import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
 import org.igor_shaula.utils.l
 
-internal class X11EssenceMapping(args: Array<String>) : IMapping {
+internal class X11EssenceMapping : IMapping {
 
     private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude(X11.DEFAULT_INCLUDE_LINE)
 
     private var languageBlockCounter = 0
 
-    override fun prepare(repository: Repository) {
+    // as the constructor of X11EssenceMapping is invoked after processArguments(), so the arguments are already parsed
+    init {
         // customizing targetFileWithLayout is necessary to avoid the Stack Overflow error
         targetFileWithLayout = ArgumentsProcessor.x11LayoutSourceFilename to ArgumentsProcessor.x11TargetLayoutName
+    }
+
+    override fun prepare(repository: Repository) {
         l("fileAndLayoutPair: $targetFileWithLayout")
 
         val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
