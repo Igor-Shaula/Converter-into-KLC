@@ -1,8 +1,8 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.HEX_RADIX
-import org.igor_shaula.globals.keysymToUnicodeMapping
-import org.igor_shaula.globals.xkbToWindowsScancode
+import org.igor_shaula.globals.keysymToUnicodeMap
+import org.igor_shaula.globals.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.utils.l
 
@@ -38,7 +38,7 @@ class Repository {
         try {
             val keySymValue = keysym.toInt(HEX_RADIX)
             // X11 Keysym to Unicode mapping for Cyrillic
-            val unicodeValue = keysymToUnicodeMapping[keySymValue] ?: keySymValue
+            val unicodeValue = keysymToUnicodeMap[keySymValue] ?: keySymValue
             // fallback for non-Cyrillic or direct Unicode values
             return unicodeValue.toChar()
         } catch (e: NumberFormatException) {
@@ -87,7 +87,7 @@ class Repository {
 
     fun prepareWindowsEssence() {
         x11Essence.map { (key, value) ->
-            windowsEssence.put(xkbToWindowsScancode[key], value)
+            windowsEssence.put(xkbToWindowsScancodeMap[key], value)
         }
         l("assembled windowsEssence: $windowsEssence")
     }

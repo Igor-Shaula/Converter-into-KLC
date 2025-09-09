@@ -43,5 +43,5 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
     }
 
     private fun getVkValueByScValue(repository: Repository, scValue: String?) =
-        skValueToScValueDictionary[scValue] ?: repository.getX11Symbol(scValue)?.uppercase()
+        skValueToScValueMap[scValue] ?: repository.getX11Symbol(scValue)?.uppercase()
 }
