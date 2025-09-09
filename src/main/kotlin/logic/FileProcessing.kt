@@ -28,7 +28,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
         resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         repository.performWithWindowsEssence { key, value ->
             val scValue = key?.lowercase()
-            val vkValue = getVkValueByScValue(repository, key?.lowercase()) ?: (value.layer1.uppercase() + Str.TAB)
+            val vkValue = getVkValueByScValue(repository, scValue) ?: (value.layer1.uppercase() + Str.TAB)
             val capitalized = getCapitalizedValue(value.layer1)
             val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
             resultFile.appendText(
@@ -39,4 +39,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
         resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         l("resultFile: $resultFile")
     }
+
+    private fun getVkValueByScValue(repository: Repository, scValue: String?) =
+        skValueToScValueDictionary[scValue] ?: repository.getX11Symbol(scValue)?.uppercase()
 }
