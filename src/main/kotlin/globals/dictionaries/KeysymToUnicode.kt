@@ -1,4 +1,4 @@
-package org.igor_shaula.globals
+package org.igor_shaula.globals.dictionaries
 
 val keysymToUnicodeMap = mapOf(
     0x06c1 to 0x0430, // XK_Cyrillic_a -> а

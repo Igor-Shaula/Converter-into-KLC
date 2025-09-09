@@ -1,4 +1,6 @@
-package org.igor_shaula.globals
+package org.igor_shaula.globals.dictionaries
+
+import org.igor_shaula.globals.Str
 
 val scValueToVkValueMap = mapOf(
     "0c" to "OEM_MINUS",

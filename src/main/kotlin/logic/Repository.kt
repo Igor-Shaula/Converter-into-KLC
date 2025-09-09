@@ -1,8 +1,8 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.HEX_RADIX
-import org.igor_shaula.globals.keysymToUnicodeMap
-import org.igor_shaula.globals.xkbToWindowsScancodeMap
+import org.igor_shaula.globals.dictionaries.keysymToUnicodeMap
+import org.igor_shaula.globals.dictionaries.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.utils.l
 

@@ -1,4 +1,4 @@
-package org.igor_shaula.globals
+package org.igor_shaula.globals.dictionaries
 
 val xkbToWindowsScancodeMap: Map<String, String> = mapOf(
     "AE01" to "02", // 1
