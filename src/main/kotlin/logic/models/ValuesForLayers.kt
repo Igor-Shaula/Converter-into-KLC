@@ -2,8 +2,8 @@ package org.igor_shaula.logic.models
 
 import org.igor_shaula.globals.*
 import org.igor_shaula.logic.Repository
-import org.igor_shaula.logic.filterCommands
-import org.igor_shaula.logic.mapToKeysym
+import org.igor_shaula.logic.string_processing.filterCommands
+import org.igor_shaula.logic.string_processing.mapToKeysym
 
 data class ValuesForLayers(
     val layer1: String, // base

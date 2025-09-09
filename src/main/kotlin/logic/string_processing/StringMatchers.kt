@@ -1,4 +1,4 @@
-package org.igor_shaula.logic
+package org.igor_shaula.logic.string_processing
 
 import org.igor_shaula.globals.*
 

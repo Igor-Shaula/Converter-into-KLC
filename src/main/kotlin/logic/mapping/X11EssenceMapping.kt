@@ -7,6 +7,16 @@ import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.models.createValuesForLayers
+import org.igor_shaula.logic.string_processing.clearAllBlanks
+import org.igor_shaula.logic.string_processing.getKeyNameStartingWithA
+import org.igor_shaula.logic.string_processing.getKeyNameStartingWithLat
+import org.igor_shaula.logic.string_processing.getXkbSymbolsSectionName
+import org.igor_shaula.logic.string_processing.isBeginningInclude
+import org.igor_shaula.logic.string_processing.isKeySpace
+import org.igor_shaula.logic.string_processing.isKeyStartingWithA
+import org.igor_shaula.logic.string_processing.isKeyStartingWithLat
+import org.igor_shaula.logic.string_processing.isKeyTilde
+import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
 import org.igor_shaula.utils.l
 
 internal class X11EssenceMapping(args: Array<String>) : IMapping {

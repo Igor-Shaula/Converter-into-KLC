@@ -1,6 +1,7 @@
-package org.igor_shaula.logic
+package org.igor_shaula.logic.string_processing
 
 import org.igor_shaula.globals.*
+import org.igor_shaula.logic.Repository
 
 private val whitespacesRegex = Regex.WHITESPACES.toRegex()
 private val xkbSymbolsRegex = Regex.XKB_SYMBOLS_FINDING_PATTERN.toRegex()
