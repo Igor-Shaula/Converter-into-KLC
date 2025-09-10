@@ -3,7 +3,10 @@ package org.igor_shaula.logic.io
 import org.igor_shaula.globals.X11
 import org.igor_shaula.utils.l
 
-object ArgumentsProcessor {
+/**
+ * the purpose of this class is to process the command line arguments and set the app's configuration accordingly.
+ */
+object AppConfiguration {
 
     var isLoggingAllowed = true
         private set

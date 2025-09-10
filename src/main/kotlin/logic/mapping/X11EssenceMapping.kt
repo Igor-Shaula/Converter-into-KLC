@@ -5,7 +5,7 @@ import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
-import org.igor_shaula.logic.io.ArgumentsProcessor
+import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.models.createValuesForLayers
 import org.igor_shaula.logic.string_processing.clearAllBlanks
@@ -29,7 +29,7 @@ internal class X11EssenceMapping : IMapping {
     // as the constructor of X11EssenceMapping is invoked after processArguments(), so the arguments are already parsed
     init {
         // customizing targetFileWithLayout is necessary to avoid the Stack Overflow error
-        targetFileWithLayout = ArgumentsProcessor.x11LayoutSourceFilename to ArgumentsProcessor.x11TargetLayoutName
+        targetFileWithLayout = AppConfiguration.x11LayoutSourceFilename to AppConfiguration.x11TargetLayoutName
     }
 
     override fun prepare(repository: Repository) {
