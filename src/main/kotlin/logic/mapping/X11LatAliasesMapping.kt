@@ -1,5 +1,6 @@
 package org.igor_shaula.logic.mapping
 
+import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.*
@@ -29,7 +30,7 @@ internal class X11LatAliasesMapping(
     // 1: find the necessary mapping, if not given this parameter - use "default" one
     // 2: read all aliases from the target mapping - build the dictionary
     private fun processEveryAliasLine(
-        repository: Repository, line: String, targetMapping: String? = X11.DEFAULT_ALIAS_MAPPING
+        repository: Repository, line: String, targetMapping: String? = Defaults.ALIASES_MAPPING
     ) {
         if (getXkbKeycodesSectionName(line) == targetMapping) { // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
 //        l("getXkbSymbolsSectionName: $targetMapping")

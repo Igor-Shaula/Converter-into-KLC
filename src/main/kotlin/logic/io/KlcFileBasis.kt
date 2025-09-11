@@ -1,9 +1,9 @@
 package org.igor_shaula.logic.io
 
-import org.igor_shaula.globals.Klc
+import org.igor_shaula.globals.Defaults
 
 internal val KLC_FILE_PREFIX = """
-KBD ${Klc.DEFAULT_LAYOUT_NAME_8}    "${Klc.DEFAULT_LAYOUT_DESCRIPTION}"
+KBD ${Defaults.KLC_LAYOUT_NAME_8}    "${Defaults.KLC_LAYOUT_DESCRIPTION}"
 
 COPYRIGHT	"(c) 2025 igor.shaula"
 
@@ -112,7 +112,7 @@ KEYNAME_EXT
 
 DESCRIPTIONS
 
-0409	${Klc.DEFAULT_LAYOUT_DESCRIPTION}
+0409	${Defaults.KLC_LAYOUT_DESCRIPTION}
 
 LANGUAGENAMES
 

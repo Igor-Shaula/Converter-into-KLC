@@ -21,15 +21,12 @@ object Str {
 object X11 {
     const val BASE_XKB_LOCATION = "/usr/share/X11/xkb"
     const val XKB_SYMBOLS_LOCATION = "$BASE_XKB_LOCATION/symbols"
-    const val US_FILE_LOCATION = "$XKB_SYMBOLS_LOCATION/us"
     const val KEYSYMDEF_FILE_LOCATION = "/usr/include/X11/keysymdef.h"
     const val ALIASES_FILE_LOCATION = "$BASE_XKB_LOCATION/keycodes/aliases"
     const val LAYOUT_STARTING_BLOCK = "xkb_symbols"
     const val LAYOUT_ENDING_BLOCK = "};"
     const val KEYCODES_STARTING_BLOCK = "xkb_keycodes"
     const val KEYCODES_ENDING_BLOCK = ">;"
-    const val DEFAULT_XKB_LAYOUT = "basic"
-    const val DEFAULT_ALIAS_MAPPING = "qwerty"
     const val OPENING_BRACKETS = "{["
     const val CLOSING_BRACKETS = "]}"
     const val SYMBOL_RECORD = "#define"
@@ -48,7 +45,6 @@ object X11 {
     const val EXTENDED_CODE_PREFIX_HEX = "0x100"
     const val NOSYMBOL = "NoSymbol"
     const val UNICODE_NUMBER_LENGTH = 5
-    const val DEFAULT_INCLUDE_LINE = """include "us(basic)""""
 }
 
 const val UNICODE_NUMBER_LENGTH = 4
@@ -62,11 +58,4 @@ object Regex {
     const val FOR_KEYSYMDEF_FILE = """${X11.SYMBOL_RECORD}\s+${X11.SYMBOL_PREFIX}(\w+)\s+0x([0-9a-fA-F]+)"""
     const val FOR_ALIASES_FILE = """^${X11.ALIAS}\s*<(\w+)>\s*=\s*<(\w+)>;$"""
     const val FOR_LAYOUT_INCLUDE = """$ONE_WORD\($ONE_WORD\)"""
-}
-
-object Klc {
-    const val KLC_LAYOUT_NAME_8 = "basic_EN"
-    const val KLC_LAYOUT_DESCRIPTION = "from X11 - English (US)"
-    const val KLC_RESULT_FILE_NAME = "result_UTF-16.klc"
-    const val KLC_ABSENT_SYMBOL_VALUE = "-1"
 }

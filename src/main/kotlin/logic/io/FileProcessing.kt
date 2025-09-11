@@ -1,7 +1,6 @@
 package org.igor_shaula.logic.io
 
 import org.igor_shaula.globals.*
-import org.igor_shaula.globals.X11
 import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.string_processing.getCapitalizedValue
@@ -12,7 +11,7 @@ import java.io.File
 import kotlin.collections.get
 
 // I intend to restrict "java.io.File" usage only in this class
-internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
+internal class FileProcessor(val filename: String = Defaults.TARGET_FILE_NAME) {
 
     /**
      * Processes a file line by line using the provided processing function.
@@ -30,7 +29,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
     }
 
     internal fun composeKlcFile(repository: Repository) {
-        val resultFile = File(Klc.KLC_RESULT_FILE_NAME)
+        val resultFile = File(Defaults.KLC_RESULT_FILE_NAME)
         resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         repository.performWithWindowsEssence { key, value ->
             val scValue = key?.lowercase()
@@ -38,7 +37,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
             val capitalized = getCapitalizedValue(value.layer1)
             val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
             resultFile.appendText(
-                "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Klc.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
+                "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
                 charset = Charsets.UTF_16
             )
         }

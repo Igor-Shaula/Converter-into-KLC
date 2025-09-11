@@ -1,5 +1,6 @@
 package org.igor_shaula.logic.io
 
+import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.X11
 import org.igor_shaula.utils.l
 
@@ -11,10 +12,10 @@ object AppConfiguration {
     var isLoggingAllowed = true
         private set
 
-    var x11LayoutSourceFilename = X11.US_FILE_LOCATION
+    var x11LayoutSourceFilename = Defaults.TARGET_FILE_NAME
         private set
 
-    var x11TargetLayoutName = X11.DEFAULT_XKB_LAYOUT
+    var x11TargetLayoutName = Defaults.TARGET_LAYOUT_NAME
         private set
 
     // this function is intended to be invoked first - right after the program starts

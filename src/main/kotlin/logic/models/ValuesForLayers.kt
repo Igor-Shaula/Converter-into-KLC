@@ -29,5 +29,5 @@ internal fun createValuesForLayers(repository: Repository, input: String): Value
 internal fun ValuesForLayers.adaptForWindows() = ValuesForLayers(
     layer1 = this.layer1,
     layer2 = this.layer2,
-    layer3 = this.layer3.ifEmpty { Klc.ABSENT_SYMBOL_VALUE },
-    layer4 = this.layer4.ifEmpty { Klc.ABSENT_SYMBOL_VALUE })
+    layer3 = this.layer3.ifEmpty { Defaults.KLC_ABSENT_SYMBOL_VALUE },
+    layer4 = this.layer4.ifEmpty { Defaults.KLC_ABSENT_SYMBOL_VALUE })

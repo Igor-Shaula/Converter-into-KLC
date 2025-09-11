@@ -1,5 +1,6 @@
 package org.igor_shaula.logic.mapping
 
+import org.igor_shaula.globals.Defaults
 import org.igor_shaula.logic.models.Error
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Sym
@@ -22,7 +23,7 @@ import org.igor_shaula.utils.l
 
 internal class X11EssenceMapping : IMapping {
 
-    private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude(X11.DEFAULT_INCLUDE_LINE)
+    private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude(Defaults.INCLUDE_US_BASIC_LINE)
 
     private var languageBlockCounter = 0
 
@@ -47,7 +48,7 @@ internal class X11EssenceMapping : IMapping {
 
     // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
     private fun processEveryLine(
-        repository: Repository, line: String, targetLayout: String = X11.DEFAULT_XKB_LAYOUT
+        repository: Repository, line: String, targetLayout: String = Defaults.TARGET_LAYOUT_NAME
     ) {
         // 0
         if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
