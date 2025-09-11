@@ -4,6 +4,7 @@ import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
 import org.igor_shaula.utils.l
+import kotlin.system.exitProcess
 
 /**
  * the purpose of this class is to process the command line arguments and set the app's configuration accordingly.
@@ -30,6 +31,10 @@ object AppConfiguration {
         args?.forEach { oneArg ->
             l("arg: $oneArg")
             if (oneArg.startsWith(Sym.DASH)) when {
+                oneArg.isHelp() -> {
+                    printHelp()
+                    exitProcess(0)
+                }
                 oneArg.isVerbose() -> isLoggingAllowed = true // verbose mode
                 oneArg.isSilent() -> isLoggingAllowed = false // silent mode
                 oneArg.isFile() -> x11LayoutSourceFilename =
@@ -51,4 +56,15 @@ object AppConfiguration {
     private fun String.isLayout() = contains(LAYOUT + Sym.EQUALS)
 
     private fun String.isHelp() = substring(1) == HELP
+
+    private fun printHelp() = println(
+        """
+            options:
+        VERBOSE = "v"
+        SILENT = "s"
+        FILE = "f" with "=" → should be like: f=us or f=ru
+        LAYOUT = "l" with "=" → should be like: l=basic or l=rus
+        HELP = "h"
+        """.trimIndent()
+    )
 }
