@@ -2,6 +2,7 @@ package org.igor_shaula.globals
 
 // some characters and control sequences ===
 object Sym {
+    const val DASH = '-'
     const val EQUALS = '='
     const val SEMICOLON = ';'
     const val DOUBLE_QUOTE = '"'
