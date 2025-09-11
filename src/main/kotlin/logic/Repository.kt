@@ -20,7 +20,7 @@ class Repository {
         x11SymbolsDictionary[keyName] = value
     }
 
-    fun printX11SymbolsDictionary() = x11SymbolsDictionary.toString()
+    fun printX11SymbolsDictionary() = "x11SymbolsDictionary = $x11SymbolsDictionary\n"
 
     /**
      *
@@ -31,7 +31,7 @@ class Repository {
         x11SymbolsDictionary.forEach {
             symbolsDictionary[it.key] = getUnicodeSymbolFromKeysym(it.value)
         }
-        l("standard symbols dictionary: $symbolsDictionary")
+        l("prepareSymbolsDictionary: ${::printSymbolsDictionary}")
     }
 
     private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
@@ -47,6 +47,8 @@ class Repository {
         }
     }
 
+    fun printSymbolsDictionary() = "symbolsDictionary = $symbolsDictionary\n"
+
     /**
      * mapping of predefined (in keycodes/aliases) X11 aliases to keycodes from the keyboard.
      * needed to map the X11 key aliases to the actual keysym codes, like LatQ=AD01
@@ -61,7 +63,7 @@ class Repository {
 
     fun isX11LatAliasDictionaryEmpty() = x11LatAliasesDictionary.isEmpty()
 
-    fun printX11LatAliasesDictionary() = x11LatAliasesDictionary.toString()
+    fun printX11LatAliasesDictionary() = "x11LatAliasesDictionary = $x11LatAliasesDictionary\n"
 
     /**
      *
@@ -72,7 +74,7 @@ class Repository {
         x11Essence[keyName] = value
     }
 
-    fun printX11Essence() = x11Essence.toString()
+    fun printX11Essence() = "x11Essence = $x11Essence\n"
 
     /**
      *
@@ -89,6 +91,8 @@ class Repository {
         x11Essence.map { (key, value) ->
             windowsEssence.put(xkbToWindowsScancodeMap[key], value)
         }
-        l("assembled windowsEssence: $windowsEssence")
+        l("prepareWindowsEssence: ${::printWindowsEssence}")
     }
+
+    fun printWindowsEssence() = "windowsEssence = $windowsEssence\n"
 }
