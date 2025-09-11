@@ -1,5 +1,6 @@
 package org.igor_shaula.logic.io
 
+import org.igor_shaula.BuildConfig
 import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
@@ -11,11 +12,11 @@ import kotlin.system.exitProcess
  */
 object AppConfiguration {
 
-    const val VERBOSE = "v"
+    const val HELP = "h"
+    const val VERSION = "v"
     const val SILENT = "s"
     const val FILE = "f"
     const val LAYOUT = "l"
-    const val HELP = "h"
 
     var isLoggingAllowed = true
         private set
@@ -35,8 +36,11 @@ object AppConfiguration {
                     printHelp()
                     exitProcess(0)
                 }
-                oneArg.isVerbose() -> isLoggingAllowed = true // verbose mode
-                oneArg.isSilent() -> isLoggingAllowed = false // silent mode
+                oneArg.isVersion() -> {
+                    println("Version: ${BuildConfig.VERSION}")
+                    exitProcess(0)
+                } // verbose mode
+                oneArg.isSilent() -> isLoggingAllowed = false // enable silent mode, it's verbose by default
                 oneArg.isFile() -> x11LayoutSourceFilename =
                     X11.XKB_SYMBOLS_LOCATION + oneArg.substringAfter(Sym.EQUALS) // the file with the x11 layout to be processed
                 oneArg.isLayout() -> x11TargetLayoutName =
@@ -47,7 +51,7 @@ object AppConfiguration {
         l("args: ${args?.joinToString(", ")}")
     }
 
-    private fun String.isVerbose() = substring(1) == VERBOSE
+    private fun String.isVersion() = substring(1) == VERSION
 
     private fun String.isSilent() = substring(1) == SILENT
 
@@ -62,8 +66,8 @@ object AppConfiguration {
         PARAMETERS:
 
         "h" - help: prints this help, as in other programs.
-        "v" - verbose (logging) → SAMPLE: -v
-        "s" - silent (logging) → SAMPLE: -s
+        "v" - version: as in other programs → SAMPLE: -v
+        "s" - silent (logging): minimize text output as much as possible → SAMPLE: -s
         "f" with "=" - file (source with the language layout) → SAMPLE: -f=us or -f=ru
         "l" with "=" - layout (which one in the source file) → SAMPLE: -l=basic or -l=rus
         
