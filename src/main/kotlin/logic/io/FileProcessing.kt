@@ -30,7 +30,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
     }
 
     internal fun composeKlcFile(repository: Repository) {
-        val resultFile = File(Klc.DEFAULT_RESULT_FILE_NAME)
+        val resultFile = File(Klc.KLC_RESULT_FILE_NAME)
         resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         repository.performWithWindowsEssence { key, value ->
             val scValue = key?.lowercase()
@@ -38,7 +38,7 @@ internal class FileProcessor(val filename: String = X11.US_FILE_LOCATION) {
             val capitalized = getCapitalizedValue(value.layer1)
             val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
             resultFile.appendText(
-                "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Klc.ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
+                "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Klc.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
                 charset = Charsets.UTF_16
             )
         }
