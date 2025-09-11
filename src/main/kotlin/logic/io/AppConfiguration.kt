@@ -59,12 +59,15 @@ object AppConfiguration {
 
     private fun printHelp() = println(
         """
-            options:
-        VERBOSE = "v"
-        SILENT = "s"
-        FILE = "f" with "=" → should be like: f=us or f=ru
-        LAYOUT = "l" with "=" → should be like: l=basic or l=rus
-        HELP = "h"
+        PARAMETERS:
+
+        "h" - help: prints this help, as in other programs.
+        "v" - verbose (logging) → SAMPLE: -v
+        "s" - silent (logging) → SAMPLE: -s
+        "f" with "=" - file (source with the language layout) → SAMPLE: -f=us or -f=ru
+        "l" with "=" - layout (which one in the source file) → SAMPLE: -l=basic or -l=rus
+        
+        there will be more parameters available in the nearest future.
         """.trimIndent()
     )
 }
