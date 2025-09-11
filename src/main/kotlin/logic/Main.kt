@@ -1,7 +1,6 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.Defaults
-import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.mapping.X11EssenceMapping
@@ -18,7 +17,7 @@ fun main(args: Array<String>) {
     X11SymbolsMapping().prepare(repository)
 
     if (AppConfiguration.x11TargetLayoutName != Defaults.TARGET_LAYOUT_NAME) {
-        repository.prepareSymbolsDictionary()
+        repository.prepareSymbolsMap()
         X11LatAliasesMapping().prepare(repository) // by default, "qwerty" is used for mapping
     }
 

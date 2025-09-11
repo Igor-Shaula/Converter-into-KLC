@@ -12,26 +12,26 @@ class Repository {
     /**
      * mapping of predefined (in keysymdef.h) X11 keysym names to keysym codes like A=0041 or BackSpace=ff08
      */
-    private val x11SymbolsDictionary = mutableMapOf<String, String>()
+    private val x11SymbolsMap = mutableMapOf<String, String>()
 
-    fun getX11Symbol(keyName: String?) = x11SymbolsDictionary[keyName]
+    fun getX11Symbol(keyName: String?) = x11SymbolsMap[keyName]
 
     fun setX11Symbol(keyName: String, value: String) {
-        x11SymbolsDictionary[keyName] = value
+        x11SymbolsMap[keyName] = value
     }
 
-    fun printX11SymbolsDictionary() = "x11SymbolsDictionary = $x11SymbolsDictionary\n"
+    fun printX11SymbolsMap() = "x11SymbolsMap = $x11SymbolsMap\n"
 
     /**
      *
      */
-    private val symbolsDictionary = mutableMapOf<String, Char?>()
+    private val unicodeSymbolsMap = mutableMapOf<String, Char?>()
 
-    fun prepareSymbolsDictionary() {
-        x11SymbolsDictionary.forEach {
-            symbolsDictionary[it.key] = getUnicodeSymbolFromKeysym(it.value)
+    fun prepareSymbolsMap() {
+        x11SymbolsMap.forEach {
+            unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
         }
-        l("prepareSymbolsDictionary: ${printSymbolsDictionary()}")
+        l("prepareSymbolsMap: ${printSymbolsMap()}")
     }
 
     private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
@@ -47,52 +47,52 @@ class Repository {
         }
     }
 
-    fun printSymbolsDictionary() = "symbolsDictionary = $symbolsDictionary\n"
+    fun printSymbolsMap() = "unicodeSymbolsMap = $unicodeSymbolsMap\n"
 
     /**
      * mapping of predefined (in keycodes/aliases) X11 aliases to keycodes from the keyboard.
      * needed to map the X11 key aliases to the actual keysym codes, like LatQ=AD01
      */
-    private val x11LatAliasesDictionary = mutableMapOf<String, String>()
+    private val x11LatAliasesMap = mutableMapOf<String, String>()
 
-    fun getX11LatAlias(keyName: String?) = x11LatAliasesDictionary[keyName]
+    fun getX11LatAlias(keyName: String?) = x11LatAliasesMap[keyName]
 
     fun setX11LatAlias(keyName: String, value: String) {
-        x11LatAliasesDictionary[keyName] = value
+        x11LatAliasesMap[keyName] = value
     }
 
-    fun isX11LatAliasDictionaryEmpty() = x11LatAliasesDictionary.isEmpty()
+    fun isX11LatAliasMapEmpty() = x11LatAliasesMap.isEmpty()
 
-    fun printX11LatAliasesDictionary() = "x11LatAliasesDictionary = $x11LatAliasesDictionary\n"
+    fun printX11LatAliasesMap() = "x11LatAliasesMap = $x11LatAliasesMap\n"
 
     /**
      *
      */
-    private val x11Essence = mutableMapOf<String, ValuesForLayers>()
+    private val x11EssenceMap = mutableMapOf<String, ValuesForLayers>()
 
     fun setX11EssenceValue(keyName: String, value: ValuesForLayers) {
-        x11Essence[keyName] = value
+        x11EssenceMap[keyName] = value
     }
 
-    fun printX11Essence() = "x11Essence = $x11Essence\n"
+    fun printX11EssenceMap() = "x11EssenceMap = $x11EssenceMap\n"
 
     /**
      *
      */
-    private val windowsEssence = mutableMapOf<String?, ValuesForLayers>()
+    private val windowsEssenceMap = mutableMapOf<String?, ValuesForLayers>()
 
     fun performWithWindowsEssence(action: (String?, ValuesForLayers) -> Unit) {
-        windowsEssence.forEach { (key, value) ->
+        windowsEssenceMap.forEach { (key, value) ->
             action(key, value)
         }
     }
 
     fun prepareWindowsEssence() {
-        x11Essence.map { (key, value) ->
-            windowsEssence.put(xkbToWindowsScancodeMap[key], value)
+        x11EssenceMap.map { (key, value) ->
+            windowsEssenceMap.put(xkbToWindowsScancodeMap[key], value)
         }
-        l("prepareWindowsEssence: ${printWindowsEssence()}")
+        l("prepareWindowsEssence: ${printWindowsEssenceMap()}")
     }
 
-    fun printWindowsEssence() = "windowsEssence = $windowsEssence\n"
+    fun printWindowsEssenceMap() = "windowsEssenceMap = $windowsEssenceMap\n"
 }

@@ -13,7 +13,7 @@ internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCAT
             val pair = parseKeySymDefinition(line)
             if (pair != null) repository.setX11Symbol(pair.first, pair.second)
         }
-        l("standard Linux symbols dictionary: ${repository.printX11SymbolsDictionary()}")
+        l("standard Linux symbols dictionary: ${repository.printX11SymbolsMap()}")
     }
 
     private fun parseKeySymDefinition(input: String): Pair<String, String>? {

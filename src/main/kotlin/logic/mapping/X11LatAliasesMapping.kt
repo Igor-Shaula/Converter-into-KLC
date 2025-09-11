@@ -18,13 +18,13 @@ internal class X11LatAliasesMapping(
     private var isInsideKeycodesBlock = false
 
     override fun prepare(repository: Repository) {
-        if (!repository.isX11LatAliasDictionaryEmpty()) return
+        if (!repository.isX11LatAliasMapEmpty()) return
         FileProcessor(filename).processFileLines { line ->
             processEveryAliasLine(
                 repository = repository, line = line.clearAllBlanks(), targetMapping = targetMapping
             )
         }
-        l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesDictionary()}")
+        l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesMap()}")
     }
 
     // 1: find the necessary mapping, if not given this parameter - use "default" one
