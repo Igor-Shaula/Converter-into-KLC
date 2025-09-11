@@ -31,7 +31,7 @@ class Repository {
         x11SymbolsDictionary.forEach {
             symbolsDictionary[it.key] = getUnicodeSymbolFromKeysym(it.value)
         }
-        l("prepareSymbolsDictionary: ${::printSymbolsDictionary}")
+        l("prepareSymbolsDictionary: ${printSymbolsDictionary()}")
     }
 
     private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
@@ -91,7 +91,7 @@ class Repository {
         x11Essence.map { (key, value) ->
             windowsEssence.put(xkbToWindowsScancodeMap[key], value)
         }
-        l("prepareWindowsEssence: ${::printWindowsEssence}")
+        l("prepareWindowsEssence: ${printWindowsEssence()}")
     }
 
     fun printWindowsEssence() = "windowsEssence = $windowsEssence\n"
