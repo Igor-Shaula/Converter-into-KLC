@@ -23,7 +23,7 @@ class Repository {
     fun printX11SymbolsMap() = "x11SymbolsMap = $x11SymbolsMap\n"
 
     /**
-     *
+     * mapping of predefined (in keysymdef.h) X11 keysym names to Unicode symbols - based on x11SymbolsMap values
      */
     private val unicodeSymbolsMap = mutableMapOf<String, Char?>()
 
@@ -40,6 +40,7 @@ class Repository {
             // X11 Keysym to Unicode mapping for Cyrillic
             val unicodeValue = keysymToUnicodeMap[keySymValue] ?: keySymValue
             // fallback for non-Cyrillic or direct Unicode values
+//            l("keySymValue = $keySymValue, unicodeValue = $unicodeValue")
             return unicodeValue.toChar()
         } catch (e: NumberFormatException) {
             l("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
@@ -66,18 +67,27 @@ class Repository {
     fun printX11LatAliasesMap() = "x11LatAliasesMap = $x11LatAliasesMap\n"
 
     /**
-     *
+     * mapping of X11 keysym names to 4 layers of values for each key:
+     * the first layer is for the key itself,
+     * the second for the Shifted key,
+     * the third for the Alt-gr key,
+     * and the fourth for the Alt-gr-Shifted key.
      */
     private val x11EssenceMap = mutableMapOf<String, ValuesForLayers>()
 
     fun setX11EssenceValue(keyName: String, value: ValuesForLayers) {
+//        l("setX11EssenceValue : keyName = $keyName : value = $value")
         x11EssenceMap[keyName] = value
     }
 
     fun printX11EssenceMap() = "x11EssenceMap = $x11EssenceMap\n"
 
     /**
-     *
+     * mapping of SC number to 4 layers of values for each key:
+     * the first layer is for the key itself,
+     * the second for the Shifted key,
+     * the third for the Alt-gr key,
+     * and the fourth for the Alt-gr-Shifted key.
      */
     private val windowsEssenceMap = mutableMapOf<String?, ValuesForLayers>()
 
