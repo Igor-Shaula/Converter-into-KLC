@@ -27,6 +27,8 @@ class Repository {
      */
     private val unicodeSymbolsMap = mutableMapOf<String, Char?>()
 
+    fun getUnicodeSymbol(keyName: String?) = unicodeSymbolsMap[keyName]
+
     fun prepareSymbolsMap() {
         x11SymbolsMap.forEach {
             unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
