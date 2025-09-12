@@ -1,6 +1,9 @@
 package org.igor_shaula.logic.models
 
-import org.igor_shaula.globals.*
+import org.igor_shaula.globals.Defaults
+import org.igor_shaula.globals.Str
+import org.igor_shaula.globals.Sym
+import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.string_processing.filterCommands
 import org.igor_shaula.logic.string_processing.mapToKeysym
