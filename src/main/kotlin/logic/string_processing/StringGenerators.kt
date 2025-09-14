@@ -23,8 +23,13 @@ internal fun String.mapToKeysym(repository: Repository): String = when {
     this.isUnicodeNumber() -> this.substring(1).lowercase() // because the length of the char U is "1"
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
     else -> {
-        val unicodeSymbol = repository.getUnicodeSymbol(this)
-        unicodeSymbol?.lowercase() ?: this.lowercase().filterMissingKeysyms()
+//        val unicodeSymbol = repository.getUnicodeSymbol(this)
+        val unicodeValue = repository.getUnicodeValue(this)
+        val other = this.lowercase().filterMissingKeysyms() // not optimal for now but will be improved very soon
+//        l("other: $other\t\t:unicodeSymbol: $unicodeSymbol")
+//        l("other: $other\t\t:$unicodeValue: $unicodeValue")
+//        unicodeSymbol?.lowercase() ?: other
+        unicodeValue?.lowercase() ?: other
     }
 }
 

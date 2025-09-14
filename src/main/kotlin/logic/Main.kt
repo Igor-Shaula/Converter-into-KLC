@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
     X11SymbolsMapping().prepare(repository)
 
     // 2 - normalizing the x11SymbolsDictionary to the Unicode symbols
-    repository.prepareSymbolsMap()
+    repository.prepareUnicodeValuesMap()
 
     if (AppConfiguration.x11TargetLayoutName != Defaults.TARGET_LAYOUT_NAME) {
         X11LatAliasesMapping().prepare(repository) // by default, "qwerty" is used for mapping

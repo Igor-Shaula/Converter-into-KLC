@@ -1,6 +1,5 @@
 package org.igor_shaula.logic
 
-import org.igor_shaula.globals.HEX_RADIX
 import org.igor_shaula.globals.dictionaries.keysymToUnicodeMap
 import org.igor_shaula.globals.dictionaries.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
@@ -23,34 +22,43 @@ class Repository {
     fun printX11SymbolsMap() = "x11SymbolsMap = $x11SymbolsMap\n"
 
     /**
-     * mapping of predefined (in keysymdef.h) X11 keysym names to Unicode symbols - based on x11SymbolsMap values
+     * mapping of predefined (in keysymdef.h) X11 keysym names to Unicode symbols' values - based on x11SymbolsMap values.
+     * like "01a1" to "0104". string format of Unicode symbols is used here for simplicity and performance reasons.
      */
-    private val unicodeSymbolsMap = mutableMapOf<String, Char?>()
+    private val unicodeValuesMap = mutableMapOf<String, String?>()
 
-    fun getUnicodeSymbol(keyName: String?) = unicodeSymbolsMap[keyName]
+    // left for the future but currently commented out for saving memory as unused code is removed by the compiler
+//    private val unicodeSymbolsMap = mutableMapOf<String, Char?>()
 
-    fun prepareSymbolsMap() {
+//    fun getUnicodeSymbol(keyName: String?) = unicodeSymbolsMap[keyName]
+
+    fun getUnicodeValue(keyName: String?) = unicodeValuesMap[keyName]
+
+    fun prepareUnicodeValuesMap() {
         x11SymbolsMap.forEach {
-            unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
+//            unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
+            unicodeValuesMap[it.key] = keysymToUnicodeMap[it.value] ?: it.value
         }
-        l("prepareSymbolsMap: ${printSymbolsMap()}")
+//        l("prepareSymbolsMap: ${printSymbolsMap()}")
+        l("prepareSymbolsMap: ${printUnicodeValuesMap()}")
     }
 
-    private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
-        try {
-            val keySymValue = keysym.toInt(HEX_RADIX)
-            // X11 Keysym to Unicode mapping for Cyrillic
-            val unicodeValue = keysymToUnicodeMap[keySymValue] ?: keySymValue
-            // fallback for non-Cyrillic or direct Unicode values
-//            l("keySymValue = $keySymValue, unicodeValue = $unicodeValue")
-            return unicodeValue.toChar()
-        } catch (e: NumberFormatException) {
-            l("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
-            return null
-        }
-    }
+//    private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
+//        try {
+//            val keySymValue = keysym.toInt(HEX_RADIX)
+//            // X11 Keysym to Unicode mapping for Cyrillic
+//            val unicodeValue = keysymToUnicodeMap[keySymValue] ?: keySymValue
+//            // fallback for non-Cyrillic or direct Unicode values
+//            return unicodeValue.toChar()
+//        } catch (e: NumberFormatException) {
+//            l("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
+//            return null
+//        }
+//    }
 
-    fun printSymbolsMap() = "unicodeSymbolsMap = $unicodeSymbolsMap\n"
+//    fun printUnicodeValuesMap() = "unicodeSymbolsMap = $unicodeSymbolsMap\n"
+
+    fun printUnicodeValuesMap() = "unicodeValuesMap = $unicodeValuesMap\n"
 
     /**
      * mapping of predefined (in keycodes/aliases) X11 aliases to keycodes from the keyboard.
