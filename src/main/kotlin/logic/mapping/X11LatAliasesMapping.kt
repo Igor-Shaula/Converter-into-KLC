@@ -21,17 +21,23 @@ internal class X11LatAliasesMapping(
         if (!repository.isX11LatAliasMapEmpty()) return
         l("prepare: else - filename = $filename, targetMapping = $targetMapping")
         FileProcessor(filename).processFileLines { line ->
-            processEveryAliasLine(
-                repository = repository, line = line.clearAllBlanks(), targetMapping = targetMapping
-            )
+            processEveryAliasLine(repository = repository, line = line.clearAllBlanks())
         }
         l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesMap()}")
     }
 
     // find the necessary mapping, then read all aliases from the target mapping - build the dictionary
-    private fun processEveryAliasLine(
-        repository: Repository, line: String, targetMapping: String
-    ) {
+    private fun processEveryAliasLine(repository: Repository, line: String) {
+        prepareIsInsideKeycodesBlock(line)
+        if (!isInsideKeycodesBlock) return
+        // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
+        if (isKeyStartingWithAlias(line)) {
+            val pair = parseAliasLine(line)
+            if (pair != null) repository.setX11LatAlias(pair.first, pair.second)
+        }
+    }
+
+    private fun prepareIsInsideKeycodesBlock(line: String) {
         // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
         if (getXkbKeycodesSectionName(line) == targetMapping) {
 //        l("getXkbSymbolsSectionName: $targetMapping")
@@ -39,12 +45,6 @@ internal class X11LatAliasesMapping(
         } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
             l("isInsideKeycodesBlock: isLayoutEndingBlock")
             isInsideKeycodesBlock = false
-        }
-        if (!isInsideKeycodesBlock) return
-        // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
-        if (isKeyStartingWithAlias(line)) {
-            val pair = parseAliasLine(line)
-            if (pair != null) repository.setX11LatAlias(pair.first, pair.second)
         }
     }
 
