@@ -12,13 +12,14 @@ import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
 import org.igor_shaula.utils.l
 
 internal class X11LatAliasesMapping(
-    val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String? = null
+    val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String = Defaults.ALIASES_MAPPING
 ) : IMapping {
 
     private var isInsideKeycodesBlock = false
 
     override fun prepare(repository: Repository) {
         if (!repository.isX11LatAliasMapEmpty()) return
+        l("prepare: else - filename = $filename, targetMapping = $targetMapping")
         FileProcessor(filename).processFileLines { line ->
             processEveryAliasLine(
                 repository = repository, line = line.clearAllBlanks(), targetMapping = targetMapping
@@ -27,12 +28,12 @@ internal class X11LatAliasesMapping(
         l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesMap()}")
     }
 
-    // 1: find the necessary mapping, if not given this parameter - use "default" one
-    // 2: read all aliases from the target mapping - build the dictionary
+    // find the necessary mapping, then read all aliases from the target mapping - build the dictionary
     private fun processEveryAliasLine(
-        repository: Repository, line: String, targetMapping: String? = Defaults.ALIASES_MAPPING
+        repository: Repository, line: String, targetMapping: String
     ) {
-        if (getXkbKeycodesSectionName(line) == targetMapping) { // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
+        // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
+        if (getXkbKeycodesSectionName(line) == targetMapping) {
 //        l("getXkbSymbolsSectionName: $targetMapping")
             isInsideKeycodesBlock = true
         } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
