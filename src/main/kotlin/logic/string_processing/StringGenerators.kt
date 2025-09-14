@@ -23,13 +23,14 @@ internal fun String.mapToKeysym(repository: Repository): String = when {
     this.isUnicodeNumber() -> this.substring(1).lowercase() // because the length of the char U is "1"
 //    this.startsWith('f') && this.length == 4 -> EMPTY_STRING // special case of using commands in KB layouts only in Linux
     else -> {
-//        val unicodeSymbol = repository.getUnicodeSymbol(this)
         val unicodeValue = repository.getUnicodeValue(this)
         val other = this.lowercase().filterMissingKeysyms() // not optimal for now but will be improved very soon
-//        l("other: $other\t\t:unicodeSymbol: $unicodeSymbol")
 //        l("other: $other\t\t:$unicodeValue: $unicodeValue")
-//        unicodeSymbol?.lowercase() ?: other
         unicodeValue?.lowercase() ?: other
+//        val unicodeSymbol = repository.getUnicodeSymbol(this)
+//        val unicodeSymbol: Char = Char((unicodeValue?:"").toInt(HEX_RADIX)) // ?:"" is just to make the compiler happy
+//        l("other: $other\t\t:unicodeSymbol: $unicodeSymbol")
+//        unicodeSymbol.lowercase()
     }
 }
 
@@ -37,8 +38,9 @@ internal fun String.filterCommands() =
     if (this.lowercase().startsWith(Sym.BEGINNING_OF_COMMAND_SYMBOL)) Str.EMPTY else this
 
 internal fun String.filterMissingKeysyms() =
-    if (this == X11.NOSYMBOL.lowercase() || this.startsWith(X11.EXTENDED_CODE_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH)
-        Str.EMPTY else this
+    if (this == X11.NOSYMBOL.lowercase() || this.startsWith(X11.EXTENDED_CODE_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) {
+        Str.EMPTY
+    } else this
 
 internal fun String.getKeyNameStartingWithA() =
     substring(X11.KEY_A_BEGINNING.length - 1, X11.KEY_A_BEGINNING.length + 3) // 4 in total
