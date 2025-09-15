@@ -26,11 +26,11 @@ internal fun String.mapToKeysym(repository: Repository): String = when {
         val unicodeValue = repository.getUnicodeValue(this)
         val other = this.lowercase().filterMissingKeysyms() // not optimal for now but will be improved very soon
 //        l("other: $other\t\t:$unicodeValue: $unicodeValue")
-        unicodeValue?.lowercase() ?: other
+//        unicodeValue?.lowercase() ?: other
 //        val unicodeSymbol = repository.getUnicodeSymbol(this)
-//        val unicodeSymbol: Char = Char((unicodeValue?:"").toInt(HEX_RADIX)) // ?:"" is just to make the compiler happy
+        val unicodeSymbol: Char = Char((unicodeValue ?: "").toInt(HEX_RADIX)) // ?:"" is just to make the compiler happy
 //        l("other: $other\t\t:unicodeSymbol: $unicodeSymbol")
-//        unicodeSymbol.lowercase()
+        unicodeSymbol.toString()
     }
 }
 
