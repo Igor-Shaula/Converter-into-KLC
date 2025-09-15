@@ -38,7 +38,7 @@ internal class X11EssenceMapping : IMapping {
 
         val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
         else X11.XKB_SYMBOLS_LOCATION + Sym.SLASH + targetFileWithLayout.first
-        FileProcessor(x11LayoutSourceFilename).processFileLines { line ->
+        FileProcessor().processFileLines(x11LayoutSourceFilename) { line ->
             processEveryLine(
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
             )

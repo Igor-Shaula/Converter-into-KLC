@@ -11,14 +11,14 @@ import java.io.File
 import kotlin.collections.get
 
 // I intend to restrict "java.io.File" usage only in this class
-internal class FileProcessor(val filename: String = Defaults.TARGET_FILE_NAME) {
+internal class FileProcessor() {
 
     /**
      * Processes a file line by line using the provided processing function.
      * This centralizes file I/O operations and eliminates the need for
      * java.io.File imports in other classes.
      */
-    internal fun processFileLines(action: (String) -> Unit) {
+    internal fun processFileLines(filename: String, action: (String) -> Unit) {
         try {
             File(filename).useLines { lines ->
                 lines.forEach(action)

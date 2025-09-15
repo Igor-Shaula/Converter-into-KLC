@@ -20,7 +20,7 @@ internal class X11LatAliasesMapping(
     override fun prepare(repository: Repository) {
         if (!repository.isX11LatAliasMapEmpty()) return
         l("prepare: else - filename = $filename, targetMapping = $targetMapping")
-        FileProcessor(filename).processFileLines { line ->
+        FileProcessor().processFileLines(filename) { line ->
             processEveryAliasLine(repository = repository, line = line.clearAllBlanks())
         }
         l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesMap()}")
