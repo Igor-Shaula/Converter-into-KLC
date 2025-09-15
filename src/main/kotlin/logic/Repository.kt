@@ -3,6 +3,7 @@ package org.igor_shaula.logic
 import org.igor_shaula.globals.dictionaries.keysymToUnicodeMap
 import org.igor_shaula.globals.dictionaries.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
+import org.igor_shaula.logic.models.ValuesForWindows
 import org.igor_shaula.utils.l
 
 // I decided to avoid global state management by explicitly passing the data container where needed
@@ -99,9 +100,9 @@ class Repository {
      * the third for the Alt-gr key,
      * and the fourth for the Alt-gr-Shifted key.
      */
-    private val windowsEssenceMap = mutableMapOf<String?, ValuesForLayers>()
+    private val windowsEssenceMap = mutableMapOf<String?, ValuesForWindows>()
 
-    fun performWithWindowsEssence(action: (String?, ValuesForLayers) -> Unit) {
+    fun performWithWindowsEssence(action: (String?, ValuesForWindows) -> Unit) {
         windowsEssenceMap.forEach { (key, value) ->
             action(key, value)
         }
@@ -109,7 +110,7 @@ class Repository {
 
     fun prepareWindowsEssence() {
         x11EssenceMap.map { (key, value) ->
-            windowsEssenceMap.put(xkbToWindowsScancodeMap[key], value)
+            windowsEssenceMap.put(xkbToWindowsScancodeMap[key], ValuesForWindows(key, value))
         }
         l("prepareWindowsEssence: ${printWindowsEssenceMap()}")
     }

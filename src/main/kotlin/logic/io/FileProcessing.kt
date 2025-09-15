@@ -32,11 +32,13 @@ internal class FileProcessor() {
         val resultFile = File(Defaults.KLC_RESULT_FILE_NAME)
         val klcFilePrefix = createKlcFilePrefix()
         resultFile.writeText(klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
-        repository.performWithWindowsEssence { key, value ->
+        repository.performWithWindowsEssence { key, valuesForWindows ->
+            l("key: $key, valuesForWindows: $valuesForWindows")
             val scValue = key?.lowercase()
-            val vkValue = getVkValueByScValue(repository, scValue) ?: (value.layer1.uppercase() + Str.TAB)
-            val capitalized = getCapitalizedValue(value.layer1)
-            val (layer1, layer2, layer3, layer4) = value.adaptForWindows()
+            val vkValue = getVkValueByScValue(repository, scValue)
+                ?: (valuesForWindows.valuesForLayers.layer1.uppercase() + Str.TAB)
+            val capitalized = getCapitalizedValue(valuesForWindows.valuesForLayers.layer1)
+            val (layer1, layer2, layer3, layer4) = valuesForWindows.valuesForLayers.adaptForWindows()
             resultFile.appendText(
                 "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
                 charset = Charsets.UTF_16
