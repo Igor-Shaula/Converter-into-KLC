@@ -30,7 +30,8 @@ internal class FileProcessor(val filename: String = Defaults.TARGET_FILE_NAME) {
 
     internal fun composeKlcFile(repository: Repository) {
         val resultFile = File(Defaults.KLC_RESULT_FILE_NAME)
-        resultFile.writeText(KLC_FILE_PREFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
+        val klcFilePrefix = createKlcFilePrefix()
+        resultFile.writeText(klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         repository.performWithWindowsEssence { key, value ->
             val scValue = key?.lowercase()
             val vkValue = getVkValueByScValue(repository, scValue) ?: (value.layer1.uppercase() + Str.TAB)
@@ -41,7 +42,8 @@ internal class FileProcessor(val filename: String = Defaults.TARGET_FILE_NAME) {
                 charset = Charsets.UTF_16
             )
         }
-        resultFile.appendText(KLC_FILE_SUFFIX.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
+        val klcFileSuffix = createKlcFileSuffix()
+        resultFile.appendText(klcFileSuffix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         l("resultFile: $resultFile")
     }
 

@@ -2,18 +2,26 @@ package org.igor_shaula.logic.io
 
 import org.igor_shaula.globals.Defaults
 
-internal val KLC_FILE_PREFIX = """
-KBD ${Defaults.KLC_LAYOUT_NAME_8}    "${Defaults.KLC_LAYOUT_DESCRIPTION}"
+internal fun createKlcFilePrefix(
+    kbdName8: String = Defaults.KLC_LAYOUT_NAME_8,
+    kbdNameLong: String = Defaults.KLC_LAYOUT_DESCRIPTION,
+    copyright: String = "(c) 2025 igor.shaula",
+    company: String = "Igor Shaula",
+    localeName: String = "en-US",
+    localeId: String = "00000409",
+    version: String = "1.0"
+) = """
+KBD         $kbdName8    "$kbdNameLong"
 
-COPYRIGHT	"(c) 2025 igor.shaula"
+COPYRIGHT	$copyright
 
-COMPANY	"Igor Shaula"
+COMPANY     $company
 
-LOCALENAME	"en-US"
+LOCALENAME	$localeName
 
-LOCALEID	"00000409"
+LOCALEID	$localeId
 
-VERSION	1.0
+VERSION     $version
 
 SHIFTSTATE
 
@@ -28,7 +36,9 @@ LAYOUT	;an extra '@' at the end is a dead key
 
 """.trimIndent() // we do need the last 2 blank lines - one of them remains in the result file after trimIndent()
 
-internal val KLC_FILE_SUFFIX = """
+internal fun createKlcFileSuffix(
+    description: String = Defaults.KLC_LAYOUT_DESCRIPTION, language: String = "English (United States)"
+) = """
 53	DECIMAL		0	002e	002c	-1	-1	-1
 
 KEYNAME
@@ -112,11 +122,11 @@ KEYNAME_EXT
 
 DESCRIPTIONS
 
-0409	${Defaults.KLC_LAYOUT_DESCRIPTION}
+0409	$description
 
 LANGUAGENAMES
 
-0409	English (United States)
+0409	$language
 
 ENDKBD
 """.trimIndent()
