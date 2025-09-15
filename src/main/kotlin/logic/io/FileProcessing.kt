@@ -5,6 +5,8 @@ import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.string_processing.getCapitalizedValue
 import org.igor_shaula.logic.models.Error
+import org.igor_shaula.logic.models.ValuesForLayers
+import org.igor_shaula.logic.models.ValuesForWindows
 import org.igor_shaula.logic.models.adaptForWindows
 import org.igor_shaula.utils.l
 import java.io.File
@@ -35,13 +37,11 @@ internal class FileProcessor() {
         repository.performWithWindowsEssence { key, valuesForWindows ->
             l("key: $key, valuesForWindows: $valuesForWindows")
             val scValue = key?.lowercase()
-            val vkValue = getVkValueByScValue(repository, scValue)
-                ?: (valuesForWindows.valuesForLayers.layer1.uppercase() + Str.TAB)
+            val vkValue = prepareVkValue(repository, scValue, valuesForWindows)
             val capitalized = getCapitalizedValue(valuesForWindows.valuesForLayers.layer1)
-            val (layer1, layer2, layer3, layer4) = valuesForWindows.valuesForLayers.adaptForWindows()
+            val valuesForWindowsLayers = valuesForWindows.valuesForLayers.adaptForWindows()
             resultFile.appendText(
-                "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}$layer1${Str.TAB}$layer2${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}$layer3${Str.TAB}$layer4${Str.CR_LF}",
-                charset = Charsets.UTF_16
+                text = createKlcTable(scValue, vkValue, capitalized, valuesForWindowsLayers), charset = Charsets.UTF_16
             )
         }
         val klcFileSuffix = createKlcFileSuffix()
@@ -49,6 +49,14 @@ internal class FileProcessor() {
         l("resultFile: $resultFile")
     }
 
+    // todo refine and merge with getVkValueByScValue()
+    private fun prepareVkValue(repository: Repository, scValue: String?, valuesForWindows: ValuesForWindows) =
+        getVkValueByScValue(repository, scValue) ?: (valuesForWindows.valuesForLayers.layer1.uppercase() + Str.TAB)
+
+    // todo refine and merge with prepareVkValue()
     private fun getVkValueByScValue(repository: Repository, scValue: String?) =
         scValueToVkValueMap[scValue] ?: repository.getX11Symbol(scValue)?.uppercase()
+
+    private fun createKlcTable(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
+        "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 }
