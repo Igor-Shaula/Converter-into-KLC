@@ -37,7 +37,7 @@ internal class FileProcessor() {
         repository.performWithWindowsEssence { key, valuesForWindows ->
             l("key: $key, valuesForWindows: $valuesForWindows")
             val scValue = key?.lowercase()
-            val vkValue = prepareVkValue(repository, scValue, valuesForWindows)
+            val vkValue = scValueToVkValueMap[scValue]
             val capitalized = getCapitalizedValue(valuesForWindows.valuesForLayers.layer1)
             val valuesForWindowsLayers = valuesForWindows.valuesForLayers.adaptForWindows()
             resultFile.appendText(
@@ -50,12 +50,13 @@ internal class FileProcessor() {
     }
 
     // todo refine and merge with getVkValueByScValue()
-    private fun prepareVkValue(repository: Repository, scValue: String?, valuesForWindows: ValuesForWindows) =
-        getVkValueByScValue(repository, scValue) ?: (valuesForWindows.valuesForLayers.layer1.uppercase() + Str.TAB)
+//    private fun prepareVkValue(repository: Repository, scValue: String?, valuesForWindows: ValuesForWindows) =
+//        getVkValueByScValue(repository, scValue) ?: (valuesForWindows.valuesForLayers.layer1.uppercase() + Str.TAB)
 
     // todo refine and merge with prepareVkValue()
-    private fun getVkValueByScValue(repository: Repository, scValue: String?) =
-        scValueToVkValueMap[scValue] ?: repository.getX11Symbol(scValue)?.uppercase()
+//    private fun getVkValueByScValue(scValue: String?) = scValueToVkValueMap[scValue]
+//    private fun getVkValueByScValue(repository: Repository, scValue: String?) =
+//        /*scValueToVkValueMap[scValue] ?: */repository.getX11Symbol(scValue)?.uppercase()
 
     private fun createKlcTable(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
         "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
