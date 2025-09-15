@@ -1,5 +1,6 @@
 package org.igor_shaula.logic
 
+import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.dictionaries.keysymToUnicodeMap
 import org.igor_shaula.globals.dictionaries.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
@@ -90,6 +91,18 @@ class Repository {
 
     fun setX11EssenceValue(keyName: String, value: ValuesForLayers) {
         x11EssenceMap[keyName] = value
+    }
+
+    fun updateX11EssenceValue(keyName: String, newValue: ValuesForLayers) {
+        if (x11EssenceMap.containsKey(keyName)) {
+            l("existing values for key:  $keyName: ${x11EssenceMap[keyName]}")
+            l("overridden value for key: $keyName, $newValue")
+            val layer1 = newValue.layer1.ifEmpty { x11EssenceMap[keyName]?.layer1 ?: Str.EMPTY }
+            val layer2 = newValue.layer2.ifEmpty { x11EssenceMap[keyName]?.layer2 ?: Str.EMPTY }
+            val layer3 = newValue.layer3.ifEmpty { x11EssenceMap[keyName]?.layer3 ?: Str.EMPTY }
+            val layer4 = newValue.layer4.ifEmpty { x11EssenceMap[keyName]?.layer4 ?: Str.EMPTY }
+            x11EssenceMap[keyName] = ValuesForLayers(layer1, layer2, layer3, layer4)
+        }
     }
 
     fun printX11EssenceMap() = "x11EssenceMap = $x11EssenceMap\n"

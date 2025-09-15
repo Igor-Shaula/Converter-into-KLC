@@ -65,7 +65,8 @@ internal class X11EssenceMapping : IMapping {
             val latName = line.getKeyNameStartingWithLat()
             repository.getX11LatAlias(latName)?.let {
 //            l("isKeyStartingWithLat it: $it")
-                repository.setX11EssenceValue(it, layers)
+                repository.updateX11EssenceValue(it, layers)
+//                repository.setX11EssenceValue(it, layers)
             }
         }
 
@@ -78,7 +79,7 @@ internal class X11EssenceMapping : IMapping {
             // detect the necessary filename
             targetFileWithLayout = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
             // open the included file
-            prepare(repository)
+            prepare(repository) // a recursive call to process the included layout.
             // find the necessary layout
 //        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
             // fill the x11Essence from this layout
