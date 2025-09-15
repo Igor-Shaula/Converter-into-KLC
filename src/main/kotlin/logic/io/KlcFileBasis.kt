@@ -5,11 +5,11 @@ import org.igor_shaula.globals.Defaults
 internal fun createKlcFilePrefix(
     kbdName8: String = Defaults.KLC_LAYOUT_NAME_8,
     kbdNameLong: String = Defaults.KLC_LAYOUT_DESCRIPTION,
-    copyright: String = "(c) 2025 igor.shaula",
-    company: String = "Igor Shaula",
-    localeName: String = "en-US",
-    localeId: String = "00000409",
-    version: String = "1.0"
+    copyright: String = Defaults.KLC_COPYRIGHT,
+    company: String = Defaults.KLC_COMPANY,
+    localeName: String = Defaults.KLC_LOCALE_NAME,
+    localeId: String = Defaults.KLC_LOCALE_ID,
+    version: String = Defaults.KLC_VERSION
 ) = """
 KBD         $kbdName8    "$kbdNameLong"
 
@@ -37,7 +37,7 @@ LAYOUT	;an extra '@' at the end is a dead key
 """.trimIndent() // we do need the last 2 blank lines - one of them remains in the result file after trimIndent()
 
 internal fun createKlcFileSuffix(
-    description: String = Defaults.KLC_LAYOUT_DESCRIPTION, language: String = "English (United States)"
+    description: String = Defaults.KLC_LAYOUT_DESCRIPTION, language: String = Defaults.KLC_LANGUAGE
 ) = """
 53	DECIMAL		0	002e	002c	-1	-1	-1
 
