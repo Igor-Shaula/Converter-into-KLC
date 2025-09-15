@@ -95,8 +95,8 @@ class Repository {
 
     fun updateX11EssenceValue(keyName: String, newValue: ValuesForLayers) {
         if (x11EssenceMap.containsKey(keyName)) {
-            l("existing values for key:  $keyName: ${x11EssenceMap[keyName]}")
-            l("overridden value for key: $keyName, $newValue")
+//            l("existing values for key:  $keyName: ${x11EssenceMap[keyName]}")
+//            l("overridden value for key: $keyName, $newValue")
             val layer1 = newValue.layer1.ifEmpty { x11EssenceMap[keyName]?.layer1 ?: Str.EMPTY }
             val layer2 = newValue.layer2.ifEmpty { x11EssenceMap[keyName]?.layer2 ?: Str.EMPTY }
             val layer3 = newValue.layer3.ifEmpty { x11EssenceMap[keyName]?.layer3 ?: Str.EMPTY }

@@ -17,6 +17,7 @@ object Str {
     const val LF = "\n"
     const val CR_LF = "\r\n"
     const val TAB = "\t"
+    const val TWO_TABS = "\t\t"
 }
 
 object X11 {
