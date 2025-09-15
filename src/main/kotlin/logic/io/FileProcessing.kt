@@ -35,7 +35,7 @@ internal class FileProcessor() {
         val klcFilePrefix = createKlcFilePrefix()
         resultFile.writeText(klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         repository.performWithWindowsEssence { key, valuesForWindows ->
-            l("key: $key, valuesForWindows: $valuesForWindows")
+//            l("key: $key, valuesForWindows: $valuesForWindows")
             val scValue = key?.lowercase()
             val vkValue = scValueToVkValueMap[scValue]
             val capitalized = getCapitalizedValue(valuesForWindows.valuesForLayers.layer1)

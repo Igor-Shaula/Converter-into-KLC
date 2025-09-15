@@ -86,8 +86,9 @@ class Repository {
      */
     private val x11EssenceMap = mutableMapOf<String, ValuesForLayers>()
 
+    fun getX11EssenceValue(keyName: String?) = x11EssenceMap[keyName]
+
     fun setX11EssenceValue(keyName: String, value: ValuesForLayers) {
-//        l("setX11EssenceValue : keyName = $keyName : value = $value")
         x11EssenceMap[keyName] = value
     }
 
