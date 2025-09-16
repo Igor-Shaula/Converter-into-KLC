@@ -30,5 +30,5 @@ fun main(args: Array<String>) {
     repository.prepareWindowsEssence()
 
     // 5 - creating the resulting .klc file
-    FileProcessor().composeKlcFile(repository)
+    FileProcessor.composeKlcFile(repository)
 }

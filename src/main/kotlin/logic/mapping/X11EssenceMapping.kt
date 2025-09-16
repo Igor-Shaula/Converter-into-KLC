@@ -1,24 +1,15 @@
 package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Defaults
-import org.igor_shaula.logic.models.Error
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
-import org.igor_shaula.logic.*
+import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
+import org.igor_shaula.logic.models.Error
 import org.igor_shaula.logic.models.createValuesForLayers
-import org.igor_shaula.logic.string_processing.clearAllBlanks
-import org.igor_shaula.logic.string_processing.getKeyNameStartingWithA
-import org.igor_shaula.logic.string_processing.getKeyNameStartingWithLat
-import org.igor_shaula.logic.string_processing.getXkbSymbolsSectionName
-import org.igor_shaula.logic.string_processing.isBeginningInclude
-import org.igor_shaula.logic.string_processing.isKeySpace
-import org.igor_shaula.logic.string_processing.isKeyStartingWithA
-import org.igor_shaula.logic.string_processing.isKeyStartingWithLat
-import org.igor_shaula.logic.string_processing.isKeyTilde
-import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
+import org.igor_shaula.logic.string_processing.*
 import org.igor_shaula.utils.l
 
 internal class X11EssenceMapping : IMapping {
@@ -41,7 +32,7 @@ internal class X11EssenceMapping : IMapping {
         } else {
             X11.XKB_SYMBOLS_LOCATION + Sym.SLASH + targetFileWithLayout.first
         }
-        FileProcessor().processFileLines(x11LayoutSourceFilename) { line ->
+        FileProcessor.processFileLines(x11LayoutSourceFilename) { line ->
             processEveryLine(
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
             )

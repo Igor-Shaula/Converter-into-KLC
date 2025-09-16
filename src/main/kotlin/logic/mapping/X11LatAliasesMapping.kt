@@ -3,7 +3,7 @@ package org.igor_shaula.logic.mapping
 import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.X11
-import org.igor_shaula.logic.*
+import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.string_processing.clearAllBlanks
 import org.igor_shaula.logic.string_processing.getXkbKeycodesSectionName
@@ -20,7 +20,7 @@ internal class X11LatAliasesMapping(
     override fun prepare(repository: Repository) {
         if (!repository.isX11LatAliasMapEmpty()) return
         l("prepare: else - filename = $filename, targetMapping = $targetMapping")
-        FileProcessor().processFileLines(filename) { line ->
+        FileProcessor.processFileLines(filename) { line ->
             processEveryAliasLine(repository = repository, line = line.clearAllBlanks())
         }
         l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesMap()}")

@@ -11,8 +11,11 @@ import org.igor_shaula.logic.string_processing.getCapitalizedValue
 import org.igor_shaula.utils.l
 import java.io.File
 
-// I intend to restrict "java.io.File" usage only in this class
-internal class FileProcessor() {
+/**
+ * I intend to restrict "java.io.File" usage only in this object.
+ * Made this an object as it has no state, is not meant to be extended and is not meant to be instantiated
+ */
+object FileProcessor {
 
     /**
      * Processes a file line by line using the provided processing function.
@@ -32,7 +35,9 @@ internal class FileProcessor() {
     internal fun composeKlcFile(repository: Repository) {
         val resultFile = File(Defaults.KLC_RESULT_FILE_NAME)
         val klcFilePrefix = createKlcFilePrefix()
-        resultFile.writeText(klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
+        resultFile.writeText(
+            text = klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16
+        )
         repository.performWithWindowsEssence { key, valuesForWindows ->
 //            l("key: $key, valuesForWindows: $valuesForWindows")
             val scValue = key?.lowercase()
@@ -40,14 +45,17 @@ internal class FileProcessor() {
             val capitalized = getCapitalizedValue(valuesForWindows.valuesForLayers.layer1)
             val valuesForWindowsLayers = valuesForWindows.valuesForLayers.adaptForWindows()
             resultFile.appendText(
-                text = createKlcTable(scValue, vkValue, capitalized, valuesForWindowsLayers), charset = Charsets.UTF_16
+                text = createOneKlcMappingLine(scValue, vkValue, capitalized, valuesForWindowsLayers),
+                charset = Charsets.UTF_16
             )
         }
         val klcFileSuffix = createKlcFileSuffix()
-        resultFile.appendText(klcFileSuffix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
-        l("resultFile: $resultFile")
+        resultFile.appendText(
+            text = klcFileSuffix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16
+        )
+        l("assembled the result file: $resultFile")
     }
 
-    private fun createKlcTable(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
+    internal fun createOneKlcMappingLine(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
         "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 }

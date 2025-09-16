@@ -2,14 +2,14 @@ package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.X11
-import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.Repository
+import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.utils.l
 
 internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCATION) : IMapping {
 
     override fun prepare(repository: Repository) {
-        FileProcessor().processFileLines(filename) { line ->
+        FileProcessor.processFileLines(filename) { line ->
             val pair = parseKeySymDefinition(line)
             if (pair != null) repository.setX11Symbol(pair.first, pair.second)
         }
