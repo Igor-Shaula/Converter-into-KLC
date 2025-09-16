@@ -34,3 +34,5 @@ internal fun isXkbSymbolsSection(line: String): Boolean {
 internal fun isLayoutEndingBlock(line: String) = line.startsWith(X11.LAYOUT_ENDING_BLOCK)
 
 internal fun isBeginningInclude(line: String): Boolean = line.clearAllBlanks().startsWith(X11.INCLUDE)
+
+internal fun String.isArgumentAnOption() = this.startsWith(Sym.DASH)

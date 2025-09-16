@@ -1,10 +1,11 @@
 package org.igor_shaula.logic.io
 
 import org.igor_shaula.BuildConfig
-import org.igor_shaula.globals.Options
 import org.igor_shaula.globals.Defaults
+import org.igor_shaula.globals.Options
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
+import org.igor_shaula.logic.string_processing.isArgumentAnOption
 import org.igor_shaula.utils.l
 import kotlin.system.exitProcess
 
@@ -26,16 +27,26 @@ object AppConfiguration {
     fun processArguments(args: Array<String>?) {
         args?.forEach { oneArg ->
             l("received argument: $oneArg")
-            if (oneArg.startsWith(Sym.DASH)) when {
-                oneArg.isHelp() -> handleHelpOption()
-                oneArg.isVersion() -> handleVersionOption()
-                oneArg.isSilent() -> handleSilentOption()
-                oneArg.isFile() -> handleFileOption(oneArg)
-                oneArg.isLayout() -> handleLayoutOption(oneArg)
-                else -> l("Unknown argument: $oneArg")
+            if (oneArg.isArgumentAnOption()) {
+                l("option detected: $oneArg")
+                processOption(oneArg)
+            } else {
+                l("WARNING: unknown argument: $oneArg")
+                // I decided to just ignore the incorrect arguments if they are not recognized as options
             }
         }
         l("args: ${args?.joinToString(", ")}")
+    }
+
+    fun processOption(option: String) {
+        when {
+            option.isHelp() -> handleHelpOption()
+            option.isVersion() -> handleVersionOption()
+            option.isSilent() -> handleSilentOption()
+            option.isFile() -> handleFileOption(option)
+            option.isLayout() -> handleLayoutOption(option)
+            else -> l("Unknown option: $option")
+        }
     }
 
     private fun String.isHelp() = substring(1) == Options.HELP
@@ -61,12 +72,14 @@ object AppConfiguration {
     private fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
 
     private fun handleFileOption(arg: String) {
+        // todo add check for the filename correctness and throw an exception if it's not correct
         x11LayoutSourceFilename = X11.XKB_SYMBOLS_LOCATION + arg.substringAfter(Sym.EQUALS)
     }
 
     private fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
 
     private fun handleLayoutOption(arg: String) {
+        // todo add check for the layout name correctness and throw an exception if it's not correct
         x11TargetLayoutName = arg.substringAfter(Sym.EQUALS)
     }
 
