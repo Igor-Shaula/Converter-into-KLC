@@ -1,12 +1,9 @@
 package org.igor_shaula.logic.io
 
 import org.igor_shaula.BuildConfig
-import org.igor_shaula.globals.Defaults
-import org.igor_shaula.globals.Options
-import org.igor_shaula.globals.Sym
-import org.igor_shaula.globals.X11
+import org.igor_shaula.globals.*
 import org.igor_shaula.logic.string_processing.isArgumentAnOption
-import org.igor_shaula.utils.l
+import org.igor_shaula.utils.lForArgs
 import kotlin.system.exitProcess
 
 /**
@@ -25,17 +22,17 @@ object AppConfiguration {
 
     // this function MUST BE INVOKED FIRST - right after the program starts
     fun processArguments(args: Array<String>?) {
+        lForArgs("received args: ${args?.joinToString(", ")}")
         args?.forEach { oneArg ->
-            l("received argument: $oneArg")
+//            lForArgs("processing argument: $oneArg")
             if (oneArg.isArgumentAnOption()) {
-                l("option detected: $oneArg")
+                lForArgs("option detected: $oneArg")
                 processOption(oneArg)
             } else {
-                l("WARNING: unknown argument: $oneArg")
+                lForArgs("${Str.WARNING} unknown argument: $oneArg")
                 // I decided to just ignore the incorrect arguments if they are not recognized as options
             }
         }
-        l("args: ${args?.joinToString(", ")}")
     }
 
     fun processOption(option: String) {
@@ -45,7 +42,7 @@ object AppConfiguration {
             option.isSilent() -> handleSilentOption()
             option.isFile() -> handleFileOption(option)
             option.isLayout() -> handleLayoutOption(option)
-            else -> l("Unknown option: $option")
+            else -> lForArgs("${Str.WARNING} unknown option: $option")
         }
     }
 
