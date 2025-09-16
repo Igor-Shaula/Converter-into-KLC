@@ -5,7 +5,6 @@ import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.models.Error
-import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.logic.models.adaptForWindows
 import org.igor_shaula.logic.string_processing.getCapitalizedValue
 import org.igor_shaula.utils.l
@@ -55,7 +54,4 @@ object FileProcessor {
         )
         l("assembled the result file: $resultFile")
     }
-
-    internal fun createOneKlcMappingLine(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
-        "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 }

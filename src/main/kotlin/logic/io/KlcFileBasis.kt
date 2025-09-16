@@ -1,6 +1,8 @@
 package org.igor_shaula.logic.io
 
 import org.igor_shaula.globals.Defaults
+import org.igor_shaula.globals.Str
+import org.igor_shaula.logic.models.ValuesForLayers
 
 internal fun createKlcFilePrefix(
     kbdName8: String = Defaults.KLC_LAYOUT_NAME_8,
@@ -35,6 +37,13 @@ LAYOUT	;an extra '@' at the end is a dead key
 
 
 """.trimIndent() // we do need the last 2 blank lines - one of them remains in the result file after trimIndent()
+
+/**
+ * Creates a valid line of symbols mapping for the KLC file.
+ * Decided to place it here for testability in the future.
+ */
+internal fun createOneKlcMappingLine(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
+    "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 
 internal fun createKlcFileSuffix(
     description: String = Defaults.KLC_LAYOUT_DESCRIPTION, language: String = Defaults.KLC_LANGUAGE
