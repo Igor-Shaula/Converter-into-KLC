@@ -22,24 +22,16 @@ object AppConfiguration {
     var x11TargetLayoutName = Defaults.TARGET_LAYOUT_NAME
         private set
 
-    // this function is intended to be invoked first - right after the program starts
+    // this function MUST BE INVOKED FIRST - right after the program starts
     fun processArguments(args: Array<String>?) {
         args?.forEach { oneArg ->
             l("received argument: $oneArg")
             if (oneArg.startsWith(Sym.DASH)) when {
-                oneArg.isHelp() -> {
-                    printHelp()
-                    exitProcess(0)
-                }
-                oneArg.isVersion() -> {
-                    println("Version: ${BuildConfig.VERSION}")
-                    exitProcess(0)
-                } // verbose mode
-                oneArg.isSilent() -> isLoggingAllowed = false // enable silent mode, it's verbose by default
-                oneArg.isFile() -> x11LayoutSourceFilename =
-                    X11.XKB_SYMBOLS_LOCATION + oneArg.substringAfter(Sym.EQUALS) // the file with the x11 layout to be processed
-                oneArg.isLayout() -> x11TargetLayoutName =
-                    oneArg.substringAfter("=") // the target layout name - it should be one of the X11.layouts
+                oneArg.isHelp() -> handleHelpOption()
+                oneArg.isVersion() -> handleVersionOption()
+                oneArg.isSilent() -> handleSilentOption()
+                oneArg.isFile() -> handleFileOption(oneArg)
+                oneArg.isLayout() -> handleLayoutOption(oneArg)
                 else -> l("Unknown argument: $oneArg")
             }
         }
@@ -48,13 +40,35 @@ object AppConfiguration {
 
     private fun String.isHelp() = substring(1) == Options.HELP
 
+    private fun handleHelpOption() {
+        printHelp()
+        exitProcess(0)
+    }
+
     private fun String.isVersion() = substring(1) == Options.VERSION
+
+    private fun handleVersionOption() {
+        println("Version: ${BuildConfig.VERSION}")
+        exitProcess(0)
+    }
 
     private fun String.isSilent() = substring(1) == Options.SILENT
 
+    private fun handleSilentOption() {
+        isLoggingAllowed = false // enable silent mode, it's verbose by default
+    }
+
     private fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
 
+    private fun handleFileOption(arg: String) {
+        x11LayoutSourceFilename = X11.XKB_SYMBOLS_LOCATION + arg.substringAfter(Sym.EQUALS)
+    }
+
     private fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
+
+    private fun handleLayoutOption(arg: String) {
+        x11TargetLayoutName = arg.substringAfter(Sym.EQUALS)
+    }
 
     private fun printHelp() = println(
         """
