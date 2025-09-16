@@ -27,7 +27,7 @@ object AppConfiguration {
 //            lForArgs("processing argument: $oneArg")
             if (oneArg.isArgumentAnOption()) {
                 lForArgs("option detected: $oneArg")
-                processOption(oneArg)
+                processOption(oneArg.substring(1)) // remove the already recognized "-" prefix
             } else {
                 lForArgs("${Str.WARNING} unknown argument: $oneArg")
                 // I decided to just ignore the incorrect arguments if they are not recognized as options
@@ -46,21 +46,21 @@ object AppConfiguration {
         }
     }
 
-    private fun String.isHelp() = substring(1) == Options.HELP
+    private fun String.isHelp() = this == Options.HELP
 
     private fun handleHelpOption() {
         printHelp()
         exitProcess(0)
     }
 
-    private fun String.isVersion() = substring(1) == Options.VERSION
+    private fun String.isVersion() = this == Options.VERSION
 
     private fun handleVersionOption() {
         println("Version: ${BuildConfig.VERSION}")
         exitProcess(0)
     }
 
-    private fun String.isSilent() = substring(1) == Options.SILENT
+    private fun String.isSilent() = this == Options.SILENT
 
     private fun handleSilentOption() {
         isLoggingAllowed = false // enable silent mode, it's verbose by default
