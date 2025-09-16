@@ -1,6 +1,7 @@
 package org.igor_shaula.logic.io
 
 import org.igor_shaula.BuildConfig
+import org.igor_shaula.globals.Options
 import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Sym
 import org.igor_shaula.globals.X11
@@ -11,12 +12,6 @@ import kotlin.system.exitProcess
  * the purpose of this class is to process the command line arguments and set the app's configuration accordingly.
  */
 object AppConfiguration {
-
-    const val HELP = "h"
-    const val VERSION = "v"
-    const val SILENT = "s"
-    const val FILE = "f"
-    const val LAYOUT = "l"
 
     var isLoggingAllowed = true
         private set
@@ -30,7 +25,7 @@ object AppConfiguration {
     // this function is intended to be invoked first - right after the program starts
     fun processArguments(args: Array<String>?) {
         args?.forEach { oneArg ->
-            l("arg: $oneArg")
+            l("received argument: $oneArg")
             if (oneArg.startsWith(Sym.DASH)) when {
                 oneArg.isHelp() -> {
                     printHelp()
@@ -51,19 +46,19 @@ object AppConfiguration {
         l("args: ${args?.joinToString(", ")}")
     }
 
-    private fun String.isVersion() = substring(1) == VERSION
+    private fun String.isHelp() = substring(1) == Options.HELP
 
-    private fun String.isSilent() = substring(1) == SILENT
+    private fun String.isVersion() = substring(1) == Options.VERSION
 
-    private fun String.isFile() = contains(FILE + Sym.EQUALS)
+    private fun String.isSilent() = substring(1) == Options.SILENT
 
-    private fun String.isLayout() = contains(LAYOUT + Sym.EQUALS)
+    private fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
 
-    private fun String.isHelp() = substring(1) == HELP
+    private fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
 
     private fun printHelp() = println(
         """
-        PARAMETERS:
+        OPTIONS:
 
         "h" - help: prints this help, as in other programs.
         "v" - version: as in other programs → SAMPLE: -v
@@ -71,7 +66,7 @@ object AppConfiguration {
         "f" with "=" - file (source with the language layout) → SAMPLE: -f=us or -f=ru
         "l" with "=" - layout (which one in the source file) → SAMPLE: -l=basic or -l=rus
         
-        there will be more parameters available in the nearest future.
+        there will be more app launch options available in the nearest future.
         """.trimIndent()
     )
 }

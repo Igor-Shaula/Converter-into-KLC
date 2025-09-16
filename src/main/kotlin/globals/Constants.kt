@@ -59,3 +59,11 @@ object Regex {
     const val FOR_ALIASES_FILE = """^${X11.ALIAS}\s*<(\w+)>\s*=\s*<(\w+)>;$"""
     const val FOR_LAYOUT_INCLUDE = """$ONE_WORD\($ONE_WORD\)"""
 }
+
+object Options {
+    const val HELP = "h"
+    const val VERSION = "v"
+    const val SILENT = "s"
+    const val FILE = "f"
+    const val LAYOUT = "l"
+}
