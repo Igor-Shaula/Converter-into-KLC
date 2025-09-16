@@ -1,16 +1,15 @@
 package org.igor_shaula.logic.io
 
-import org.igor_shaula.globals.*
+import org.igor_shaula.globals.Defaults
+import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
 import org.igor_shaula.logic.Repository
-import org.igor_shaula.logic.string_processing.getCapitalizedValue
 import org.igor_shaula.logic.models.Error
 import org.igor_shaula.logic.models.ValuesForLayers
-import org.igor_shaula.logic.models.ValuesForWindows
 import org.igor_shaula.logic.models.adaptForWindows
+import org.igor_shaula.logic.string_processing.getCapitalizedValue
 import org.igor_shaula.utils.l
 import java.io.File
-import kotlin.collections.get
 
 // I intend to restrict "java.io.File" usage only in this class
 internal class FileProcessor() {
@@ -48,15 +47,6 @@ internal class FileProcessor() {
         resultFile.appendText(klcFileSuffix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16)
         l("resultFile: $resultFile")
     }
-
-    // todo refine and merge with getVkValueByScValue()
-//    private fun prepareVkValue(repository: Repository, scValue: String?, valuesForWindows: ValuesForWindows) =
-//        getVkValueByScValue(repository, scValue) ?: (valuesForWindows.valuesForLayers.layer1.uppercase() + Str.TAB)
-
-    // todo refine and merge with prepareVkValue()
-//    private fun getVkValueByScValue(scValue: String?) = scValueToVkValueMap[scValue]
-//    private fun getVkValueByScValue(repository: Repository, scValue: String?) =
-//        /*scValueToVkValueMap[scValue] ?: */repository.getX11Symbol(scValue)?.uppercase()
 
     private fun createKlcTable(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
         "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
