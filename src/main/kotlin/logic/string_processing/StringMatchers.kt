@@ -24,7 +24,7 @@ internal fun isKeyStartingWithAlias(normalizedLine: String) =
     normalizedLine.startsWith(X11.ALIAS) && normalizedLine.contains(X11.KEYCODES_ENDING_BLOCK)
 
 internal fun String.isUnicodeNumber() =
-    this.startsWith(Sym.BEGINNING_OF_UNICODE_NUMBER) && this.length == X11.UNICODE_NUMBER_LENGTH
+    this.startsWith(Sym.BEGINNING_OF_UNICODE_NUMBER) && this.length == X11.UNICODE_FULL_LENGTH
 
 internal fun isXkbSymbolsSection(line: String): Boolean {
     val pattern = Regex.XKB_SYMBOLS_FINDING_PATTERN.toRegex()

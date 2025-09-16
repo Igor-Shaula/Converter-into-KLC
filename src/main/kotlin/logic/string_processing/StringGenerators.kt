@@ -35,10 +35,12 @@ internal fun String.mapToKeysym(repository: Repository): String = when {
 internal fun String.filterCommands() =
     if (this.lowercase().startsWith(Sym.BEGINNING_OF_COMMAND_SYMBOL)) Str.EMPTY else this
 
-internal fun String.filterMissingKeysyms() =
-    if (this == X11.NOSYMBOL.lowercase() || this.startsWith(X11.EXTENDED_CODE_PREFIX_HEX) && this.length > UNICODE_NUMBER_LENGTH) {
-        Str.EMPTY
-    } else this
+internal fun String.filterMissingKeysyms() = if (this == X11.NOSYMBOL.lowercase() || is0x100KeysymCode(this)) {
+    Str.EMPTY
+} else this
+
+private fun is0x100KeysymCode(s: String) =
+    s.startsWith(X11.EXTENDED_CODE_PREFIX_HEX) && s.length > X11.UNICODE_VALUE_LENGTH
 
 internal fun String.getKeyNameStartingWithA() =
     substring(X11.KEY_A_BEGINNING.length - 1, X11.KEY_A_BEGINNING.length + 3) // 4 in total

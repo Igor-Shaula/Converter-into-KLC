@@ -46,11 +46,9 @@ object X11 {
     const val EXTENDED_CODE_PREFIX = "100"
     const val EXTENDED_CODE_PREFIX_HEX = "0x100"
     const val NOSYMBOL = "NoSymbol"
-    const val UNICODE_NUMBER_LENGTH = 5
+    const val UNICODE_FULL_LENGTH = 5 // like U2588 - valid and used only in X11 scope, otherwise it should be U+2588
+    const val UNICODE_VALUE_LENGTH = UNICODE_FULL_LENGTH - 1 // without the beginning 'U' in X11 scope
 }
-
-const val UNICODE_NUMBER_LENGTH = 4
-const val HEX_RADIX = 16
 
 object Regex {
     const val WHITESPACES = "\\s+"
