@@ -1,8 +1,11 @@
 package org.igor_shaula.logic.io
 
 import org.igor_shaula.BuildConfig
-import org.igor_shaula.globals.*
-import org.igor_shaula.logic.string_processing.isArgumentAnOption
+import org.igor_shaula.globals.Defaults
+import org.igor_shaula.globals.Str
+import org.igor_shaula.globals.Sym
+import org.igor_shaula.globals.X11
+import org.igor_shaula.logic.string_processing.*
 import org.igor_shaula.utils.lForArgs
 import kotlin.system.exitProcess
 
@@ -35,7 +38,7 @@ object AppConfiguration {
         }
     }
 
-    fun processOption(option: String) {
+    private fun processOption(option: String) {
         when {
             option.isHelp() -> handleHelpOption()
             option.isVersion() -> handleVersionOption()
@@ -46,34 +49,24 @@ object AppConfiguration {
         }
     }
 
-    private fun String.isHelp() = this == Options.HELP
-
     private fun handleHelpOption() {
         printHelp()
         exitProcess(0)
     }
-
-    private fun String.isVersion() = this == Options.VERSION
 
     private fun handleVersionOption() {
         println("Version: ${BuildConfig.VERSION}")
         exitProcess(0)
     }
 
-    private fun String.isSilent() = this == Options.SILENT
-
     private fun handleSilentOption() {
         isLoggingAllowed = false // enable silent mode, it's verbose by default
     }
-
-    private fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
 
     private fun handleFileOption(arg: String) {
         // todo add check for the filename correctness and throw an exception if it's not correct
         x11LayoutSourceFilename = X11.XKB_SYMBOLS_LOCATION + arg.substringAfter(Sym.EQUALS)
     }
-
-    private fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
 
     private fun handleLayoutOption(arg: String) {
         // todo add check for the layout name correctness and throw an exception if it's not correct

@@ -36,3 +36,13 @@ internal fun isLayoutEndingBlock(line: String) = line.startsWith(X11.LAYOUT_ENDI
 internal fun isBeginningInclude(line: String): Boolean = line.clearAllBlanks().startsWith(X11.INCLUDE)
 
 internal fun String.isArgumentAnOption() = this.startsWith(Sym.DASH)
+
+internal fun String.isHelp() = this == Options.HELP
+
+internal fun String.isVersion() = this == Options.VERSION
+
+internal fun String.isSilent() = this == Options.SILENT
+
+internal fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
+
+internal fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
