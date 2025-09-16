@@ -36,8 +36,11 @@ internal class X11EssenceMapping : IMapping {
     override fun prepare(repository: Repository) {
         l("fileAndLayoutPair: $targetFileWithLayout")
 
-        val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) targetFileWithLayout.first
-        else X11.XKB_SYMBOLS_LOCATION + Sym.SLASH + targetFileWithLayout.first
+        val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) {
+            targetFileWithLayout.first
+        } else {
+            X11.XKB_SYMBOLS_LOCATION + Sym.SLASH + targetFileWithLayout.first
+        }
         FileProcessor().processFileLines(x11LayoutSourceFilename) { line ->
             processEveryLine(
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
@@ -58,33 +61,15 @@ internal class X11EssenceMapping : IMapping {
             languageBlockCounter--
             l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: $languageBlockCounter")
         }
-        // parse all existing "Lat" mappings
-        if (isKeyStartingWithLat(line)) {
-//        l("isKeyStartingWithLat: $line")
-            val layers = createValuesForLayers(repository, line)
-            val latName = line.getKeyNameStartingWithLat()
-            repository.getX11LatAlias(latName)?.let {
-//            l("isKeyStartingWithLat it: $it")
-                repository.updateX11EssenceValue(it, layers)
-//                repository.setX11EssenceValue(it, layers)
-            }
-        }
-
+        // 1
+        processPossibleAlias(line, repository)
+        // 2
         if (languageBlockCounter <= 0) { // saving a lot of time and resources on processing the apriori invalid line
             return // because any further recognition action outside a detected layout block has no sense
         }
-
-        // recognize and include possible included layout - very useful for "rus" based on "us(basic)"
-        if (isBeginningInclude(line)) {
-            // detect the necessary filename
-            targetFileWithLayout = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
-            // open the included file
-            prepare(repository) // a recursive call to process the included layout.
-            // find the necessary layout
-//        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
-            // fill the x11Essence from this layout
-        }
-        // 1
+        // 3
+        processPossibleIncludeRecursively(line, repository)
+        // 4
         when {
             isKeyStartingWithA(line) -> {
                 val layers = createValuesForLayers(repository, line)
@@ -104,6 +89,32 @@ internal class X11EssenceMapping : IMapping {
             isKeyStartingWithLat(line) -> {
                 l("isKeyStartingWithLat: $line")
             }
+        }
+    }
+
+    private fun processPossibleAlias(line: String, repository: Repository) {
+        // parse all existing "Lat" mappings
+        if (isKeyStartingWithLat(line)) {
+//        l("isKeyStartingWithLat: $line")
+            val layers = createValuesForLayers(repository, line)
+            val latName = line.getKeyNameStartingWithLat()
+            repository.getX11LatAlias(latName)?.let {
+//            l("isKeyStartingWithLat it: $it")
+                repository.updateX11EssenceValue(it, layers)
+            }
+        }
+    }
+
+    private fun processPossibleIncludeRecursively(line: String, repository: Repository) {
+        // recognize and include possible included layout - very useful for layouts like "rus" based on "us(basic)"
+        if (isBeginningInclude(line)) {
+            // detect the necessary filename
+            targetFileWithLayout = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
+            // open the included file
+            prepare(repository) // a recursive call to process the included layout.
+            // find the necessary layout
+//        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
+            // fill the x11Essence from this layout
         }
     }
 
