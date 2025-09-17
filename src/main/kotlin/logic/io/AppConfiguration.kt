@@ -45,6 +45,15 @@ object AppConfiguration {
             option.isSilent() -> handleSilentOption()
             option.isFile() -> handleFileOption(option)
             option.isLayout() -> handleLayoutOption(option)
+            option.isKlcLayoutName() -> handleKlcLayoutName()
+            option.isKlcLayoutDescription() -> handleKlcLayoutDescription()
+            option.isKlcResultFileName() -> handleKlcResultFileName()
+            option.isKlcCopyright() -> handleKlcCopyright()
+            option.isKlcCompany() -> handleKlcCompany()
+            option.isKlcLocaleName() -> handleKlcLocaleName()
+            option.isKlcLocaleId() -> handleKlcLocaleId()
+            option.isKlcVersion() -> handleKlcVersion()
+            option.isKlcLanguage() -> handleKlcLanguage()
             else -> lForArgs("${Str.WARNING} unknown option: $option")
         }
     }
@@ -72,6 +81,24 @@ object AppConfiguration {
         // todo add check for the layout name correctness and throw an exception if it's not correct
         x11TargetLayoutName = arg.substringAfter(Sym.EQUALS)
     }
+
+    private fun handleKlcLayoutName() {}
+
+    private fun handleKlcLayoutDescription() {}
+
+    private fun handleKlcResultFileName() {}
+
+    private fun handleKlcCopyright() {}
+
+    private fun handleKlcCompany() {}
+
+    private fun handleKlcLocaleName() {}
+
+    private fun handleKlcLocaleId() {}
+
+    private fun handleKlcVersion() {}
+
+    private fun handleKlcLanguage() {}
 
     private fun printHelp() = println(
         """

@@ -46,3 +46,21 @@ internal fun String.isSilent() = this == Options.SILENT
 internal fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
 
 internal fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
+
+internal fun String.isKlcLayoutName() = this == Options.KLC_LAYOUT_NAME_8
+
+internal fun String.isKlcLayoutDescription() = this == Options.KLC_LAYOUT_DESCRIPTION
+
+internal fun String.isKlcResultFileName() = this == Options.KLC_RESULT_FILE_NAME
+
+internal fun String.isKlcCopyright() = this == Options.KLC_COPYRIGHT
+
+internal fun String.isKlcCompany() = this == Options.KLC_COMPANY
+
+internal fun String.isKlcLocaleName() = this == Options.KLC_LOCALE_NAME
+
+internal fun String.isKlcLocaleId() = this == Options.KLC_LOCALE_ID
+
+internal fun String.isKlcVersion() = this == Options.KLC_VERSION
+
+internal fun String.isKlcLanguage() = this == Options.KLC_LANGUAGE
