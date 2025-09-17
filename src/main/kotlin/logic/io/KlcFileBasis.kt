@@ -5,8 +5,8 @@ import org.igor_shaula.globals.Str
 import org.igor_shaula.logic.models.ValuesForLayers
 
 internal fun createKlcFilePrefix(
-    kbdName8: String = AppConfiguration.klcLayoutName,
-    kbdNameLong: String = AppConfiguration.klcLayoutDescription,
+    kbdName8: String = AppConfiguration.klcKbdName8,
+    kbdNameLong: String = AppConfiguration.klcKbdNameLong,
     copyright: String = AppConfiguration.klcCopyright,
     company: String = AppConfiguration.klcCompany,
     localeName: String = AppConfiguration.klcLocaleName,
@@ -46,7 +46,7 @@ internal fun createOneKlcMappingLine(scValue: String?, vkValue: String?, capital
     "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 
 internal fun createKlcFileSuffix(
-    description: String = AppConfiguration.klcLayoutDescription, languageName: String = AppConfiguration.klcLanguage
+    description: String = AppConfiguration.klcKbdNameLong, languageName: String = AppConfiguration.klcLanguage
 ) = """
 53	DECIMAL		0	002e	002c	-1	-1	-1
 

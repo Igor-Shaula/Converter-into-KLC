@@ -23,11 +23,11 @@ object AppConfiguration {
     var x11TargetLayoutName = Defaults.TARGET_LAYOUT_NAME
         private set
 
-    var klcLayoutName = Defaults.KLC_LAYOUT_NAME_8
-        private set
-    var klcLayoutDescription = Defaults.KLC_LAYOUT_DESCRIPTION
-        private set
     var klcResultFileName = Defaults.KLC_RESULT_FILE_NAME
+        private set
+    var klcKbdName8 = Defaults.KLC_KBD_NAME_8
+        private set
+    var klcKbdNameLong = Defaults.KLC_KBD_NAME_LONG
         private set
     var klcCopyright = Defaults.KLC_COPYRIGHT
         private set
@@ -65,8 +65,8 @@ object AppConfiguration {
             option.isFile() -> handleFileOption(option)
             option.isLayout() -> handleLayoutOption(option)
             option.isKlcResultFileName() -> handleKlcResultFileName(option)
-            option.isKlcLayoutName() -> handleKlcLayoutName(option)
-            option.isKlcLayoutDescription() -> handleKlcLayoutDescription(option)
+            option.isKlcKbdName8() -> handleKlcKbdName8(option)
+            option.isKlcKbdNameLong() -> handleKlcKbdNameLong(option)
             option.isKlcCopyright() -> handleKlcCopyright(option)
             option.isKlcCompany() -> handleKlcCompany(option)
             option.isKlcLocaleName() -> handleKlcLocaleName(option)
@@ -105,12 +105,12 @@ object AppConfiguration {
         klcResultFileName = value.substringAfter(Sym.EQUALS)
     }
 
-    private fun handleKlcLayoutName(value: String) {
-        klcLayoutName = value.substringAfter(Sym.EQUALS)
+    private fun handleKlcKbdName8(value: String) {
+        klcKbdName8 = value.substringAfter(Sym.EQUALS)
     }
 
-    private fun handleKlcLayoutDescription(value: String) {
-        klcLayoutDescription = value.substringAfter(Sym.EQUALS)
+    private fun handleKlcKbdNameLong(value: String) {
+        klcKbdNameLong = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcCopyright(value: String) {

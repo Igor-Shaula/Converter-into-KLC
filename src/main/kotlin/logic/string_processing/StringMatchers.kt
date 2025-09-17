@@ -49,9 +49,9 @@ internal fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
 
 internal fun String.isKlcResultFileName() = this.startsWith(Options.KLC_RESULT_FILE_NAME + Sym.EQUALS)
 
-internal fun String.isKlcLayoutName() = this.startsWith(Options.KLC_LAYOUT_NAME_8 + Sym.EQUALS)
+internal fun String.isKlcKbdName8() = this.startsWith(Options.KLC_KBD_NAME_8 + Sym.EQUALS)
 
-internal fun String.isKlcLayoutDescription() = this.startsWith(Options.KLC_LAYOUT_DESCRIPTION + Sym.EQUALS)
+internal fun String.isKlcKbdNameLong() = this.startsWith(Options.KLC_KBD_NAME_LONG + Sym.EQUALS)
 
 internal fun String.isKlcCopyright() = this.startsWith(Options.KLC_COPYRIGHT + Sym.EQUALS)
 

@@ -9,9 +9,9 @@ object Defaults {
     const val ALIASES_MAPPING = "qwerty"
     const val INCLUDE_US_BASIC_LINE = """include "us(basic)""""
 
-    const val KLC_LAYOUT_NAME_8 = "basic_EN"
-    const val KLC_LAYOUT_DESCRIPTION = "from X11 - English (US)"
     const val KLC_RESULT_FILE_NAME = "result_UTF-16.klc"
+    const val KLC_KBD_NAME_8 = "basic_EN"
+    const val KLC_KBD_NAME_LONG = "from X11 - English (US)"
     const val KLC_ABSENT_SYMBOL_VALUE = "-1"
     const val KLC_COPYRIGHT = "(c) 2025 igor.shaula"
     const val KLC_COMPANY = "Igor Shaula"
