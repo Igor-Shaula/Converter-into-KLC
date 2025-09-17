@@ -4,6 +4,7 @@ import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
 import org.igor_shaula.logic.Repository
+import org.igor_shaula.logic.io.AppConfiguration.klcResultFileName
 import org.igor_shaula.logic.models.Error
 import org.igor_shaula.logic.models.adaptForWindows
 import org.igor_shaula.logic.string_processing.getCapitalizedValue
@@ -32,7 +33,7 @@ object FileProcessor {
     }
 
     internal fun composeKlcFile(repository: Repository) {
-        val resultFile = File(Defaults.KLC_RESULT_FILE_NAME)
+        val resultFile = File(klcResultFileName)
         val klcFilePrefix = createKlcFilePrefix()
         resultFile.writeText(
             text = klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16

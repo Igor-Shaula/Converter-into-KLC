@@ -64,9 +64,9 @@ object AppConfiguration {
             option.isSilent() -> handleSilentOption()
             option.isFile() -> handleFileOption(option)
             option.isLayout() -> handleLayoutOption(option)
+            option.isKlcResultFileName() -> handleKlcResultFileName(option)
             option.isKlcLayoutName() -> handleKlcLayoutName(option)
             option.isKlcLayoutDescription() -> handleKlcLayoutDescription(option)
-            option.isKlcResultFileName() -> handleKlcResultFileName(option)
             option.isKlcCopyright() -> handleKlcCopyright(option)
             option.isKlcCompany() -> handleKlcCompany(option)
             option.isKlcLocaleName() -> handleKlcLocaleName(option)
@@ -101,40 +101,40 @@ object AppConfiguration {
         x11TargetLayoutName = arg.substringAfter(Sym.EQUALS)
     }
 
+    private fun handleKlcResultFileName(value: String) {
+        klcResultFileName = value.substringAfter(Sym.EQUALS)
+    }
+
     private fun handleKlcLayoutName(value: String) {
-        klcLayoutName = value
+        klcLayoutName = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcLayoutDescription(value: String) {
-        klcLayoutDescription = value
-    }
-
-    private fun handleKlcResultFileName(value: String) {
-        klcResultFileName = value
+        klcLayoutDescription = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcCopyright(value: String) {
-        klcCopyright = value
+        klcCopyright = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcCompany(value: String) {
-        klcCompany = value
+        klcCompany = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcLocaleName(value: String) {
-        klcLocaleName = value
+        klcLocaleName = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcLocaleId(value: String) {
-        klcLocaleId = value
+        klcLocaleId = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcVersion(value: String) {
-        klcVersion = value
+        klcVersion = value.substringAfter(Sym.EQUALS)
     }
 
     private fun handleKlcLanguage(value: String) {
-        klcLanguage = value
+        klcLanguage = value.substringAfter(Sym.EQUALS)
     }
 
     private fun printHelp() = println(
