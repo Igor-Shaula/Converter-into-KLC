@@ -5,13 +5,13 @@ import org.igor_shaula.globals.Str
 import org.igor_shaula.logic.models.ValuesForLayers
 
 internal fun createKlcFilePrefix(
-    kbdName8: String = Defaults.KLC_LAYOUT_NAME_8,
-    kbdNameLong: String = Defaults.KLC_LAYOUT_DESCRIPTION,
-    copyright: String = Defaults.KLC_COPYRIGHT,
-    company: String = Defaults.KLC_COMPANY,
-    localeName: String = Defaults.KLC_LOCALE_NAME,
-    localeId: String = Defaults.KLC_LOCALE_ID,
-    version: String = Defaults.KLC_VERSION
+    kbdName8: String = AppConfiguration.klcLayoutName,
+    kbdNameLong: String = AppConfiguration.klcLayoutDescription,
+    copyright: String = AppConfiguration.klcCopyright,
+    company: String = AppConfiguration.klcCompany,
+    localeName: String = AppConfiguration.klcLocaleName,
+    localeId: String = AppConfiguration.klcLocaleId,
+    version: String = AppConfiguration.klcVersion
 ) = """
 KBD         $kbdName8    "$kbdNameLong"
 
@@ -46,7 +46,7 @@ internal fun createOneKlcMappingLine(scValue: String?, vkValue: String?, capital
     "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 
 internal fun createKlcFileSuffix(
-    description: String = Defaults.KLC_LAYOUT_DESCRIPTION, language: String = Defaults.KLC_LANGUAGE
+    description: String = AppConfiguration.klcLayoutDescription, languageName: String = AppConfiguration.klcLanguage
 ) = """
 53	DECIMAL		0	002e	002c	-1	-1	-1
 
@@ -135,7 +135,7 @@ DESCRIPTIONS
 
 LANGUAGENAMES
 
-0409	$language
+0409	$languageName
 
 ENDKBD
 """.trimIndent()
