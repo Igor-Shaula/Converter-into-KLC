@@ -47,20 +47,20 @@ internal fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
 
 internal fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
 
-internal fun String.isKlcLayoutName() = this == Options.KLC_LAYOUT_NAME_8
+internal fun String.isKlcLayoutName() = this.startsWith(Options.KLC_LAYOUT_NAME_8 + Sym.EQUALS)
 
-internal fun String.isKlcLayoutDescription() = this == Options.KLC_LAYOUT_DESCRIPTION
+internal fun String.isKlcLayoutDescription() = this.startsWith(Options.KLC_LAYOUT_DESCRIPTION + Sym.EQUALS)
 
-internal fun String.isKlcResultFileName() = this == Options.KLC_RESULT_FILE_NAME
+internal fun String.isKlcResultFileName() = this.startsWith(Options.KLC_RESULT_FILE_NAME + Sym.EQUALS)
 
-internal fun String.isKlcCopyright() = this == Options.KLC_COPYRIGHT
+internal fun String.isKlcCopyright() = this.startsWith(Options.KLC_COPYRIGHT + Sym.EQUALS)
 
-internal fun String.isKlcCompany() = this == Options.KLC_COMPANY
+internal fun String.isKlcCompany() = this.startsWith(Options.KLC_COMPANY + Sym.EQUALS)
 
-internal fun String.isKlcLocaleName() = this == Options.KLC_LOCALE_NAME
+internal fun String.isKlcLocaleName() = this.startsWith(Options.KLC_LOCALE_NAME + Sym.EQUALS)
 
-internal fun String.isKlcLocaleId() = this == Options.KLC_LOCALE_ID
+internal fun String.isKlcLocaleId() = this.startsWith(Options.KLC_LOCALE_ID + Sym.EQUALS)
 
-internal fun String.isKlcVersion() = this == Options.KLC_VERSION
+internal fun String.isKlcVersion() = this.startsWith(Options.KLC_VERSION + Sym.EQUALS)
 
-internal fun String.isKlcLanguage() = this == Options.KLC_LANGUAGE
+internal fun String.isKlcLanguage() = this.startsWith(Options.KLC_LANGUAGE + Sym.EQUALS)
