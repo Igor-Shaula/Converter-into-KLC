@@ -43,9 +43,9 @@ internal fun String.isVersion() = this == Options.VERSION
 
 internal fun String.isSilent() = this == Options.SILENT
 
-internal fun String.isFile() = contains(Options.SOURCE_X11_FILE + Sym.EQUALS)
+internal fun String.isFile() = this.startsWith(Options.SOURCE_X11_FILE + Sym.EQUALS)
 
-internal fun String.isLayout() = contains(Options.SOURCE_X11_LAYOUT + Sym.EQUALS)
+internal fun String.isLayout() = this.startsWith(Options.SOURCE_X11_LAYOUT + Sym.EQUALS)
 
 internal fun String.isKlcResultFileName() = this.startsWith(Options.RESULT_KLC_FILE + Sym.EQUALS)
 
