@@ -23,6 +23,25 @@ object AppConfiguration {
     var x11TargetLayoutName = Defaults.TARGET_LAYOUT_NAME
         private set
 
+    var klcLayoutName = Defaults.KLC_LAYOUT_NAME_8
+        private set
+    var klcLayoutDescription = Defaults.KLC_LAYOUT_DESCRIPTION
+        private set
+    var klcResultFileName = Defaults.KLC_RESULT_FILE_NAME
+        private set
+    var klcCopyright = Defaults.KLC_COPYRIGHT
+        private set
+    var klcCompany = Defaults.KLC_COMPANY
+        private set
+    var klcLocaleName = Defaults.KLC_LOCALE_NAME
+        private set
+    var klcLocaleId = Defaults.KLC_LOCALE_ID
+        private set
+    var klcVersion = Defaults.KLC_VERSION
+        private set
+    var klcLanguage = Defaults.KLC_LANGUAGE
+        private set
+
     // this function MUST BE INVOKED FIRST - right after the program starts
     fun processArguments(args: Array<String>?) {
         lForArgs("received args: ${args?.joinToString(", ")}")
@@ -45,15 +64,15 @@ object AppConfiguration {
             option.isSilent() -> handleSilentOption()
             option.isFile() -> handleFileOption(option)
             option.isLayout() -> handleLayoutOption(option)
-            option.isKlcLayoutName() -> handleKlcLayoutName()
-            option.isKlcLayoutDescription() -> handleKlcLayoutDescription()
-            option.isKlcResultFileName() -> handleKlcResultFileName()
-            option.isKlcCopyright() -> handleKlcCopyright()
-            option.isKlcCompany() -> handleKlcCompany()
-            option.isKlcLocaleName() -> handleKlcLocaleName()
-            option.isKlcLocaleId() -> handleKlcLocaleId()
-            option.isKlcVersion() -> handleKlcVersion()
-            option.isKlcLanguage() -> handleKlcLanguage()
+            option.isKlcLayoutName() -> handleKlcLayoutName(option)
+            option.isKlcLayoutDescription() -> handleKlcLayoutDescription(option)
+            option.isKlcResultFileName() -> handleKlcResultFileName(option)
+            option.isKlcCopyright() -> handleKlcCopyright(option)
+            option.isKlcCompany() -> handleKlcCompany(option)
+            option.isKlcLocaleName() -> handleKlcLocaleName(option)
+            option.isKlcLocaleId() -> handleKlcLocaleId(option)
+            option.isKlcVersion() -> handleKlcVersion(option)
+            option.isKlcLanguage() -> handleKlcLanguage(option)
             else -> lForArgs("${Str.WARNING} unknown option: $option")
         }
     }
@@ -82,23 +101,41 @@ object AppConfiguration {
         x11TargetLayoutName = arg.substringAfter(Sym.EQUALS)
     }
 
-    private fun handleKlcLayoutName() {}
+    private fun handleKlcLayoutName(value: String) {
+        klcLayoutName = value
+    }
 
-    private fun handleKlcLayoutDescription() {}
+    private fun handleKlcLayoutDescription(value: String) {
+        klcLayoutDescription = value
+    }
 
-    private fun handleKlcResultFileName() {}
+    private fun handleKlcResultFileName(value: String) {
+        klcResultFileName = value
+    }
 
-    private fun handleKlcCopyright() {}
+    private fun handleKlcCopyright(value: String) {
+        klcCopyright = value
+    }
 
-    private fun handleKlcCompany() {}
+    private fun handleKlcCompany(value: String) {
+        klcCompany = value
+    }
 
-    private fun handleKlcLocaleName() {}
+    private fun handleKlcLocaleName(value: String) {
+        klcLocaleName = value
+    }
 
-    private fun handleKlcLocaleId() {}
+    private fun handleKlcLocaleId(value: String) {
+        klcLocaleId = value
+    }
 
-    private fun handleKlcVersion() {}
+    private fun handleKlcVersion(value: String) {
+        klcVersion = value
+    }
 
-    private fun handleKlcLanguage() {}
+    private fun handleKlcLanguage(value: String) {
+        klcLanguage = value
+    }
 
     private fun printHelp() = println(
         """
