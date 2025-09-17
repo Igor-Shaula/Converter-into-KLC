@@ -43,11 +43,11 @@ internal fun String.isVersion() = this == Options.VERSION
 
 internal fun String.isSilent() = this == Options.SILENT
 
-internal fun String.isFile() = contains(Options.FILE + Sym.EQUALS)
+internal fun String.isFile() = contains(Options.SOURCE_X11_FILE + Sym.EQUALS)
 
-internal fun String.isLayout() = contains(Options.LAYOUT + Sym.EQUALS)
+internal fun String.isLayout() = contains(Options.SOURCE_X11_LAYOUT + Sym.EQUALS)
 
-internal fun String.isKlcResultFileName() = this.startsWith(Options.KLC_RESULT_FILE_NAME + Sym.EQUALS)
+internal fun String.isKlcResultFileName() = this.startsWith(Options.RESULT_KLC_FILE + Sym.EQUALS)
 
 internal fun String.isKlcKbdName8() = this.startsWith(Options.KLC_KBD_NAME_8 + Sym.EQUALS)
 
