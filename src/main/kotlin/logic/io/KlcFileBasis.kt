@@ -4,6 +4,7 @@ import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Str
 import org.igor_shaula.logic.models.ValuesForLayers
 
+@Suppress("SpellCheckingInspection")
 internal fun createKlcFilePrefix(
     kbdName8: String = AppConfiguration.klcKbdName8,
     kbdNameLong: String = AppConfiguration.klcKbdNameLong,
@@ -45,6 +46,7 @@ LAYOUT	;an extra '@' at the end is a dead key
 internal fun createOneKlcMappingLine(scValue: String?, vkValue: String?, capitalized: Int, values: ValuesForLayers) =
     "$scValue${Str.TAB}$vkValue${Str.TAB}$capitalized${Str.TAB}${values.layer1}${Str.TAB}${values.layer2}${Str.TAB}${Defaults.KLC_ABSENT_SYMBOL_VALUE}${Str.TAB}${values.layer3}${Str.TAB}${values.layer4}${Str.CR_LF}"
 
+@Suppress("SpellCheckingInspection")
 internal fun createKlcFileSuffix(
     description: String = AppConfiguration.klcKbdNameLong, languageName: String = AppConfiguration.klcLanguage
 ) = """

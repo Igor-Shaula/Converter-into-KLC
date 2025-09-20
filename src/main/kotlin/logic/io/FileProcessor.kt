@@ -1,6 +1,5 @@
 package org.igor_shaula.logic.io
 
-import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Str
 import org.igor_shaula.globals.dictionaries.scValueToVkValueMap
 import org.igor_shaula.logic.Repository

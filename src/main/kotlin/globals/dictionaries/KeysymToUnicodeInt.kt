@@ -1,5 +1,6 @@
 package org.igor_shaula.globals.dictionaries
 
+@Suppress("unused", "GrazieInspection", "SpellCheckingInspection")
 val keysymToUnicodeMapInts = mapOf(
 //    0x06c1 to 0x0430, // XK_Cyrillic_a -> а
 //    0x06c2 to 0x0431, // XK_Cyrillic_be -> б

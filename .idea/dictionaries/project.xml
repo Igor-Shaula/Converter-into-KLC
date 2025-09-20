@@ -1,19 +1,14 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="project">
-    <words>
-      <w>byelorussian</w>
-      <w>keysym</w>
-      <w>keysymdef</w>
-      <w>keysyms</w>
-      <w>kotlinc</w>
-      <w>nosymbol</w>
-      <w>shorti</w>
-      <w>shortu</w>
-      <w>softsign</w>
-      <w>spce</w>
-      <w>tlde</w>
-      <w>vertstroke</w>
-      <w>yeru</w>
-    </words>
-  </dictionary>
+    <dictionary name="project">
+        <words>
+            <w>keysym</w>
+            <w>keysymdef</w>
+            <w>keysyms</w>
+            <w>kotlinc</w>
+            <w>mklc</w>
+            <w>nosymbol</w>
+            <w>spce</w>
+            <w>tlde</w>
+        </words>
+    </dictionary>
 </component>

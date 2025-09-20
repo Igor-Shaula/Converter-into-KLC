@@ -1,5 +1,6 @@
 package org.igor_shaula.globals.dictionaries
 
+@Suppress("SpellCheckingInspection")
 val xkbToWindowsScancodeMap: Map<String, String> = mapOf(
     "AE01" to "02", // 1
     "AE02" to "03", // 2
