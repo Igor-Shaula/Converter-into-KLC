@@ -2,7 +2,6 @@ package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Regex
-import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.string_processing.clearAllBlanks
@@ -11,9 +10,10 @@ import org.igor_shaula.logic.string_processing.isKeyStartingWithAlias
 import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
 import org.igor_shaula.utils.l
 
-internal class X11LatAliasesMapping(
-    val filename: String = X11.ALIASES_FILE_LOCATION, val targetMapping: String = Defaults.ALIASES_MAPPING
-) : IMapping {
+internal class X11LatAliasesMapping : IMapping {
+
+    private val filename: String = Defaults.ALIASES_FILE
+    private val targetMapping: String = Defaults.ALIASES_MAPPING
 
     private var isInsideKeycodesBlock = false
 

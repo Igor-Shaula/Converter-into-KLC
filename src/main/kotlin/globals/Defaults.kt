@@ -1,11 +1,10 @@
 package org.igor_shaula.globals
 
-import org.igor_shaula.globals.X11.XKB_SYMBOLS_LOCATION
-
 object Defaults {
 
-    const val TARGET_FILE_NAME = "$XKB_SYMBOLS_LOCATION/us"
+    const val TARGET_FILE_NAME = X11.XKB_SYMBOLS_LOCATION + "/us"
     const val TARGET_LAYOUT_NAME = "basic"
+    const val ALIASES_FILE = X11.ALIASES_FILE_LOCATION
     const val ALIASES_MAPPING = "qwerty"
     const val INCLUDE_US_BASIC_LINE = """include "us(basic)""""
 
