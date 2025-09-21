@@ -122,11 +122,11 @@ class Repository {
      */
     private val windowsEssenceMap = mutableMapOf<String?, ValuesForWindows>()
 
-    fun performWithWindowsEssence(action: (String?, ValuesForWindows) -> Unit) {
-        windowsEssenceMap.forEach { (key, value) ->
-            action(key, value)
-        }
-    }
+//    fun performWithWindowsEssence(action: (String?, ValuesForWindows) -> Unit) {
+//        windowsEssenceMap.forEach { (key, value) ->
+//            action(key, value)
+//        }
+//    }
 
 //    fun prepareWindowsEssence() {
 //        x11EssenceMap.map { (key, value) ->
