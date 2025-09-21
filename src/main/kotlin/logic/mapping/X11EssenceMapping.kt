@@ -12,7 +12,16 @@ import org.igor_shaula.logic.models.createValuesForLayers
 import org.igor_shaula.logic.string_processing.*
 import org.igor_shaula.utils.l
 
-internal class X11EssenceMapping : IMapping {
+/**
+ * container of the logic to fill the x11EssenceMap dictionary, which is the main data used in the flow.
+ *
+ * having in mind that Kotlin objects are created lazily,
+ * and as AppConfiguration is by its contract accessed first - it will be ready by the time we reach this object.
+ * so we can safely access the correct configuration values here.
+ *
+ * I also decided to have this as an object instead of a class as no more than one instance is currently needed.
+ */
+object X11EssenceMapping : IMapping {
 
     private var targetFileWithLayout: Pair<String, String> = parseLayoutInclude(Defaults.INCLUDE_US_BASIC_LINE)
 

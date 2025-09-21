@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
     X11LatAliasesMapping.prepare(repository)
 
     // 4 - filling x11Essence
-    X11EssenceMapping().prepare(repository)
+    X11EssenceMapping.prepare(repository)
 
     // 5 - filling windowsEssence
     repository.prepareWindowsEssence()
