@@ -24,7 +24,7 @@ object X11SymbolsMapping : IMapping {
             val pair = parseKeySymDefinition(line)
             if (pair != null) repository.setX11Symbol(pair.first, pair.second)
         }
-        l("standard Linux symbols dictionary: ${repository.printX11SymbolsMap()}")
+        l("prepare: standard Linux symbols dictionary: ${repository.printX11SymbolsMap()}")
     }
 
     private fun parseKeySymDefinition(input: String): Pair<String, String>? {

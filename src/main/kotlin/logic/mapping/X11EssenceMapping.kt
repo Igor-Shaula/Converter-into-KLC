@@ -34,7 +34,7 @@ object X11EssenceMapping : IMapping {
     }
 
     override fun prepare(repository: Repository) {
-        l("fileAndLayoutPair: $targetFileWithLayout")
+        l("prepare: fileAndLayoutPair: $targetFileWithLayout")
 
         val x11LayoutSourceFilename = if (targetFileWithLayout.first.contains(Sym.SLASH)) {
             targetFileWithLayout.first
@@ -46,7 +46,7 @@ object X11EssenceMapping : IMapping {
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
             )
         }
-        l("assembled: ${repository.printX11EssenceMap()}")
+        l("prepare: assembled: ${repository.printX11EssenceMap()}")
     }
 
     // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()
