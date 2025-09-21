@@ -2,6 +2,7 @@ package org.igor_shaula.logic
 
 import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
+import org.igor_shaula.logic.mapping.UnicodeMapping
 import org.igor_shaula.logic.mapping.X11EssenceMapping
 import org.igor_shaula.logic.mapping.X11LatAliasesMapping
 import org.igor_shaula.logic.mapping.X11SymbolsMapping
@@ -16,7 +17,8 @@ fun main(args: Array<String>) {
     X11SymbolsMapping.prepare(repository)
 
     // 2 - normalizing the x11SymbolsMap to the Unicode symbols
-    repository.prepareUnicodeValuesMap()
+    UnicodeMapping.prepare(repository)
+//    repository.prepareUnicodeValuesMap()
 
     // 3 - filling x11LatAliasesMap
     X11LatAliasesMapping.prepare(repository)

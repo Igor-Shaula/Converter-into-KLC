@@ -1,7 +1,6 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.Str
-import org.igor_shaula.globals.dictionaries.keysymToUnicodeMap
 import org.igor_shaula.globals.dictionaries.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.logic.models.ValuesForWindows
@@ -15,7 +14,9 @@ class Repository {
      */
     private val x11SymbolsMap = mutableMapOf<String, String>()
 
-    fun getX11Symbol(keyName: String?) = x11SymbolsMap[keyName]
+//    fun getX11Symbol(keyName: String?) = x11SymbolsMap[keyName]
+
+    fun getX11SymbolsMap() = x11SymbolsMap as Map<String, String>
 
     fun setX11Symbol(keyName: String, value: String) {
         x11SymbolsMap[keyName] = value
@@ -36,14 +37,17 @@ class Repository {
 
     fun getUnicodeValue(keyName: String?) = unicodeValuesMap[keyName]
 
-    fun prepareUnicodeValuesMap() {
-        x11SymbolsMap.forEach {
-//            unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
-            unicodeValuesMap[it.key] = keysymToUnicodeMap[it.value] ?: it.value
-        }
-//        l("prepareSymbolsMap: ${printSymbolsMap()}")
-        l("prepareSymbolsMap: ${printUnicodeValuesMap()}")
+    fun setUnicodeValue(keyName: String, value: String) { // value is not null as it's mapped from the x11SymbolsMap
+        unicodeValuesMap[keyName] = value
     }
+
+//    fun prepareUnicodeValuesMap() {
+//        x11SymbolsMap.forEach {
+////            unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
+//            unicodeValuesMap[it.key] = keysymToUnicodeMap[it.value] ?: it.value
+//        }
+//        l("prepareSymbolsMap: ${printUnicodeValuesMap()}")
+//    }
 
 //    private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
 //        try {
