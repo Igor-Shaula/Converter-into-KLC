@@ -10,6 +10,6 @@ object X11UnicodeMapping : IMapping {
         getX11SymbolsMap().forEach {
             setUnicodeValue(it.key, keysymToUnicodeMap[it.value] ?: it.value)
         }
-        l("prepare: ${printUnicodeValuesMap()}")
+        l("prepared X11 Unicode values map: ${getUnicodeValuesMap()}")
     }
 }

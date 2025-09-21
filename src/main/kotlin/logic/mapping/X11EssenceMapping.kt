@@ -46,7 +46,7 @@ object X11EssenceMapping : IMapping {
                 repository = repository, line = line.clearAllBlanks(), targetLayout = targetFileWithLayout.second
             )
         }
-        l("prepare: assembled: ${repository.printX11EssenceMap()}")
+        l("prepared X11 essence map: ${repository.getX11EssenceMap()}")
     }
 
     // parses the given line and adds any found keycode to x11Essence, is invoked only from prepareX11Essence()

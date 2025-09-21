@@ -13,6 +13,6 @@ object WindowsEssenceMapping : IMapping {
                 xkbToWindowsScancodeMap[key], ValuesForWindows(key, value)
             )
         }
-        l("prepare: ${printWindowsEssenceMap()}")
+        l("prepared Windows essence map: ${getWindowsEssenceMap()}")
     }
 }

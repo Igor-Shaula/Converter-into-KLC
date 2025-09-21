@@ -18,13 +18,13 @@ class Repository {
         x11SymbolsMap[keyName] = value
     }
 
-    fun printX11SymbolsMap() = "x11SymbolsMap = $x11SymbolsMap\n"
-
     /**
      * mapping of predefined (in keysymdef.h) X11 keysym names to Unicode symbols' values - based on x11SymbolsMap values.
      * like "01a1" to "0104". string format of Unicode symbols is used here for simplicity and performance reasons.
      */
     private val unicodeValuesMap = mutableMapOf<String, String?>()
+
+    fun getUnicodeValuesMap() = unicodeValuesMap as Map<String, String?>
 
     fun getUnicodeValue(keyName: String?) = unicodeValuesMap[keyName]
 
@@ -32,13 +32,13 @@ class Repository {
         unicodeValuesMap[keyName] = value
     }
 
-    fun printUnicodeValuesMap() = "unicodeValuesMap = $unicodeValuesMap\n"
-
     /**
      * mapping of predefined (in keycodes/aliases) X11 aliases to keycodes from the keyboard.
      * needed to map the X11 key aliases to the actual keysym codes, like LatQ=AD01
      */
     private val x11LatAliasesMap = mutableMapOf<String, String>()
+
+    fun getX11LatAliasesMap() = x11LatAliasesMap as Map<String, String>
 
     fun getX11LatAlias(keyName: String?) = x11LatAliasesMap[keyName]
 
@@ -47,8 +47,6 @@ class Repository {
     }
 
     fun isX11LatAliasMapEmpty() = x11LatAliasesMap.isEmpty()
-
-    fun printX11LatAliasesMap() = "x11LatAliasesMap = $x11LatAliasesMap\n"
 
     /**
      * mapping of X11 keysym names to 4 layers of values for each key:
@@ -77,8 +75,6 @@ class Repository {
         }
     }
 
-    fun printX11EssenceMap() = "x11EssenceMap = $x11EssenceMap\n"
-
     /**
      * mapping of SC number to 4 layers of values for each key:
      * the first layer is for the key itself,
@@ -93,6 +89,4 @@ class Repository {
     fun setWindowsEssenceValue(keyName: String?, value: ValuesForWindows) {
         windowsEssenceMap[keyName] = value
     }
-
-    fun printWindowsEssenceMap() = "windowsEssenceMap = $windowsEssenceMap\n"
 }

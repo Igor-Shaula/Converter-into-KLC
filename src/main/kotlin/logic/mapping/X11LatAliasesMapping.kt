@@ -32,7 +32,7 @@ object X11LatAliasesMapping : IMapping {
         FileProcessor.processFileLines(AppConfiguration.x11AliasFilename) { line ->
             processEveryAliasLine(repository = repository, line = line.clearAllBlanks())
         }
-        l("prepare: ${repository.printX11LatAliasesMap()}")
+        l("prepared X11 Lat aliases map: ${repository.getX11LatAliasesMap()}")
     }
 
     // find the necessary mapping, then read all aliases from the target mapping - build the dictionary
