@@ -17,6 +17,9 @@ object AppConfiguration {
     var isLoggingAllowed = true
         private set
 
+    var X11_KEYSYM_FILE = X11.KEYSYMDEF_FILE_LOCATION
+        private set
+
     var x11LayoutSourceFilename = Defaults.TARGET_FILE_NAME
         private set
 

@@ -3,13 +3,23 @@ package org.igor_shaula.logic.mapping
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.Repository
+import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.utils.l
 
-internal class X11SymbolsMapping(val filename: String = X11.KEYSYMDEF_FILE_LOCATION) : IMapping {
+/**
+ * container of the logic to fill the x11SymbolsMap dictionary which will be used later in the flow.
+ *
+ * having in mind that Kotlin objects are created lazily,
+ * and as AppConfiguration is by its contract accessed first - it will be ready by the time we reach this object.
+ * so we can safely access the correct configuration values here.
+ *
+ * I also decided to have this as an object instead of a class as no more than one instance is currently needed.
+ */
+object X11SymbolsMapping : IMapping {
 
     override fun prepare(repository: Repository) {
-        FileProcessor.processFileLines(filename) { line ->
+        FileProcessor.processFileLines(AppConfiguration.X11_KEYSYM_FILE) { line ->
             val pair = parseKeySymDefinition(line)
             if (pair != null) repository.setX11Symbol(pair.first, pair.second)
         }

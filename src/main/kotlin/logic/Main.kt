@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     val repository = Repository() // the only data container for the whole application
 
     // 1 - filling x11SymbolsMap
-    X11SymbolsMapping().prepare(repository)
+    X11SymbolsMapping.prepare(repository)
 
     // 2 - normalizing the x11SymbolsMap to the Unicode symbols
     repository.prepareUnicodeValuesMap()

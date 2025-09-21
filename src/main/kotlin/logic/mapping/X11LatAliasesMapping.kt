@@ -12,7 +12,7 @@ import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
 import org.igor_shaula.utils.l
 
 /**
- * container of the logic to fill the X11 lat aliases dictionary which can be used later in the flow.
+ * container of the logic to fill the X11 Lat* aliases dictionary which can be used later in the flow.
  *
  * having in mind that Kotlin objects are created lazily,
  * and as AppConfiguration is by its contract accessed first - it will be ready by the time we reach this object.
