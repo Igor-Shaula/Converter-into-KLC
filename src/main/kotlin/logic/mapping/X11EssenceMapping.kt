@@ -57,7 +57,7 @@ object X11EssenceMapping : IMapping {
         if (getXkbSymbolsSectionName(line) == targetLayout) { // start of a keyboard layout - like: """xkb_symbols "basic" {"""
             languageBlockCounter++
             l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter++: $languageBlockCounter")
-        } else if (languageBlockCounter > 0 && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        } else if (languageBlockCounter > 0 && line.isLayoutEndingBlock()) { // end of a keyboard layout - like: """};"""
             languageBlockCounter--
             l("isInsideLanguageBlock: targetLayout = $targetLayout, after languageBlockCounter--: $languageBlockCounter")
         }
@@ -71,22 +71,22 @@ object X11EssenceMapping : IMapping {
         processPossibleIncludeRecursively(line, repository)
         // 4
         when {
-            isKeyStartingWithA(line) -> {
+            line.isKeyStartingWithA() -> {
                 val layers = createValuesForLayers(repository, line)
                 repository.setX11EssenceValue(line.getKeyNameStartingWithA(), layers)
 //            l("→ isKeyStartingWithA: $layers")
             }
-            isKeyTilde(line) -> {
+            line.isKeyTilde() -> {
                 val layers = createValuesForLayers(repository, line)
                 repository.setX11EssenceValue(X11.NAME_TILDE, layers)
 //            l("→ isKeyTilde: $layers")
             }
-            isKeySpace(line) -> {
+            line.isKeySpace() -> {
                 val layers = createValuesForLayers(repository, line)
                 repository.setX11EssenceValue(X11.NAME_SPACE, layers)
 //            l("→ isKeySpace: $layers")
             }
-            isKeyStartingWithLat(line) -> {
+            line.isKeyStartingWithLat() -> {
                 l("isKeyStartingWithLat: $line")
             }
         }
@@ -94,7 +94,7 @@ object X11EssenceMapping : IMapping {
 
     private fun processPossibleAlias(line: String, repository: Repository) {
         // parse all existing "Lat" mappings
-        if (isKeyStartingWithLat(line)) {
+        if (line.isKeyStartingWithLat()) {
 //        l("isKeyStartingWithLat: $line")
             val layers = createValuesForLayers(repository, line)
             val latName = line.getKeyNameStartingWithLat()
@@ -107,7 +107,7 @@ object X11EssenceMapping : IMapping {
 
     private fun processPossibleIncludeRecursively(line: String, repository: Repository) {
         // recognize and include possible included layout - very useful for layouts like "rus" based on "us(basic)"
-        if (isBeginningInclude(line)) {
+        if (line.isBeginningInclude()) {
             // detecting the necessary filename:
             targetFileWithLayout = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
             // repeating the whole process with the new (included) target file and layout:

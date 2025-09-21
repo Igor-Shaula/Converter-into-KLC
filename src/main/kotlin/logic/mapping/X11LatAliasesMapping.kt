@@ -40,7 +40,7 @@ object X11LatAliasesMapping : IMapping {
         prepareIsInsideKeycodesBlock(line)
         if (!isInsideKeycodesBlock) return
         // now we're ready to finally fill the x11LatAliasesDictionary with real mappings
-        if (isKeyStartingWithAlias(line)) {
+        if (line.isKeyStartingWithAlias()) {
             val pair = parseAliasLine(line)
             if (pair != null) repository.setX11LatAlias(pair.first, pair.second)
         }
@@ -51,7 +51,7 @@ object X11LatAliasesMapping : IMapping {
         if (getXkbKeycodesSectionName(line) == AppConfiguration.x11AliasesMapping) {
 //        l("getXkbSymbolsSectionName: $targetMapping")
             isInsideKeycodesBlock = true
-        } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""
+        } else if (isInsideKeycodesBlock && line.isLayoutEndingBlock()) { // end of a keyboard layout - like: """};"""
             l("isInsideKeycodesBlock: isLayoutEndingBlock")
             isInsideKeycodesBlock = false
         }
