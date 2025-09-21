@@ -1,10 +1,10 @@
 package org.igor_shaula.logic
 
 import org.igor_shaula.globals.Str
-import org.igor_shaula.globals.dictionaries.xkbToWindowsScancodeMap
 import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.logic.models.ValuesForWindows
-import org.igor_shaula.utils.l
+import kotlin.collections.component1
+import kotlin.collections.component2
 
 // I decided to avoid global state management by explicitly passing the data container where needed
 class Repository {
@@ -93,6 +93,8 @@ class Repository {
 
     fun getX11EssenceValue(keyName: String?) = x11EssenceMap[keyName]
 
+    fun getX11EssenceMap() = x11EssenceMap as Map<String, ValuesForLayers>
+
     fun setX11EssenceValue(keyName: String, value: ValuesForLayers) {
         x11EssenceMap[keyName] = value
     }
@@ -126,11 +128,19 @@ class Repository {
         }
     }
 
-    fun prepareWindowsEssence() {
-        x11EssenceMap.map { (key, value) ->
-            windowsEssenceMap.put(xkbToWindowsScancodeMap[key], ValuesForWindows(key, value))
-        }
-        l("prepareWindowsEssence: ${printWindowsEssenceMap()}")
+//    fun prepareWindowsEssence() {
+//        x11EssenceMap.map { (key, value) ->
+//            windowsEssenceMap.put(xkbToWindowsScancodeMap[key], ValuesForWindows(key, value))
+//        }
+//        l("prepareWindowsEssence: ${printWindowsEssenceMap()}")
+//    }
+
+    fun getWindowsEssenceMap() = windowsEssenceMap as Map<String?, ValuesForWindows>
+
+    fun getWindowsEssenceValue(keyName: String?) = windowsEssenceMap[keyName]
+
+    fun setWindowsEssenceValue(keyName: String?, value: ValuesForWindows) {
+        windowsEssenceMap[keyName] = value
     }
 
     fun printWindowsEssenceMap() = "windowsEssenceMap = $windowsEssenceMap\n"
