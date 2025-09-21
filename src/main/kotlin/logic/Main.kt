@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     X11SymbolsMapping.prepare(repository)
 
     // 2 - normalizing the x11SymbolsMap to the Unicode symbols
-    UnicodeMapping.prepare(repository)
+    X11UnicodeMapping.prepare(repository)
 
     // 3 - filling x11LatAliasesMap
     X11LatAliasesMapping.prepare(repository)
