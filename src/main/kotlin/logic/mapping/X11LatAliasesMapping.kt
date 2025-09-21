@@ -1,5 +1,6 @@
 package org.igor_shaula.logic.mapping
 
+import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.io.AppConfiguration
@@ -24,7 +25,9 @@ object X11LatAliasesMapping : IMapping {
     private var isInsideKeycodesBlock = false
 
     override fun prepare(repository: Repository) {
-        if (!repository.isX11LatAliasMapEmpty()) return
+        if (AppConfiguration.x11TargetLayoutName == Defaults.TARGET_LAYOUT_NAME || !repository.isX11LatAliasMapEmpty()) {
+            return // this is a performance optimization
+        }
         l("prepare: filename = ${AppConfiguration.x11AliasFilename}, mapping = ${AppConfiguration.x11AliasesMapping}")
         FileProcessor.processFileLines(AppConfiguration.x11AliasFilename) { line ->
             processEveryAliasLine(repository = repository, line = line.clearAllBlanks())
