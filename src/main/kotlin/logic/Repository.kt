@@ -3,8 +3,6 @@ package org.igor_shaula.logic
 import org.igor_shaula.globals.Str
 import org.igor_shaula.logic.models.ValuesForLayers
 import org.igor_shaula.logic.models.ValuesForWindows
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 // I decided to avoid global state management by explicitly passing the data container where needed
 class Repository {
@@ -13,8 +11,6 @@ class Repository {
      * mapping of predefined (in keysymdef.h) X11 keysym names to keysym codes like A=0041 or BackSpace=ff08
      */
     private val x11SymbolsMap = mutableMapOf<String, String>()
-
-//    fun getX11Symbol(keyName: String?) = x11SymbolsMap[keyName]
 
     fun getX11SymbolsMap() = x11SymbolsMap as Map<String, String>
 
@@ -30,39 +26,11 @@ class Repository {
      */
     private val unicodeValuesMap = mutableMapOf<String, String?>()
 
-    // left for the future but currently commented out for saving memory as unused code is removed by the compiler
-//    private val unicodeSymbolsMap = mutableMapOf<String, Char?>()
-
-//    fun getUnicodeSymbol(keyName: String?) = unicodeSymbolsMap[keyName]
-
     fun getUnicodeValue(keyName: String?) = unicodeValuesMap[keyName]
 
     fun setUnicodeValue(keyName: String, value: String) { // value is not null as it's mapped from the x11SymbolsMap
         unicodeValuesMap[keyName] = value
     }
-
-//    fun prepareUnicodeValuesMap() {
-//        x11SymbolsMap.forEach {
-////            unicodeSymbolsMap[it.key] = getUnicodeSymbolFromKeysym(it.value)
-//            unicodeValuesMap[it.key] = keysymToUnicodeMap[it.value] ?: it.value
-//        }
-//        l("prepareSymbolsMap: ${printUnicodeValuesMap()}")
-//    }
-
-//    private fun getUnicodeSymbolFromKeysym(keysym: String): Char? {
-//        try {
-//            val keySymValue = keysym.toInt(HEX_RADIX)
-//            // X11 Keysym to Unicode mapping for Cyrillic
-//            val unicodeValue = keysymToUnicodeMap[keySymValue] ?: keySymValue
-//            // fallback for non-Cyrillic or direct Unicode values
-//            return unicodeValue.toChar()
-//        } catch (e: NumberFormatException) {
-//            l("Invalid input: '$keysym'. NumberFormatException: ${e.message}")
-//            return null
-//        }
-//    }
-
-//    fun printUnicodeValuesMap() = "unicodeSymbolsMap = $unicodeSymbolsMap\n"
 
     fun printUnicodeValuesMap() = "unicodeValuesMap = $unicodeValuesMap\n"
 
@@ -90,8 +58,6 @@ class Repository {
      * and the fourth for the Alt-gr-Shifted key.
      */
     private val x11EssenceMap = mutableMapOf<String, ValuesForLayers>()
-
-    fun getX11EssenceValue(keyName: String?) = x11EssenceMap[keyName]
 
     fun getX11EssenceMap() = x11EssenceMap as Map<String, ValuesForLayers>
 
@@ -122,22 +88,7 @@ class Repository {
      */
     private val windowsEssenceMap = mutableMapOf<String?, ValuesForWindows>()
 
-//    fun performWithWindowsEssence(action: (String?, ValuesForWindows) -> Unit) {
-//        windowsEssenceMap.forEach { (key, value) ->
-//            action(key, value)
-//        }
-//    }
-
-//    fun prepareWindowsEssence() {
-//        x11EssenceMap.map { (key, value) ->
-//            windowsEssenceMap.put(xkbToWindowsScancodeMap[key], ValuesForWindows(key, value))
-//        }
-//        l("prepareWindowsEssence: ${printWindowsEssenceMap()}")
-//    }
-
     fun getWindowsEssenceMap() = windowsEssenceMap as Map<String?, ValuesForWindows>
-
-    fun getWindowsEssenceValue(keyName: String?) = windowsEssenceMap[keyName]
 
     fun setWindowsEssenceValue(keyName: String?, value: ValuesForWindows) {
         windowsEssenceMap[keyName] = value

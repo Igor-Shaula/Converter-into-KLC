@@ -37,7 +37,6 @@ object FileProcessor {
         resultFile.writeText(
             text = klcFilePrefix.replace(Str.LF, Str.CR_LF), charset = Charsets.UTF_16
         )
-//        repository.performWithWindowsEssence { key, valuesForWindows ->
         repository.getWindowsEssenceMap().forEach { (key, valuesForWindows) ->
 //            l("key: $key, valuesForWindows: $valuesForWindows")
             val scValue = key?.lowercase()
