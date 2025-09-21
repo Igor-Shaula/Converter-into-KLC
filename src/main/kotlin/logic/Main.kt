@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
     repository.prepareUnicodeValuesMap()
 
     if (AppConfiguration.x11TargetLayoutName != Defaults.TARGET_LAYOUT_NAME) {
-        X11LatAliasesMapping().prepare(repository) // by default, "qwerty" is used for mapping
+        X11LatAliasesMapping.prepare(repository) // by default, "qwerty" is used for mapping
     }
 
     // 3 - filling x11Essence

@@ -1,8 +1,8 @@
 package org.igor_shaula.logic.mapping
 
-import org.igor_shaula.globals.Defaults
 import org.igor_shaula.globals.Regex
 import org.igor_shaula.logic.Repository
+import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
 import org.igor_shaula.logic.string_processing.clearAllBlanks
 import org.igor_shaula.logic.string_processing.getXkbKeycodesSectionName
@@ -10,20 +10,26 @@ import org.igor_shaula.logic.string_processing.isKeyStartingWithAlias
 import org.igor_shaula.logic.string_processing.isLayoutEndingBlock
 import org.igor_shaula.utils.l
 
-internal class X11LatAliasesMapping : IMapping {
-
-    private val filename: String = Defaults.ALIASES_FILE
-    private val targetMapping: String = Defaults.ALIASES_MAPPING
+/**
+ * container of the logic to fill the X11 lat aliases dictionary which can be used later in the flow.
+ *
+ * having in mind that Kotlin objects are created lazily,
+ * and as AppConfiguration is by its contract accessed first - it will be ready by the time we reach this object.
+ * so we can safely access the correct configuration values here.
+ *
+ * I also decided to have this as an object instead of a class as no more than one instance is currently needed.
+ */
+object X11LatAliasesMapping : IMapping {
 
     private var isInsideKeycodesBlock = false
 
     override fun prepare(repository: Repository) {
         if (!repository.isX11LatAliasMapEmpty()) return
-        l("prepare: else - filename = $filename, targetMapping = $targetMapping")
-        FileProcessor.processFileLines(filename) { line ->
+        l("prepare: filename = ${AppConfiguration.x11AliasFilename}, mapping = ${AppConfiguration.x11AliasesMapping}")
+        FileProcessor.processFileLines(AppConfiguration.x11AliasFilename) { line ->
             processEveryAliasLine(repository = repository, line = line.clearAllBlanks())
         }
-        l("prepareLatToKeyCodeDictionary: x11LatAliasesDictionary = ${repository.printX11LatAliasesMap()}")
+        l("prepare: ${repository.printX11LatAliasesMap()}")
     }
 
     // find the necessary mapping, then read all aliases from the target mapping - build the dictionary
@@ -39,7 +45,7 @@ internal class X11LatAliasesMapping : IMapping {
 
     private fun prepareIsInsideKeycodesBlock(line: String) {
         // the start of a keyboard layout - like: """xkb_symbols "basic" {"""
-        if (getXkbKeycodesSectionName(line) == targetMapping) {
+        if (getXkbKeycodesSectionName(line) == AppConfiguration.x11AliasesMapping) {
 //        l("getXkbSymbolsSectionName: $targetMapping")
             isInsideKeycodesBlock = true
         } else if (isInsideKeycodesBlock && isLayoutEndingBlock(line)) { // end of a keyboard layout - like: """};"""

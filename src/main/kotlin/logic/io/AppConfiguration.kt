@@ -23,6 +23,12 @@ object AppConfiguration {
     var x11TargetLayoutName = Defaults.TARGET_LAYOUT_NAME
         private set
 
+    var x11AliasFilename = Defaults.ALIASES_FILE
+        private set
+
+    var x11AliasesMapping = Defaults.ALIASES_MAPPING
+        private set
+
     var klcResultFileName = Defaults.KLC_RESULT_FILE_NAME
         private set
     var klcKbdName8 = Defaults.KLC_KBD_NAME_8
