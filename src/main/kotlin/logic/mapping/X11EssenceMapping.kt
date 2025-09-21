@@ -108,13 +108,10 @@ object X11EssenceMapping : IMapping {
     private fun processPossibleIncludeRecursively(line: String, repository: Repository) {
         // recognize and include possible included layout - very useful for layouts like "rus" based on "us(basic)"
         if (isBeginningInclude(line)) {
-            // detect the necessary filename
+            // detecting the necessary filename:
             targetFileWithLayout = parseLayoutInclude(line) // the correct X11 file and layout should be not empty
-            // open the included file
+            // repeating the whole process with the new (included) target file and layout:
             prepare(repository) // a recursive call to process the included layout.
-            // find the necessary layout
-//        prepareLatToKeyCodeDictionary(X11.DEFAULT_ALIAS_MAPPING)
-            // fill the x11Essence from this layout
         }
     }
 
