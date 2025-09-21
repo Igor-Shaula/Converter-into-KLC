@@ -1,10 +1,11 @@
 package org.igor_shaula.logic.mapping
 
 import org.igor_shaula.globals.Regex
-import org.igor_shaula.globals.X11
 import org.igor_shaula.logic.Repository
 import org.igor_shaula.logic.io.AppConfiguration
 import org.igor_shaula.logic.io.FileProcessor
+import org.igor_shaula.logic.string_processing.getX11KeycodeBaseValue
+import org.igor_shaula.logic.string_processing.isExtendedX11KeyCode
 import org.igor_shaula.utils.l
 
 /**
@@ -35,7 +36,7 @@ object X11SymbolsMapping : IMapping {
         val matchResult = regex.find(input)
         return matchResult?.let {
             var (name, code) = it.destructured
-            if (code.startsWith(X11.EXTENDED_CODE_PREFIX)) code = code.substring(X11.EXTENDED_CODE_PREFIX.length)
+            if (code.isExtendedX11KeyCode()) code = code.getX11KeycodeBaseValue()
             name to code
         }
     }

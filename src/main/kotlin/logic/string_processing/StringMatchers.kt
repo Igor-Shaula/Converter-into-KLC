@@ -35,6 +35,8 @@ internal fun isLayoutEndingBlock(line: String) = line.startsWith(X11.LAYOUT_ENDI
 
 internal fun isBeginningInclude(line: String): Boolean = line.clearAllBlanks().startsWith(X11.INCLUDE)
 
+internal fun String.isExtendedX11KeyCode() = this.startsWith(X11.EXTENDED_CODE_PREFIX)
+
 internal fun String.isArgumentAnOption() = this.startsWith(Sym.DASH)
 
 internal fun String.isHelp() = this == Options.HELP
